@@ -1,1 +1,1 @@
-# GalGodot
+# GaGodot

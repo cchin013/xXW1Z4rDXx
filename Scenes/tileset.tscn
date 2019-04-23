@@ -70,7 +70,6 @@ scale = Vector2( 0.8, 0.8 )
 polygon = PoolVector2Array( -10, -20, -10, 0, 10, 0, 10, -20, -10, -20 )
 
 [node name="tile-dl2" type="Sprite" parent="."]
-editor/display_folded = true
 position = Vector2( 56, -8 )
 texture = ExtResource( 6 )
 

@@ -1,63 +1,15 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=10 format=2]
 
-[ext_resource path="res://Sprites/enemies/skeleton/Sprite Sheets/Skeleton Idle.png" type="Texture" id=1]
-[ext_resource path="res://Sprites/enemies/skeleton/Sprite Sheets/Skeleton Attack.png" type="Texture" id=2]
-[ext_resource path="res://Sprites/enemies/skeleton/Sprite Sheets/Skeleton React.png" type="Texture" id=3]
-[ext_resource path="res://Sprites/enemies/skeleton/Sprite Sheets/Skeleton Walk.png" type="Texture" id=4]
-[ext_resource path="res://Sprites/enemies/skeleton/Sprite Sheets/Skeleton Hit.png" type="Texture" id=5]
-[ext_resource path="res://Sprites/enemies/skeleton/Sprite Sheets/Skeleton Dead.png" type="Texture" id=6]
+[ext_resource path="res://Scripts/move.gd" type="Script" id=1]
+[ext_resource path="res://Sprites/enemies/skeleton/Sprite Sheets/Skeleton Idle.png" type="Texture" id=2]
+[ext_resource path="res://Sprites/enemies/skeleton/anims/attack.anim" type="Animation" id=3]
+[ext_resource path="res://Sprites/enemies/skeleton/anims/blink.anim" type="Animation" id=4]
+[ext_resource path="res://Sprites/enemies/skeleton/anims/dead.anim" type="Animation" id=5]
+[ext_resource path="res://Sprites/enemies/skeleton/anims/idle.anim" type="Animation" id=6]
+[ext_resource path="res://Sprites/enemies/skeleton/anims/stagger.anim" type="Animation" id=7]
+[ext_resource path="res://Sprites/enemies/skeleton/Sprite Sheets/Skeleton Walk.png" type="Texture" id=8]
 
-[sub_resource type="Animation" id=1]
-length = 0.9
-loop = true
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( -0.1, 0, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
-"update": 1,
-"values": [ 10, 1, 2, 3, 4, 5, 6, 7, 8, 9 ]
-}
-
-[sub_resource type="Animation" id=2]
-resource_name = "attack"
-length = 1.8
-loop = true
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
-"update": 1,
-"values": [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17 ]
-}
-
-[sub_resource type="Animation" id=3]
-resource_name = "blink"
-length = 2.0
-loop = true
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
-"transitions": PoolRealArray( 1, 1, 1, 1 ),
-"update": 1,
-"values": [ 0, 1, 2, 3 ]
-}
-
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=19]
 resource_name = "walk"
 length = 1.3
 loop = true
@@ -73,104 +25,61 @@ tracks/0/keys = {
 "update": 1,
 "values": [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 ]
 }
-
-[sub_resource type="Animation" id=5]
-resource_name = "stagger"
-length = 0.8
-loop = true
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ 0, 1, 2, 3, 4, 5, 6, 7 ]
+"values": [ ExtResource( 8 ) ]
 }
-
-[sub_resource type="Animation" id=6]
-resource_name = "dead"
-length = 1.5
-loop = true
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1, 1.2, 1.3, 1.4 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:hframes")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.001 ),
+"transitions": PoolRealArray( 1, 1 ),
 "update": 1,
-"values": [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14 ]
+"values": [ 11, 13 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath(".:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ) ]
 }
 
 [node name="skeleton" type="Node2D"]
 position = Vector2( 12, -16 )
+script = ExtResource( 1 )
+sprite_name = "skeleton"
+move_anim_name = "walk"
+idle_anim_name = "idle"
 
-[node name="idle" type="Sprite" parent="."]
-texture = ExtResource( 1 )
-hframes = 11
-frame = 3
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="idle"]
-autoplay = "idle"
-anims/idle = SubResource( 1 )
-
-[node name="attack" type="Sprite" parent="."]
-visible = false
-position = Vector2( 9.5, -2.5 )
+[node name="skeleton" type="Sprite" parent="."]
 texture = ExtResource( 2 )
-hframes = 18
+hframes = 11
+frame = 10
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="attack"]
-autoplay = "attack"
-anims/attack = SubResource( 2 )
-
-[node name="blink" type="Sprite" parent="."]
-visible = false
-position = Vector2( -1, 0 )
-texture = ExtResource( 3 )
-hframes = 4
-frame = 3
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="blink"]
-autoplay = "blink"
-anims/blink = SubResource( 3 )
-
-[node name="walk" type="Sprite" parent="."]
-visible = false
-position = Vector2( -1, 0 )
-texture = ExtResource( 4 )
-hframes = 13
-frame = 12
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="walk"]
-autoplay = "walk"
-anims/walk = SubResource( 4 )
-
-[node name="stagger" type="Sprite" parent="."]
-visible = false
-position = Vector2( 3, 0 )
-texture = ExtResource( 5 )
-hframes = 8
-frame = 5
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="stagger"]
-autoplay = "stagger"
-anims/stagger = SubResource( 5 )
-
-[node name="dead" type="Sprite" parent="."]
-visible = false
-position = Vector2( 4.5, 0 )
-texture = ExtResource( 6 )
-hframes = 15
-frame = 5
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="dead"]
-autoplay = "dead"
-anims/dead = SubResource( 6 )
+[node name="AnimationPlayer" type="AnimationPlayer" parent="skeleton"]
+autoplay = "idle"
+anims/attack = ExtResource( 3 )
+anims/blink = ExtResource( 4 )
+anims/dead = ExtResource( 5 )
+anims/idle = ExtResource( 6 )
+anims/stagger = ExtResource( 7 )
+anims/walk = SubResource( 19 )
 

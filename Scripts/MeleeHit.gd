@@ -12,4 +12,4 @@ func _process(delta):
 	print(HitTimer)
 	if (HitTimer <= 0):
 		queue_free()
-	HitTimer -= 3*delta
+	HitTimer -= 30*delta

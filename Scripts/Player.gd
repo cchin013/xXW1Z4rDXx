@@ -50,7 +50,7 @@ func _process(delta):
 			CreateLightning()
 			BoltCooldown = 2
 	##Punching
-	if (Input.is_action_pressed("ui_melee") and MeleeTimer <= 0):
+	if (Input.is_action_just_pressed("ui_melee") and MeleeTimer <= 0):
 		MeleeTimer = 1
 		SpawnMeleeHitbox()
 		
@@ -73,7 +73,7 @@ func _process(delta):
 		pass
 	#Melee Hitbox Timing
 	if (MeleeTimer >= 0):
-		MeleeTimer -= 2*delta
+		MeleeTimer -= 1*delta
 		#if (MeleeTimer <= 0.4):
 			#get_node("melee").queue_free()
 	##Handles Jump Physics	
@@ -126,7 +126,7 @@ func SpawnMeleeHitbox():
 	MeleeHitPos[0] += 250 * cos(get_node("Rotation").get_rotation_degrees())
 	MeleeHitPos[1] -= 85
 	MeleeHitInstance.set_position(MeleeHitPos)
-	add_child(MeleeHitInstance)
+	get_node("/root").add_child(MeleeHitInstance)
 	
 	
 	

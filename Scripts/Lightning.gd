@@ -11,8 +11,6 @@ var RayNode
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	RayNode = get_node("LightningRotation")
-	set_collision_layer_bit(2, true)
-	set_collision_mask_bit(2, true)
 	set_process(true)
 	
 

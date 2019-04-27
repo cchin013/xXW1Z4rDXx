@@ -1,16 +1,20 @@
 extends KinematicBody2D
 
+#Static Variables
 export var PLAYER_SPEED = 200
 export var PLAYER_JUMP_SPEED = -1800
 
-
-var RayNode
+#Global Variables
 var Player_Gravity = 300
 var BoltCooldown = 0
+var JumpVelocity = 0
+var MeleeTimer = 0
+
 var jumping = false
 var LongJump = false
 var FastFall = false
-var JumpVelocity = 0
+
+var RayNode
 var CurrSprite
 var CurrCollision
 
@@ -28,7 +32,7 @@ var CurrCollision
 #2 = Enemies
 #3 = Player
 
-# Called when the node enters the scene tree for the first time.
+##Called when the node enters the scene tree for the first time.
 func _ready():
 	set_process(true)
 	RayNode = get_node("Rotation")
@@ -36,36 +40,43 @@ func _ready():
 	CurrCollision = get_node("PlayerCollision")
 	RayNode.set_rotation_degrees(0)
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
+##Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	var motion = Vector2()
 	var GravityMotion = Vector2(0, Player_Gravity)
+	##Shoot
 	if (Input.is_action_pressed("ui_shoot")):
 		if (BoltCooldown <= 0):
 			CreateLightning()
-			BoltCooldown = 60
+			BoltCooldown = 2
+	##Punching
+	if (Input.is_action_pressed("ui_melee") and MeleeTimer <= 0):
+		MeleeTimer = 1
+		SpawnMeleeHitbox()
+		
+	##Jumping
 	if (Input.is_action_pressed("ui_up") and !jumping and test_move(get_transform(), Vector2(0,10))):
 		jumping = true
 		LongJump = true
 		JumpVelocity = PLAYER_JUMP_SPEED
+	##Left/Right Movement
 	if (Input.is_action_pressed("ui_right")):
 		motion += Vector2(1, 0)
 		RayNode.set_rotation_degrees(0)
 	if (Input.is_action_pressed("ui_left")):
 		motion += Vector2(-1, 0)
 		RayNode.set_rotation_degrees(180)
+	##Crouch, TODO
 	if (Input.is_action_pressed("ui_down")):
-		#CurrSprite.texture = load("res://Assets/Sprites/testcrouch.png")
-		#CurrSprite.scale = Vector2(1,1)
-		#CurrCollision.scale = Vector2(0.35,0.35)
-		#move_and_collide(Vector2(0,20))
 		pass
 	else:
-		#CurrSprite.texture = load("res://Assets/Sprites/test123.png")
-		#CurrSprite.scale = Vector2(0.3,0.3)
-		#CurrCollision.scale = Vector2(1,1)
-		#move_and_collide(Vector2(0,-20))
 		pass
+	#Melee Hitbox Timing
+	if (MeleeTimer >= 0):
+		MeleeTimer -= 2*delta
+		#if (MeleeTimer <= 0.4):
+			#get_node("melee").queue_free()
+	##Handles Jump Physics	
 	if (jumping and Input.is_action_pressed("ui_up") and LongJump):
 		JumpVelocity += 40
 	elif (jumping and Input.is_action_just_released("ui_up") and LongJump):
@@ -78,8 +89,9 @@ func _process(delta):
 			FastFall = false
 			jumping = false
 			JumpVelocity = 0
-	BoltCooldown -= 1
-	motion[0] = motion[0]*PLAYER_SPEED#*delta
+	##Ticks Down Bolt Cooldown
+	BoltCooldown -= 2*delta
+	##Gravity acceleration if not on ground
 	if (test_move(get_transform(), Vector2(0,10))):
 		Player_Gravity = 300
 	else:
@@ -87,11 +99,12 @@ func _process(delta):
 	if (jumping):
 		motion[1] += JumpVelocity#*delta
 	#GravityMotion *= delta
+	##Finalizes motion vector and moves character
+	motion[0] = motion[0]*PLAYER_SPEED#*delta
 	motion[1] += GravityMotion[1]
-	#print(motion[0])
-	#print(motion[1])
 	move_and_slide(motion)
 
+##Spawns Lightning Bolt
 func CreateLightning():
 	var Lightning = load("res://Scenes/Lightning.tscn")
 	var LightningInstance = Lightning.instance()
@@ -103,6 +116,17 @@ func CreateLightning():
 	LightningPos[1] = CurrPos[1] - 100#+ (200 * sin(LightningInstance.get_node("LightningRotation").get_rotation_degrees()))
 	LightningInstance.set_position(LightningPos)
 	get_node("/root").add_child(LightningInstance)
+	
+##Spawns Melee Hitbox
+func SpawnMeleeHitbox():
+	var MeleeHit = load("res://Scenes/MeleeHit.tscn")
+	var MeleeHitInstance = MeleeHit.instance()
+	MeleeHitInstance.set_name("melee")
+	var MeleeHitPos = get_position()
+	MeleeHitPos[0] += 250 * cos(get_node("Rotation").get_rotation_degrees())
+	MeleeHitPos[1] -= 85
+	MeleeHitInstance.set_position(MeleeHitPos)
+	add_child(MeleeHitInstance)
 	
 	
 	

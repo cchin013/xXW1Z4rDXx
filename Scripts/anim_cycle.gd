@@ -24,6 +24,5 @@ func _cycle():
 		cur_anim = 0
 		
 	animator.play(anim_list[cur_anim])
-	timer.set_wait_time(animator.current_animation_length)
-	print(animator.current_animation_length)
+	timer.set_wait_time(animator.current_animation_length-0.1)
 	

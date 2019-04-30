@@ -18,6 +18,8 @@ var RayNode
 var CurrSprite
 var CurrCollision
 
+var Animator
+
 #COLLISION LAYER/MASK SETUP (TENTATIVE)
 #1 = Player
 #2 = Terrain
@@ -39,11 +41,13 @@ func _ready():
 	CurrSprite = get_node("PlayerSprite")
 	CurrCollision = get_node("PlayerCollision")
 	RayNode.set_rotation_degrees(0)
+	Animator = CurrSprite.get_node("general") # animation player
 
 ##Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	var motion = Vector2()
 	var GravityMotion = Vector2(0, Player_Gravity)
+	
 	##Shoot
 	if (Input.is_action_pressed("ui_shoot")):
 		if (BoltCooldown <= 0):
@@ -59,18 +63,25 @@ func _process(delta):
 		jumping = true
 		LongJump = true
 		JumpVelocity = PLAYER_JUMP_SPEED
+		Animator.play("jump")
 	##Left/Right Movement
 	if (Input.is_action_pressed("ui_right")):
 		motion += Vector2(1, 0)
 		RayNode.set_rotation_degrees(0)
+		CurrSprite.flip_h = false
+		Animator.play("run")
 	if (Input.is_action_pressed("ui_left")):
 		motion += Vector2(-1, 0)
 		RayNode.set_rotation_degrees(180)
+		CurrSprite.flip_h = true
+		Animator.play("run")
 	##Crouch, TODO
 	if (Input.is_action_pressed("ui_down")):
+		Animator.play("crouch")
 		pass
 	else:
 		pass
+		
 	#Melee Hitbox Timing
 	if (MeleeTimer >= 0):
 		MeleeTimer -= 1*delta
@@ -83,6 +94,7 @@ func _process(delta):
 		JumpVelocity += 100
 		LongJump = false
 		FastFall = true
+		Animator.play("fall")
 	elif (FastFall):
 		JumpVelocity += 130
 		if (test_move(get_transform(), Vector2(0,10))):
@@ -112,8 +124,11 @@ func CreateLightning():
 	LightningInstance.get_node("LightningRotation").set_rotation_degrees(get_node("Rotation").get_rotation_degrees())
 	var CurrPos = get_position()
 	var LightningPos = Vector2()
-	LightningPos[0] = CurrPos[0] + (200 * cos(LightningInstance.get_node("LightningRotation").get_rotation_degrees()))
-	LightningPos[1] = CurrPos[1] - 100#+ (200 * sin(LightningInstance.get_node("LightningRotation").get_rotation_degrees()))
+	var playerSize = self.get_node("PlayerCollision").get_shape().get_extents()
+	LightningPos[0] = CurrPos[0] + (playerSize[0])
+	# (200 * cos(LightningInstance.get_node("LightningRotation").get_rotation_degrees()))
+	LightningPos[1] = CurrPos[1] - (playerSize[1]/2)
+	#+ (200 * sin(LightningInstance.get_node("LightningRotation").get_rotation_degrees()))
 	LightningInstance.set_position(LightningPos)
 	get_node("/root").add_child(LightningInstance)
 	
@@ -127,3 +142,6 @@ func SpawnMeleeHitbox():
 	MeleeHitPos[1] -= 85
 	MeleeHitInstance.set_position(MeleeHitPos)
 	get_node("/root").add_child(MeleeHitInstance)
+	
+func PlayAnimation():
+	pass

@@ -15,15 +15,9 @@ _global_script_class_icons={
 
 [application]
 
-<<<<<<< HEAD
-config/name="GalGodot"
+run/main_scene="res://Scenes/Demo/demo.tscn"
 config/icon="res://icon.png"
-
-[rendering]
-
-config/name="Lizard Wizard"
-run/main_scene="res://Scenes/MainNode.tscn"
-config/icon="res://icon.png"
+<<<<<<<HEADconfig/name="GalGodot"
 
 [debug]
 
@@ -54,12 +48,14 @@ ui_melee={
 2d_physics/layer_3="Enemies"
 2d_physics/layer_4="Projectiles"
 2d_physics/layer_5="MeleeHitbox"
+playerbehavior[rendering]quality/2d/use_pixel_snap=true
+quality/directional_shadow/size=1920
+quality/directional_shadow/size.mobile=1080
+>>>>>>>89f438995ece8711565a9a679843deb9f1472e22environment/default_environment="res://default_env.tres"
 
-playerbehavior
 [rendering]
 
 quality/2d/use_pixel_snap=true
-quality/directional_shadow/size=1920
-quality/directional_shadow/size.mobile=1080
->>>>>>> 89f438995ece8711565a9a679843deb9f1472e22
-environment/default_environment="res://default_env.tres"
+config/name="Lizard Wizard"
+run/main_scene="res://Scenes/MainNode.tscn"
+config/icon="res://icon.png"

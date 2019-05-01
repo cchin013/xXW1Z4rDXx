@@ -13,6 +13,7 @@ var MeleeTimer = 0
 var jumping = false
 var LongJump = false
 var FastFall = false
+var moving = false
 
 var RayNode
 var CurrSprite
@@ -47,6 +48,7 @@ func _ready():
 func _process(delta):
 	var motion = Vector2()
 	var GravityMotion = Vector2(0, Player_Gravity)
+	moving = false
 	
 	##Shoot
 	if (Input.is_action_pressed("ui_shoot")):
@@ -64,20 +66,24 @@ func _process(delta):
 		LongJump = true
 		JumpVelocity = PLAYER_JUMP_SPEED
 		Animator.play("jump")
+		moving = true
 	##Left/Right Movement
 	if (Input.is_action_pressed("ui_right")):
 		motion += Vector2(1, 0)
 		RayNode.set_rotation_degrees(0)
 		CurrSprite.flip_h = false
 		Animator.play("run")
+		moving = true
 	if (Input.is_action_pressed("ui_left")):
 		motion += Vector2(-1, 0)
 		RayNode.set_rotation_degrees(180)
 		CurrSprite.flip_h = true
 		Animator.play("run")
+		moving = true
 	##Crouch, TODO
 	if (Input.is_action_pressed("ui_down")):
 		Animator.play("crouch")
+		moving = true
 		pass
 	else:
 		pass
@@ -90,17 +96,20 @@ func _process(delta):
 	##Handles Jump Physics	
 	if (jumping and Input.is_action_pressed("ui_up") and LongJump):
 		JumpVelocity += 40
+		moving = true
 	elif (jumping and Input.is_action_just_released("ui_up") and LongJump):
 		JumpVelocity += 100
 		LongJump = false
 		FastFall = true
 		Animator.play("fall")
+		moving = true
 	elif (FastFall):
 		JumpVelocity += 130
 		if (test_move(get_transform(), Vector2(0,10))):
 			FastFall = false
 			jumping = false
 			JumpVelocity = 0
+		moving = true
 	##Ticks Down Bolt Cooldown
 	BoltCooldown -= 2*delta
 	##Gravity acceleration if not on ground
@@ -110,11 +119,15 @@ func _process(delta):
 		Player_Gravity += 40
 	if (jumping):
 		motion[1] += JumpVelocity#*delta
+		moving = true
 	#GravityMotion *= delta
 	##Finalizes motion vector and moves character
 	motion[0] = motion[0]*PLAYER_SPEED#*delta
 	motion[1] += GravityMotion[1]
 	move_and_slide(motion)
+	
+	if(!moving):
+		Animator.play("idle")
 
 ##Spawns Lightning Bolt
 func CreateLightning():

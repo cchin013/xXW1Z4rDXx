@@ -3,7 +3,7 @@
 [ext_resource path="res://Scripts/MeleeHit.gd" type="Script" id=1]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 50, 50 )
+extents = Vector2( 5, 5 )
 
 [node name="MeleeHit" type="KinematicBody2D"]
 collision_layer = 16

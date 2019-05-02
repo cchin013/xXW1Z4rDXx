@@ -4,7 +4,7 @@
 [ext_resource path="res://Characters/player/PlayerSprite.tscn" type="PackedScene" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 10.8506, 17.9097 )
+extents = Vector2( 10, 17 )
 
 [node name="Player" type="KinematicBody2D"]
 collision_mask = 6

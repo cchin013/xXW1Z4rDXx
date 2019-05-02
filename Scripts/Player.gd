@@ -14,6 +14,8 @@ var jumping = false
 var LongJump = false
 var FastFall = false
 var moving = false
+var hasSpell = {"lightning" : true, "fire" : true, "earth" : false, "water" : false}
+var currentSpell = "lightning"
 
 var RayNode
 var CurrSprite
@@ -52,14 +54,24 @@ func _process(delta):
 	
 	
 	#Spell Wheel
-	if (Input.is_action_pressed("ui_spellwheel")):
-		print("spellwheel")
+	if (Input.is_action_pressed("ui_selectFire") && hasSpell["fire"]):
+		print("fire selected")
+		currentSpell = "fire"
+		
+	if (Input.is_action_pressed("ui_selectLightning") && hasSpell["lightning"]):
+		print("lightning selected")
+		currentSpell = "lightning"
 		
 	##Shoot
 	if (Input.is_action_pressed("ui_shoot")):
 		if (BoltCooldown <= 0):
-			CreateLightning()
-			BoltCooldown = 2
+			if (currentSpell == "lightning"):
+				CreateLightning()
+				BoltCooldown = 2
+			elif (currentSpell == "fire"):
+				CreateFire()
+				BoltCooldown = 2
+				
 	##Punching
 	if (Input.is_action_just_pressed("ui_melee") and MeleeTimer <= 0):
 		MeleeTimer = 1

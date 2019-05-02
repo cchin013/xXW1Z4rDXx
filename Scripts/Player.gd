@@ -50,6 +50,11 @@ func _process(delta):
 	var GravityMotion = Vector2(0, Player_Gravity)
 	moving = false
 	
+	
+	#Spell Wheel
+	if (Input.is_action_pressed("ui_spellwheel")):
+		print("spellwheel")
+		
 	##Shoot
 	if (Input.is_action_pressed("ui_shoot")):
 		if (BoltCooldown <= 0):

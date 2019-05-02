@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Tileset/test_tiles.tres" type="TileSet" id=1]
 [ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=2]
@@ -6,6 +6,11 @@
 [ext_resource path="res://Scenes/MovingPlatformV.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Scenes/MovingPlatformH.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Sprites/spells/big_fire.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Scenes/enemies/slime.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Scenes/enemies/summoner.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Scenes/enemies/wizard.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Sprites/enemies/wizard/wizard idle.png" type="Texture" id=10]
+[ext_resource path="res://Scenes/enemies/skeleton.tscn" type="PackedScene" id=11]
 
 [node name="demo" type="Node2D"]
 
@@ -24,7 +29,7 @@ scroll_base_scale = Vector2( 0.5, 0.5 )
 [node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
 
 [node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer"]
-position = Vector2( 282.411, -93.9172 )
+position = Vector2( 283, -96 )
 scale = Vector2( 2.39697, 1.9198 )
 texture = ExtResource( 3 )
 
@@ -77,3 +82,31 @@ move_to = Vector2( 330, 0 )
 
 [node name="big_fire" parent="." instance=ExtResource( 6 )]
 position = Vector2( 704.211, -351.579 )
+
+[node name="enemies" type="Node" parent="."]
+
+[node name="blue_slime" parent="enemies" instance=ExtResource( 7 )]
+position = Vector2( -288, -6.5835 )
+
+[node name="summoner" parent="enemies" instance=ExtResource( 8 )]
+position = Vector2( 864, -328 )
+
+[node name="wizard" parent="enemies" instance=ExtResource( 9 )]
+editor/display_folded = true
+position = Vector2( 1256, 0 )
+move_anim_name = "fly"
+idle_anim_name = "idle"
+walk_time = 1.4
+idle_time = 2.1
+
+[node name="wizard" parent="enemies/wizard" index="0"]
+texture = ExtResource( 10 )
+hframes = 10
+
+[node name="skeleton" parent="enemies" instance=ExtResource( 11 )]
+position = Vector2( 2016, -16 )
+walk_time = 2.5
+flip_sprite = true
+
+
+[editable path="enemies/wizard"]

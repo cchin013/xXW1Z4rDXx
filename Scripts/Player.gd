@@ -55,22 +55,16 @@ func _process(delta):
 	
 	#Spell Wheel
 	if (Input.is_action_pressed("ui_selectFire") && hasSpell["fire"]):
-		print("fire selected")
 		currentSpell = "fire"
 		
 	if (Input.is_action_pressed("ui_selectLightning") && hasSpell["lightning"]):
-		print("lightning selected")
 		currentSpell = "lightning"
 		
 	##Shoot
 	if (Input.is_action_pressed("ui_shoot")):
 		if (BoltCooldown <= 0):
-			if (currentSpell == "lightning"):
-				CreateLightning()
-				BoltCooldown = 2
-			elif (currentSpell == "fire"):
-				CreateFire()
-				BoltCooldown = 2
+			CreateBolt()
+			BoltCooldown = 2
 				
 	##Punching
 	if (Input.is_action_just_pressed("ui_melee") and MeleeTimer <= 0):
@@ -146,9 +140,13 @@ func _process(delta):
 	if(!moving):
 		Animator.play("idle")
 
-##Spawns Lightning Bolt
-func CreateLightning():
-	var Lightning = load("res://Scenes/Lightning.tscn")
+##Spawns Spell Bolt
+func CreateBolt():
+	var Lightning
+	if (currentSpell == "lightning"):
+		Lightning = load("res://Scenes/Lightning.tscn")
+	elif (currentSpell == "fire"):
+		Lightning = load("res://Scenes/Lightning.tscn")
 	var LightningInstance = Lightning.instance()
 	LightningInstance.set_name("bolt")
 	LightningInstance.get_node("LightningRotation").set_rotation_degrees(get_node("Rotation").get_rotation_degrees())

@@ -108,5 +108,4 @@ position = Vector2( 2016, -16 )
 walk_time = 2.5
 flip_sprite = true
 
-
 [editable path="enemies/wizard"]

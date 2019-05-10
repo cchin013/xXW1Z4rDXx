@@ -6,13 +6,15 @@ func _ready():
 	set_process(true)
 
 func _process(delta):
-	var Hits = get_overlapping_bodies()
-	for Enemy in (Hits):
-		if (Enemy.is_in_group("Enemies")):
-			if (Enemy.Invincible == false):
-				Enemy.Take_Damage(50)
-				Enemy.Invincibility_Frames(30)
-		#free()
+	DealDamage()
 	if (HitDuration <= 0):
 		queue_free()
 	HitDuration -= 30*delta
+	
+func DealDamage():
+	var Overlaps = get_overlapping_bodies()
+	for Hit in (Overlaps):
+		if (Hit.is_in_group("Enemies")):
+			if (Hit.Invincible == false):
+				Hit.Take_Damage(15)
+				Hit.Invincibility_Frames(30)

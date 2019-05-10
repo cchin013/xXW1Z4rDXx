@@ -7,7 +7,9 @@
 [ext_resource path="res://Sprites/tiles/tile-dl1.png" type="Texture" id=5]
 [ext_resource path="res://Sprites/tiles/tile-dl2.png" type="Texture" id=6]
 
-[node name="Tileset" type="Node2D"]
+[node name="Tileset" type="Node2D" groups=[
+"Terrain",
+]]
 
 [node name="tile1" type="Sprite" parent="."]
 editor/display_folded = true

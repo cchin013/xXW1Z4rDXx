@@ -7,7 +7,7 @@
 [ext_resource path="res://Sprites/enemies/slimes/Slime_Medium_Grayscale.png" type="Texture" id=5]
 [ext_resource path="res://Scripts/modulate.gd" type="Script" id=6]
 
-[sub_resource type="RectangleShape2D" id=1]
+[sub_resource type="RectangleShape2D" id=14]
 extents = Vector2( 8.39857, 8.28155 )
 
 [sub_resource type="Animation" id=2]
@@ -209,9 +209,10 @@ tracks/0/keys = {
 collision_layer = 4
 collision_mask = 3
 script = ExtResource( 1 )
+Health = 120
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource( 1 )
+shape = SubResource( 14 )
 
 [node name="slime" type="Node2D" parent="."]
 position = Vector2( 8, -8 )

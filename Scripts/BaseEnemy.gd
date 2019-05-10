@@ -1,6 +1,6 @@
 extends KinematicBody2D
 
-export var Health = 100
+export var Health = 50
 
 var Invincible = false
 var IFrames = 0

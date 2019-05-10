@@ -94,10 +94,6 @@ position = Vector2( 864, -328 )
 [node name="wizard" parent="enemies" instance=ExtResource( 9 )]
 editor/display_folded = true
 position = Vector2( 1256, 0 )
-move_anim_name = "fly"
-idle_anim_name = "idle"
-walk_time = 1.4
-idle_time = 2.1
 
 [node name="wizard" parent="enemies/wizard" index="0"]
 texture = ExtResource( 10 )
@@ -105,8 +101,9 @@ hframes = 10
 
 [node name="skeleton" parent="enemies" instance=ExtResource( 11 )]
 position = Vector2( 2016, -16 )
-walk_time = 2.5
-flip_sprite = true
+
+[node name="skeleton2" parent="enemies" instance=ExtResource( 11 )]
+position = Vector2( -339.204, -16.1893 )
 
 
 [editable path="enemies/wizard"]

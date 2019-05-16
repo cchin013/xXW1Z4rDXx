@@ -4,13 +4,15 @@ export var Health = 50
 
 var Invincible = false
 var IFrames = 0
+var Dying = false
 
 func _ready():
 	set_process(true)
 
 func _process(delta):
-	if (Health <= 0):
-		queue_free()
+	if (Health <= 0 and not Dying):
+		Die()
+		Dying = true
 	if (IFrames > 0):
 		if (IFrames % 6 == 0):
 			self.modulate.a = 0
@@ -27,3 +29,6 @@ func Take_Damage(damage):
 func Invincibility_Frames(numFrames):
 	Invincible = true
 	IFrames = numFrames
+	
+func Die():
+	queue_free()

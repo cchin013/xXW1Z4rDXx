@@ -1,7 +1,7 @@
 [gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Scripts/SkeletonMain.gd" type="Script" id=1]
-[ext_resource path="res://Sprites/enemies/skeleton/Sprite Sheets/Skeleton Attack.png" type="Texture" id=2]
+[ext_resource path="res://Sprites/enemies/skeleton/Sprite Sheets/Skeleton Dead.png" type="Texture" id=2]
 [ext_resource path="res://Sprites/enemies/skeleton/anims/attack.anim" type="Animation" id=3]
 [ext_resource path="res://Sprites/enemies/skeleton/anims/blink.anim" type="Animation" id=4]
 [ext_resource path="res://Sprites/enemies/skeleton/anims/dead.anim" type="Animation" id=5]
@@ -71,13 +71,13 @@ extents = Vector2( 13.3744, 13.0381 )
 collision_layer = 4
 collision_mask = 3
 script = ExtResource( 1 )
-Health = 30
+Health = 100
 
 [node name="skeleton" type="Sprite" parent="."]
-position = Vector2( 9, -2.5 )
+position = Vector2( -5, 0 )
 texture = ExtResource( 2 )
-hframes = 18
-frame = 17
+hframes = 15
+frame = 13
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="skeleton"]
 autoplay = "idle"

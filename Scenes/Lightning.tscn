@@ -3,16 +3,13 @@
 [ext_resource path="res://Scripts/Lightning.gd" type="Script" id=1]
 [ext_resource path="res://Sprites/thunderbolt.png" type="Texture" id=2]
 
-[node name="Lightning" type="KinematicBody2D"]
+[node name="Lightning" type="Area2D"]
 collision_layer = 8
 collision_mask = 6
 script = ExtResource( 1 )
-LIGHTNING_SPEED = 200
 
-[node name="LightningSprite" type="Sprite" parent="."]
-rotation = -0.523599
-scale = Vector2( 0.035, 0.035 )
-texture = ExtResource( 2 )
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PoolVector2Array( -22.0447, -2.17794, -9.24749, 5.84055, -2.20094, 7.54144, 9.13834, 2.43876, 18.6957, 7.70343, 22.1785, 1.06185, 7.11347, -3.14988, -6.25068, 1.06185, -19.6958, -5.57973 )
 
 [node name="LightningRotation" type="RayCast2D" parent="."]
 collision_mask = 0
@@ -21,6 +18,8 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
-polygon = PoolVector2Array( -22.0447, -2.17794, -9.24749, 5.84055, -2.20094, 7.54144, 9.13834, 2.43876, 18.6957, 7.70343, 22.1785, 1.06185, 7.11347, -3.14988, -6.25068, 1.06185, -19.6958, -5.57973 )
+[node name="LightningSprite" type="Sprite" parent="."]
+rotation = -0.523599
+scale = Vector2( 0.035, 0.035 )
+texture = ExtResource( 2 )
 

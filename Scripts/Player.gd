@@ -4,6 +4,7 @@ extends KinematicBody2D
 export var PLAYER_SPEED = 100
 export var PLAYER_JUMP_SPEED = -500
 export var Player_Gravity = 100
+export var PlayerHealth = 100
 
 #Global Variables
 var BoltCooldown = 0
@@ -183,11 +184,12 @@ func CreateBolt():
 	var LightningInstance = Lightning.instance()
 	LightningInstance.set_name("bolt")
 	LightningInstance.get_node("LightningRotation").set_rotation_degrees(get_node("Rotation").get_rotation_degrees())
-	var CurrPos = get_position()
-	var LightningPos = Vector2()
-	LightningPos[0] = CurrPos[0] + (playerSize[0] + 3) * cos(LightningInstance.get_node("LightningRotation").get_rotation_degrees() + 90)
-	LightningPos[1] = CurrPos[1] - (playerSize[1]/2)
-	#+ (200 * sin(LightningInstance.get_node("LightningRotation").get_rotation_degrees()))
+	var LightningPos = get_position()
+	if (RayNode.get_rotation_degrees() == -90):
+		LightningPos[0] += 8
+	if (RayNode.get_rotation_degrees() == 90):
+		LightningPos[0] -= 8
+	LightningPos[1] -= 2
 	LightningInstance.set_position(LightningPos)
 	get_node("/root").add_child(LightningInstance)
 	
@@ -197,8 +199,11 @@ func SpawnMeleeHitbox():
 	var MeleeHitInstance = MeleeHit.instance()
 	MeleeHitInstance.set_name("melee")
 	var MeleeHitPos = get_position()
-	MeleeHitPos[0] += 8 * cos(RayNode.get_rotation_degrees() + 90)
-	MeleeHitPos[1] -= 2
+	if (RayNode.get_rotation_degrees() == -90):
+		MeleeHitPos[0] += 16
+	if (RayNode.get_rotation_degrees() == 90):
+		MeleeHitPos[0] -= 16
+	MeleeHitPos[1] += 2
 	MeleeHitInstance.set_position(MeleeHitPos)
 	get_node("/root").add_child(MeleeHitInstance)
 	

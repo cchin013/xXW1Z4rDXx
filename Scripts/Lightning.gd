@@ -37,9 +37,9 @@ func DealDamage():
 	var Overlaps = get_overlapping_bodies()
 	for Hit in (Overlaps):
 		if (Hit.is_in_group("Enemies")):
-			if (Hit.Invincible == false):
+			if (Hit.Invincible == false and not Hit.Dying):
 				Hit.Take_Damage(35)
-				Hit.Invincibility_Frames(30)
+				Hit.Invincibility_Frames(42)
 		elif (Hit.is_in_group("Terrain")):
 			queue_free()
 

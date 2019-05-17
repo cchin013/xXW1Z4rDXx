@@ -161,7 +161,7 @@ func _process(delta):
 	if (motion[1] >= 450):
 		motion[1] = 450
 		
-	var snap = Vector2.DOWN * 32 if !jumping else Vector2.ZERO
+	var snap = Vector2.DOWN * 32 if (!jumping and test_move(get_transform(), Vector2(0,0.1))) else Vector2.ZERO
 	move_and_slide_with_snap(motion, snap, UP)
 	
 #	if get_slide_count() > 0:

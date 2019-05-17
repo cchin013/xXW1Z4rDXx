@@ -95,14 +95,8 @@ position = Vector2( 864, -328 )
 editor/display_folded = true
 position = Vector2( 1256, 0 )
 
-[node name="skeleton" parent="enemies" instance=ExtResource( 10 )]
-position = Vector2( 2016, -16 )
-
 [node name="skeleton2" parent="enemies" instance=ExtResource( 10 )]
 position = Vector2( -339.204, -16.1893 )
-
-[node name="testskelly" parent="enemies" instance=ExtResource( 10 )]
-position = Vector2( -654.992, -65.2824 )
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 11 )

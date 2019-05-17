@@ -4,6 +4,7 @@ extends KinematicBody2D
 export var PLAYER_SPEED = 100
 export var PLAYER_JUMP_SPEED = -500
 export var Player_Gravity = 100
+export var PlayerHealth = 100
 
 #Global Variables
 var BoltCooldown = 0
@@ -25,6 +26,8 @@ var CurrSprite
 var CurrCollision
 
 var Animator
+
+var UP = Vector2(0, -1)
 
 #COLLISION LAYER/MASK SETUP (TENTATIVE)
 #1 = Player
@@ -54,8 +57,8 @@ func _ready():
 func _process(delta):
 	var motion = Vector2()
 	var GravityMotion = Vector2(0, Player_Gravity)
+	var collide_obj_id = 0
 	moving = false
-	
 	
 	#Spell Wheel
 	if (Input.is_action_pressed("ui_selectFire") && hasSpell["fire"]):
@@ -157,7 +160,16 @@ func _process(delta):
 	#Maximum Fall Speed
 	if (motion[1] >= 450):
 		motion[1] = 450
-	move_and_slide(motion)
+		
+	var snap = Vector2.DOWN * 32 if (!jumping and test_move(get_transform(), Vector2(0,0.1))) else Vector2.ZERO
+	move_and_slide_with_snap(motion, snap, UP)
+	
+#	if get_slide_count() > 0:
+#		collide_obj_id = get_slide_collision(get_slide_count() - 1)
+#		if collide_obj_id.collider.name == "PlatformV" or collide_obj_id.collider.name == "PlatformH":
+#			self.set_sync_to_physics(true)
+#		else:
+#			self.set_sync_to_physics(false)
 	
 	if(!moving):
 		Animator.play("idle")
@@ -172,11 +184,12 @@ func CreateBolt():
 	var LightningInstance = Lightning.instance()
 	LightningInstance.set_name("bolt")
 	LightningInstance.get_node("LightningRotation").set_rotation_degrees(get_node("Rotation").get_rotation_degrees())
-	var CurrPos = get_position()
-	var LightningPos = Vector2()
-	LightningPos[0] = CurrPos[0] + (playerSize[0] + 3) * cos(LightningInstance.get_node("LightningRotation").get_rotation_degrees() + 90)
-	LightningPos[1] = CurrPos[1] - (playerSize[1]/2)
-	#+ (200 * sin(LightningInstance.get_node("LightningRotation").get_rotation_degrees()))
+	var LightningPos = get_position()
+	if (RayNode.get_rotation_degrees() == -90):
+		LightningPos[0] += 8
+	if (RayNode.get_rotation_degrees() == 90):
+		LightningPos[0] -= 8
+	LightningPos[1] -= 2
 	LightningInstance.set_position(LightningPos)
 	get_node("/root").add_child(LightningInstance)
 	
@@ -186,8 +199,11 @@ func SpawnMeleeHitbox():
 	var MeleeHitInstance = MeleeHit.instance()
 	MeleeHitInstance.set_name("melee")
 	var MeleeHitPos = get_position()
-	MeleeHitPos[0] += 8 * cos(RayNode.get_rotation_degrees() + 90)
-	MeleeHitPos[1] -= 2
+	if (RayNode.get_rotation_degrees() == -90):
+		MeleeHitPos[0] += 16
+	if (RayNode.get_rotation_degrees() == 90):
+		MeleeHitPos[0] -= 16
+	MeleeHitPos[1] += 2
 	MeleeHitInstance.set_position(MeleeHitPos)
 	get_node("/root").add_child(MeleeHitInstance)
 	

@@ -1,14 +1,20 @@
-extends KinematicBody2D
+extends Area2D
 
+var HitDuration = 1
 
-var HitTimer = 1
-
-# Called when the node enters the scene tree for the first time.
 func _ready():
 	set_process(true)
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	if (HitTimer <= 0):
+	DealDamage()
+	if (HitDuration <= 0):
 		queue_free()
-	HitTimer -= 30*delta
+	HitDuration -= 30*delta
+	
+func DealDamage():
+	var Overlaps = get_overlapping_bodies()
+	for Hit in (Overlaps):
+		if (Hit.is_in_group("Enemies")):
+			if (Hit.Invincible == false):
+				Hit.Take_Damage(15)
+				Hit.Invincibility_Frames(30)

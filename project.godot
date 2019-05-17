@@ -56,6 +56,7 @@ quality/directional_shadow/size.mobile=1080
 [rendering]
 
 quality/2d/use_pixel_snap=true
+quality/depth/hdr=false
 config/name="Lizard Wizard"
 run/main_scene="res://Scenes/MainNode.tscn"
 config/icon="res://icon.png"

@@ -1,7 +1,7 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
-[ext_resource path="res://Scripts/move.gd" type="Script" id=1]
-[ext_resource path="res://Sprites/enemies/skeleton/Sprite Sheets/Skeleton Attack.png" type="Texture" id=2]
+[ext_resource path="res://Scripts/SkeletonMain.gd" type="Script" id=1]
+[ext_resource path="res://Sprites/enemies/skeleton/Sprite Sheets/Skeleton Dead.png" type="Texture" id=2]
 [ext_resource path="res://Sprites/enemies/skeleton/anims/attack.anim" type="Animation" id=3]
 [ext_resource path="res://Sprites/enemies/skeleton/anims/blink.anim" type="Animation" id=4]
 [ext_resource path="res://Sprites/enemies/skeleton/anims/dead.anim" type="Animation" id=5]
@@ -62,17 +62,22 @@ tracks/3/keys = {
 "values": [ Vector2( 0, 0 ) ]
 }
 
-[node name="skeleton" type="Node2D"]
-position = Vector2( 12, -16 )
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 13.3744, 13.0381 )
+
+[node name="Skeleton" type="KinematicBody2D" groups=[
+"Enemies",
+]]
+collision_layer = 4
+collision_mask = 3
 script = ExtResource( 1 )
-sprite_name = "skeleton"
-move_anim_name = "walk"
-idle_anim_name = "idle"
+Health = 100
 
 [node name="skeleton" type="Sprite" parent="."]
-position = Vector2( 9, -2.5 )
+position = Vector2( -5, 0 )
 texture = ExtResource( 2 )
-hframes = 18
+hframes = 15
+frame = 13
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="skeleton"]
 autoplay = "idle"
@@ -82,4 +87,8 @@ anims/dead = ExtResource( 5 )
 anims/idle = ExtResource( 6 )
 anims/stagger = ExtResource( 7 )
 anims/walk = SubResource( 1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( -1.13205, 3.01883 )
+shape = SubResource( 2 )
 

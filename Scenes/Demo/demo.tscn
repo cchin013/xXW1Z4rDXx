@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Tileset/test_tiles.tres" type="TileSet" id=1]
 [ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://Scenes/enemies/summoner.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Scenes/enemies/wizard.tscn" type="PackedScene" id=9]
 [ext_resource path="res://Scenes/enemies/skeleton.tscn" type="PackedScene" id=10]
+[ext_resource path="res://Music/Desert Theme.wav" type="AudioStream" id=11]
 
 [node name="demo" type="Node2D"]
 
@@ -102,5 +103,9 @@ position = Vector2( -339.204, -16.1893 )
 
 [node name="testskelly" parent="enemies" instance=ExtResource( 10 )]
 position = Vector2( -654.992, -65.2824 )
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 11 )
+autoplay = true
 
 [editable path="enemies/wizard"]

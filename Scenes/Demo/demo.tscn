@@ -103,5 +103,4 @@ position = Vector2( -339.204, -16.1893 )
 [node name="testskelly" parent="enemies" instance=ExtResource( 10 )]
 position = Vector2( -654.992, -65.2824 )
 
-
 [editable path="enemies/wizard"]

@@ -26,6 +26,8 @@ var CurrCollision
 
 var Animator
 
+var UP = Vector2(0, -1)
+
 #COLLISION LAYER/MASK SETUP (TENTATIVE)
 #1 = Player
 #2 = Terrain
@@ -54,8 +56,8 @@ func _ready():
 func _process(delta):
 	var motion = Vector2()
 	var GravityMotion = Vector2(0, Player_Gravity)
+	var collide_obj_id = 0
 	moving = false
-	
 	
 	#Spell Wheel
 	if (Input.is_action_pressed("ui_selectFire") && hasSpell["fire"]):
@@ -157,7 +159,16 @@ func _process(delta):
 	#Maximum Fall Speed
 	if (motion[1] >= 450):
 		motion[1] = 450
-	move_and_slide(motion)
+		
+	var snap = Vector2.DOWN * 32 if !jumping else Vector2.ZERO
+	move_and_slide_with_snap(motion, snap, UP)
+	
+#	if get_slide_count() > 0:
+#		collide_obj_id = get_slide_collision(get_slide_count() - 1)
+#		if collide_obj_id.collider.name == "PlatformV" or collide_obj_id.collider.name == "PlatformH":
+#			self.set_sync_to_physics(true)
+#		else:
+#			self.set_sync_to_physics(false)
 	
 	if(!moving):
 		Animator.play("idle")

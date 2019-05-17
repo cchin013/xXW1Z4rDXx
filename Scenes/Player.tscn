@@ -32,4 +32,3 @@ __meta__ = {
 }
 
 [node name="PlayerSprite" parent="." instance=ExtResource( 2 )]
-

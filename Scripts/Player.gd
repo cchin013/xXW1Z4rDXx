@@ -176,22 +176,25 @@ func _process(delta):
 
 ##Spawns Spell Bolt
 func CreateBolt():
-	var Lightning
+	var Bolt
+	var currRotation = "LightningRotation"
 	if (currentSpell == "lightning"):
-		Lightning = load("res://Scenes/Lightning.tscn")
+		currRotation = "LightningRotation"
+		Bolt = load("res://Scenes/Lightning.tscn")
 	elif (currentSpell == "fire"):
-		Lightning = load("res://Scenes/Lightning.tscn")
-	var LightningInstance = Lightning.instance()
-	LightningInstance.set_name("bolt")
-	LightningInstance.get_node("LightningRotation").set_rotation_degrees(get_node("Rotation").get_rotation_degrees())
-	var LightningPos = get_position()
+		currRotation = "FireballRotation"
+		Bolt = load("res://Scenes/Fireball.tscn")
+	var BoltInstance = Bolt.instance()
+	BoltInstance.set_name("bolt")
+	BoltInstance.get_node(currRotation).set_rotation_degrees(get_node("Rotation").get_rotation_degrees())
+	var BoltPos = get_position()
 	if (RayNode.get_rotation_degrees() == -90):
-		LightningPos[0] += 8
+		BoltPos[0] += 8
 	if (RayNode.get_rotation_degrees() == 90):
-		LightningPos[0] -= 8
-	LightningPos[1] -= 2
-	LightningInstance.set_position(LightningPos)
-	get_node("/root").add_child(LightningInstance)
+		BoltPos[0] -= 8
+	BoltPos[1] -= 2
+	BoltInstance.set_position(BoltPos)
+	get_node("/root").add_child(BoltInstance)
 	
 ##Spawns Melee Hitbox
 func SpawnMeleeHitbox():

@@ -22,4 +22,3 @@ __meta__ = {
 rotation = -0.523599
 scale = Vector2( 0.035, 0.035 )
 texture = ExtResource( 2 )
-

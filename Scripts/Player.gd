@@ -1,56 +1,30 @@
 extends KinematicBody2D
 
-<<<<<<< HEAD
-# Declare member variables here. Examples:
-
-export var motion_speed = 140
-
-var rayNode
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	set_physics_process(true)
-	rayNode = get_node("Raycast")
-	
-func _physics_process(delta):
-	var motion = Vector2()
-	
-	if(Input.is_action_pressed("ui_up")):
-		motion += Vector2(0, -1)
-		rayNode.rotation = 180
-		
-	if(Input.is_action_pressed("ui_down")):
-		motion += Vector2(0, 1)
-		rayNode.rotation = 0
-		
-	if(Input.is_action_pressed("ui_left")):
-		motion += Vector2(-1, 0)
-		rayNode.rotation = -90
-
-	if(Input.is_action_pressed("ui_right")):
-		motion += Vector2(1, 0)
-		rayNode.rotation = 90
-		
-	motion =  motion.normalized() * motion_speed * delta
-	move_and_collide(motion)
-=======
-#Static Variables
-export var PLAYER_SPEED = 200
-export var PLAYER_JUMP_SPEED = -1800
+#Exported Variables
+export var PLAYER_SPEED = 100
+export var PLAYER_JUMP_SPEED = -500
+export var Player_Gravity = 100
 
 #Global Variables
-var Player_Gravity = 300
 var BoltCooldown = 0
 var JumpVelocity = 0
 var MeleeTimer = 0
 
 var jumping = false
+var jumpReset = true
 var LongJump = false
-var FastFall = false
+var JumpWait = false
+var ShortHop = false
+var moving = false
+var hasSpell = {"lightning" : true, "fire" : true, "earth" : false, "water" : false}
+var currentSpell = "lightning"
+var playerSize
 
 var RayNode
 var CurrSprite
 var CurrCollision
+
+var Animator
 
 #COLLISION LAYER/MASK SETUP (TENTATIVE)
 #1 = Player
@@ -72,82 +46,137 @@ func _ready():
 	RayNode = get_node("Rotation")
 	CurrSprite = get_node("PlayerSprite")
 	CurrCollision = get_node("PlayerCollision")
-	RayNode.set_rotation_degrees(0)
+	RayNode.set_rotation_degrees(-90)
+	Animator = CurrSprite.get_node("general") # animation player
+	playerSize = self.get_node("PlayerCollision").get_shape().get_extents()
 
 ##Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	var motion = Vector2()
 	var GravityMotion = Vector2(0, Player_Gravity)
+	moving = false
+	
+	
+	#Spell Wheel
+	if (Input.is_action_pressed("ui_selectFire") && hasSpell["fire"]):
+		currentSpell = "fire"
+		
+	if (Input.is_action_pressed("ui_selectLightning") && hasSpell["lightning"]):
+		currentSpell = "lightning"
+		
 	##Shoot
 	if (Input.is_action_pressed("ui_shoot")):
 		if (BoltCooldown <= 0):
-			CreateLightning()
+			CreateBolt()
 			BoltCooldown = 2
+				
 	##Punching
 	if (Input.is_action_just_pressed("ui_melee") and MeleeTimer <= 0):
 		MeleeTimer = 1
 		SpawnMeleeHitbox()
 		
 	##Jumping
-	if (Input.is_action_pressed("ui_up") and !jumping and test_move(get_transform(), Vector2(0,10))):
+	if (Input.is_action_pressed("ui_up") and !jumping and test_move(get_transform(), Vector2(0,0.1)) and jumpReset):
 		jumping = true
 		LongJump = true
+		jumpReset = false
 		JumpVelocity = PLAYER_JUMP_SPEED
+		Animator.play("jump")
+		moving = true
+	elif (Input.is_action_pressed("ui_up") and jumping and test_move(get_transform(), Vector2(0,0.1))):
+		jumping = false
+		LongJump = false
+		ShortHop = false
+		JumpWait = true
+		JumpVelocity = 0
 	##Left/Right Movement
 	if (Input.is_action_pressed("ui_right")):
 		motion += Vector2(1, 0)
-		RayNode.set_rotation_degrees(0)
+		RayNode.set_rotation_degrees(-90)
+		CurrSprite.flip_h = false
+		Animator.play("run")
+		moving = true
 	if (Input.is_action_pressed("ui_left")):
 		motion += Vector2(-1, 0)
-		RayNode.set_rotation_degrees(180)
+		RayNode.set_rotation_degrees(90)
+		CurrSprite.flip_h = true
+		Animator.play("run")
+		moving = true
 	##Crouch, TODO
 	if (Input.is_action_pressed("ui_down")):
+		Animator.play("crouch")
+		moving = true
 		pass
 	else:
 		pass
+		
 	#Melee Hitbox Timing
 	if (MeleeTimer >= 0):
 		MeleeTimer -= 1*delta
-		#if (MeleeTimer <= 0.4):
-			#get_node("melee").queue_free()
 	##Handles Jump Physics	
 	if (jumping and Input.is_action_pressed("ui_up") and LongJump):
-		JumpVelocity += 40
-	elif (jumping and Input.is_action_just_released("ui_up") and LongJump):
-		JumpVelocity += 100
+		if ((JumpVelocity + Player_Gravity) < 20):
+			JumpVelocity += 5
+		moving = true
+	elif (jumping and not Input.is_action_pressed("ui_up") and LongJump):
+		if ((JumpVelocity + Player_Gravity) < 20):
+			JumpVelocity += 5
 		LongJump = false
-		FastFall = true
-	elif (FastFall):
-		JumpVelocity += 130
-		if (test_move(get_transform(), Vector2(0,10))):
-			FastFall = false
+		ShortHop = true
+		moving = true
+	elif (ShortHop):
+		if ((JumpVelocity + Player_Gravity) < 20):
+			JumpVelocity += 20
+		if (test_move(get_transform(), Vector2(0,0.1))):
+			ShortHop = false
 			jumping = false
+			JumpWait = true
 			JumpVelocity = 0
+		moving = true
+	if (jumping and (JumpVelocity + Player_Gravity) >= 20):
+		Animator.play("fall")
+	if (JumpWait):
+		if (not Input.is_action_pressed("ui_up")):
+			jumpReset = true
+			JumpWait = false
+			
 	##Ticks Down Bolt Cooldown
 	BoltCooldown -= 2*delta
 	##Gravity acceleration if not on ground
-	if (test_move(get_transform(), Vector2(0,10))):
-		Player_Gravity = 300
+	if (test_move(get_transform(), Vector2(0,0.1))):
+		Player_Gravity = 100
 	else:
-		Player_Gravity += 40
+		Player_Gravity += 12
 	if (jumping):
 		motion[1] += JumpVelocity#*delta
+		moving = true
 	#GravityMotion *= delta
 	##Finalizes motion vector and moves character
 	motion[0] = motion[0]*PLAYER_SPEED#*delta
 	motion[1] += GravityMotion[1]
+	#Maximum Fall Speed
+	if (motion[1] >= 450):
+		motion[1] = 450
 	move_and_slide(motion)
+	
+	if(!moving):
+		Animator.play("idle")
 
-##Spawns Lightning Bolt
-func CreateLightning():
-	var Lightning = load("res://Scenes/Lightning.tscn")
+##Spawns Spell Bolt
+func CreateBolt():
+	var Lightning
+	if (currentSpell == "lightning"):
+		Lightning = load("res://Scenes/Lightning.tscn")
+	elif (currentSpell == "fire"):
+		Lightning = load("res://Scenes/Lightning.tscn")
 	var LightningInstance = Lightning.instance()
 	LightningInstance.set_name("bolt")
 	LightningInstance.get_node("LightningRotation").set_rotation_degrees(get_node("Rotation").get_rotation_degrees())
 	var CurrPos = get_position()
 	var LightningPos = Vector2()
-	LightningPos[0] = CurrPos[0] + (200 * cos(LightningInstance.get_node("LightningRotation").get_rotation_degrees()))
-	LightningPos[1] = CurrPos[1] - 100#+ (200 * sin(LightningInstance.get_node("LightningRotation").get_rotation_degrees()))
+	LightningPos[0] = CurrPos[0] + (playerSize[0] + 3) * cos(LightningInstance.get_node("LightningRotation").get_rotation_degrees() + 90)
+	LightningPos[1] = CurrPos[1] - (playerSize[1]/2)
+	#+ (200 * sin(LightningInstance.get_node("LightningRotation").get_rotation_degrees()))
 	LightningInstance.set_position(LightningPos)
 	get_node("/root").add_child(LightningInstance)
 	
@@ -157,13 +186,10 @@ func SpawnMeleeHitbox():
 	var MeleeHitInstance = MeleeHit.instance()
 	MeleeHitInstance.set_name("melee")
 	var MeleeHitPos = get_position()
-	MeleeHitPos[0] += 250 * cos(get_node("Rotation").get_rotation_degrees())
-	MeleeHitPos[1] -= 85
+	MeleeHitPos[0] += 8 * cos(RayNode.get_rotation_degrees() + 90)
+	MeleeHitPos[1] -= 2
 	MeleeHitInstance.set_position(MeleeHitPos)
 	get_node("/root").add_child(MeleeHitInstance)
 	
-	
-	
-	
-	
->>>>>>> playerbehavior
+func PlayAnimation():
+	pass

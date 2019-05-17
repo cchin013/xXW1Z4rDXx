@@ -5,11 +5,13 @@
 [ext_resource path="res://Scenes/enemies/slime.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Scenes/enemies/skeleton.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Scenes/enemies/wizard.tscn" type="PackedScene" id=5]
-[ext_resource path="res://Scenes/enemies/flames.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Sprites/spells/flames.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Scenes/enemies/summoner.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Scenes/enemies/rogue.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Scenes/enemies/imp.tscn" type="PackedScene" id=9]
 [ext_resource path="res://Scenes/enemies/chibis.tscn" type="PackedScene" id=10]
+
+
 
 [sub_resource type="Animation" id=1]
 resource_name = "anim_1"
@@ -75,7 +77,7 @@ tracks/0/keys = {
 "values": [ 11, 12, 13, 14, 15, 16, 17, 18, 19, 20 ]
 }
 
-[sub_resource type="Animation" id=21]
+[sub_resource type="Animation" id=5]
 resource_name = "idle"
 length = 0.3
 loop = true
@@ -92,7 +94,7 @@ tracks/0/keys = {
 "values": [ 0, 1, 2 ]
 }
 
-[sub_resource type="Animation" id=22]
+[sub_resource type="Animation" id=6]
 resource_name = "idle"
 length = 0.3
 loop = true
@@ -109,7 +111,7 @@ tracks/0/keys = {
 "values": [ 0, 1, 2 ]
 }
 
-[sub_resource type="Animation" id=23]
+[sub_resource type="Animation" id=7]
 resource_name = "idle"
 length = 0.3
 loop = true
@@ -126,7 +128,7 @@ tracks/0/keys = {
 "values": [ 0, 1, 2 ]
 }
 
-[sub_resource type="Animation" id=24]
+[sub_resource type="Animation" id=8]
 resource_name = "idle"
 length = 0.4
 loop = true
@@ -143,7 +145,7 @@ tracks/0/keys = {
 "values": [ 0, 1, 2, 3 ]
 }
 
-[sub_resource type="Animation" id=25]
+[sub_resource type="Animation" id=9]
 resource_name = "idle"
 length = 0.3
 loop = true
@@ -160,7 +162,7 @@ tracks/0/keys = {
 "values": [ 0, 1, 2 ]
 }
 
-[sub_resource type="Animation" id=26]
+[sub_resource type="Animation" id=10]
 resource_name = "idle"
 length = 0.3
 loop = true
@@ -177,7 +179,7 @@ tracks/0/keys = {
 "values": [ 0, 1, 2 ]
 }
 
-[sub_resource type="Animation" id=27]
+[sub_resource type="Animation" id=11]
 resource_name = "idle"
 length = 0.3
 loop = true
@@ -194,7 +196,7 @@ tracks/0/keys = {
 "values": [ 0, 1, 2 ]
 }
 
-[sub_resource type="Animation" id=28]
+[sub_resource type="Animation" id=12]
 resource_name = "idle"
 length = 0.4
 loop = true
@@ -211,7 +213,7 @@ tracks/0/keys = {
 "values": [ 0, 1, 2, 3 ]
 }
 
-[sub_resource type="Animation" id=29]
+[sub_resource type="Animation" id=13]
 resource_name = "idle"
 length = 0.3
 loop = true
@@ -228,7 +230,7 @@ tracks/0/keys = {
 "values": [ 0, 1, 2 ]
 }
 
-[sub_resource type="Animation" id=30]
+[sub_resource type="Animation" id=14]
 resource_name = "idle"
 length = 0.3
 loop = true
@@ -245,7 +247,7 @@ tracks/0/keys = {
 "values": [ 0, 1, 2 ]
 }
 
-[sub_resource type="Animation" id=31]
+[sub_resource type="Animation" id=15]
 resource_name = "idle"
 length = 0.3
 loop = true
@@ -262,7 +264,7 @@ tracks/0/keys = {
 "values": [ 0, 1, 2 ]
 }
 
-[sub_resource type="Animation" id=32]
+[sub_resource type="Animation" id=16]
 resource_name = "idle"
 length = 0.4
 loop = true
@@ -412,7 +414,7 @@ position = Vector2( 304, -95.5 )
 
 [node name="rogue" parent="." instance=ExtResource( 8 )]
 editor/display_folded = true
-position = Vector2( 48.3102, 7.22994 )
+position = Vector2( 60, 0 )
 
 [node name="imp" parent="." instance=ExtResource( 9 )]
 position = Vector2( -8, 1 )
@@ -431,19 +433,19 @@ position = Vector2( -24, -128 )
 visible = false
 
 [node name="AnimationPlayer" parent="chibis/frog/bat" index="0"]
-anims/idle = SubResource( 21 )
+anims/idle = SubResource( 5 )
 
 [node name="frog" parent="chibis/frog" index="1"]
 visible = true
 
 [node name="AnimationPlayer" parent="chibis/frog/frog" index="0"]
-anims/idle = SubResource( 22 )
+anims/idle = SubResource( 6 )
 
 [node name="AnimationPlayer" parent="chibis/frog/ghost" index="0"]
-anims/idle = SubResource( 23 )
+anims/idle = SubResource( 7 )
 
 [node name="AnimationPlayer" parent="chibis/frog/skeleton" index="0"]
-anims/idle = SubResource( 24 )
+anims/idle = SubResource( 8 )
 
 [node name="ghost" parent="chibis" instance=ExtResource( 10 )]
 editor/display_folded = true
@@ -453,19 +455,19 @@ position = Vector2( -8, -152 )
 visible = false
 
 [node name="AnimationPlayer" parent="chibis/ghost/bat" index="0"]
-anims/idle = SubResource( 25 )
+anims/idle = SubResource( 9 )
 
 [node name="AnimationPlayer" parent="chibis/ghost/frog" index="0"]
-anims/idle = SubResource( 26 )
+anims/idle = SubResource( 10 )
 
 [node name="ghost" parent="chibis/ghost" index="2"]
 visible = true
 
 [node name="AnimationPlayer" parent="chibis/ghost/ghost" index="0"]
-anims/idle = SubResource( 27 )
+anims/idle = SubResource( 11 )
 
 [node name="AnimationPlayer" parent="chibis/ghost/skeleton" index="0"]
-anims/idle = SubResource( 28 )
+anims/idle = SubResource( 12 )
 
 [node name="skeleton" parent="chibis" instance=ExtResource( 10 )]
 editor/display_folded = true
@@ -475,19 +477,19 @@ position = Vector2( 6, -128 )
 visible = false
 
 [node name="AnimationPlayer" parent="chibis/skeleton/bat" index="0"]
-anims/idle = SubResource( 29 )
+anims/idle = SubResource( 13 )
 
 [node name="AnimationPlayer" parent="chibis/skeleton/frog" index="0"]
-anims/idle = SubResource( 30 )
+anims/idle = SubResource( 14 )
 
 [node name="AnimationPlayer" parent="chibis/skeleton/ghost" index="0"]
-anims/idle = SubResource( 31 )
+anims/idle = SubResource( 15 )
 
 [node name="skeleton" parent="chibis/skeleton" index="3"]
 visible = true
 
 [node name="AnimationPlayer" parent="chibis/skeleton/skeleton" index="0"]
-anims/idle = SubResource( 32 )
+anims/idle = SubResource( 16 )
 
 
 [editable path="slimes/blue_slime"]

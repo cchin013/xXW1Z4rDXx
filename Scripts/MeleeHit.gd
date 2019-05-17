@@ -9,7 +9,6 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	print(HitTimer)
 	if (HitTimer <= 0):
 		queue_free()
 	HitTimer -= 30*delta

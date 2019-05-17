@@ -1,6 +1,6 @@
 extends Node2D
 
-export var sprite_name = "blue"
+# export var sprite_name = "blue"
 export var direction = Vector2()
 export var motion_speed = 70
 export var move_anim_name = "Left"
@@ -18,7 +18,9 @@ func _ready():
 	timer = Timer.new()
 	direction = Vector2(-1,0)
 	moving = false
-	sprite = self.find_node(sprite_name)
+	for child in self.get_children():
+		if child is Sprite:
+			sprite = child
 	animator = sprite.get_child(0)
 	sprite.flip_h = flip_sprite
 

@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/Desert Theme.wav-5f69491e6f25a66106a5ba2631abecc3.sample"
+
+[deps]
+
+source_file="res://Music/Desert Theme.wav"
+dest_files=[ "res://.import/Desert Theme.wav-5f69491e6f25a66106a5ba2631abecc3.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=true
+compress/mode=0

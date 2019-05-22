@@ -17,7 +17,7 @@ var LongJump = false
 var JumpWait = false
 var ShortHop = false
 var moving = false
-var hasSpell = {"lightning" : true, "fire" : true, "earth" : false, "water" : false}
+var hasSpell = {"lightning" : true, "fire" : true, "earth" : true, "water" : true}
 var currentSpell = "lightning"
 var playerSize
 
@@ -66,6 +66,12 @@ func _process(delta):
 		
 	if (Input.is_action_pressed("ui_selectLightning") && hasSpell["lightning"]):
 		currentSpell = "lightning"
+		
+	if (Input.is_action_pressed("ui_selectEarth") && hasSpell["earth"]):
+		currentSpell = "earth"
+		
+	if (Input.is_action_pressed("ui_selectWater") && hasSpell["water"]):
+		currentSpell = "water"
 		
 	##Shoot
 	if (Input.is_action_pressed("ui_shoot")):
@@ -181,9 +187,19 @@ func CreateBolt():
 	if (currentSpell == "lightning"):
 		currRotation = "LightningRotation"
 		Bolt = load("res://Scenes/Lightning.tscn")
+		
 	elif (currentSpell == "fire"):
 		currRotation = "FireballRotation"
 		Bolt = load("res://Scenes/Fireball.tscn")
+		
+	elif (currentSpell == "earth"):
+		currRotation = "EarthRotation"
+		Bolt = load("res://Scenes/Earth.tscn")
+		
+	elif (currentSpell == "water"):
+		currRotation = "WaterRotation"
+		Bolt = load("res://Scenes/Water.tscn")
+		
 	var BoltInstance = Bolt.instance()
 	BoltInstance.set_name("bolt")
 	BoltInstance.get_node(currRotation).set_rotation_degrees(get_node("Rotation").get_rotation_degrees())

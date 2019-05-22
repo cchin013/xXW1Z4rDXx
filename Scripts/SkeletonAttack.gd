@@ -9,12 +9,12 @@ func _process(delta):
 	DealDamage()
 	if (HitDuration <= 0):
 		queue_free()
-	HitDuration -= 30*delta
+	HitDuration -= 6*delta
 	
 func DealDamage():
 	var Overlaps = get_overlapping_bodies()
 	for Hit in (Overlaps):
 		if (Hit.is_in_group("Player")):
-			if (Hit.Invincible):
+			if (not Hit.Invincible and not Hit.Dying):
 				Hit.Take_Damage(40)
-				#Hit.Invincibility_Frames(42)
+				Hit.Invincibility_Frames(60)

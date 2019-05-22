@@ -100,7 +100,6 @@ position = Vector2( -339.204, -16.1893 )
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 11 )
-autoplay = true
 
 
 [editable path="enemies/wizard"]

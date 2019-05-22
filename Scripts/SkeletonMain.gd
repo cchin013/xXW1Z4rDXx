@@ -13,6 +13,8 @@ var StaggerCounter = 0
 var DeathCounter = 0
 var DetectAttack = false
 var AttackDetection = 30
+var AttackTimer = 0
+var Attacking = false
 
 
 
@@ -26,16 +28,13 @@ func _process(delta):
 		#print(rad2deg(acos(DistToPlayer.normalized().dot(Facing))))
 		if (rad2deg(acos(DistToPlayer.normalized().dot(Facing))) - 135 > FOV):
 			DetectPlayer = true
-			if (abs(DistToPlayer[0]) < AttackDetection):
-				DetectAttack = true
-			else:
-				DetectAttack = false
+			if (abs(DistToPlayer[0]) < AttackDetection and not Attacking):
+				AttackTimer = 120
+				Attacking = true
 		else:
 			DetectPlayer = false
-			DetectAttack = false
 	else:
 		DetectPlayer = false
-		DetectAttack = false
 	#print(DetectAttack)
 	var Direction = SkeletonRandomMovement(delta)
 	var motion = Vector2()
@@ -43,14 +42,24 @@ func _process(delta):
 	#moving = false
 	if (DeathCounter > 0):
 		DeathCounter -= 1
+		AttackTimer = 0
+		Attacking = false
 		if (DeathCounter == 0):
 			queue_free()
 		return
 	if (StaggerCounter > 0):
 		StaggerCounter -= 1
+		AttackTimer = 0
+		Attacking = false
 		return
-	#if (DetectAttack):
-		#SkeletonAttack()
+	if (AttackTimer >= 0):
+		AttackTimer -= 1
+		Animator.play("attack")
+		if (AttackTimer == 68):
+			SkeletonAttack()
+		if (AttackTimer <= 0):
+			Attacking = false
+		return
 	if (DetectPlayer and Facing[0] == -1):
 			motion = Vector2(-1,0)
 			CurrSprite.flip_h = true
@@ -116,7 +125,19 @@ func Take_Damage(damage):
 func Die():
 	Animator.play("dead")
 	DeathCounter = 90
-	
-#func SkeletonAttack():
+
+
+func SkeletonAttack():
+	var MeleeHit = load("res://Scenes/SkeletonAttack.tscn")
+	var MeleeHitInstance = MeleeHit.instance()
+	MeleeHitInstance.set_name("melee")
+	var MeleeHitPos = get_position()
+	if (Facing[0] == -1):
+		MeleeHitPos[0] -= 24
+	if (Facing[0] == 1):
+		MeleeHitPos[0] += 24
+	MeleeHitPos[1] += 2
+	MeleeHitInstance.set_position(MeleeHitPos)
+	get_node("/root").add_child(MeleeHitInstance)
 	
 	

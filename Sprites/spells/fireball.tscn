@@ -27,4 +27,3 @@ frame = 5
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/flame_1 = SubResource( 1 )
-

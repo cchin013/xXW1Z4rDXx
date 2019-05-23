@@ -22,6 +22,11 @@ var moving = false
 var hasSpell = {"lightning" : true, "fire" : true, "earth" : true, "water" : true}
 var currentSpell = "lightning"
 var playerSize
+var Invincible = false
+var IFrames = 0
+var Dying = false
+var StaggerCounter = 0
+var DeathCounter = 0
 
 var RayNode
 var CurrSprite
@@ -62,6 +67,26 @@ func _process(delta):
 	var collide_obj_id = 0
 	moving = false
 	
+	if (PlayerHealth <= 0 and not Dying):
+		Die()
+		Dying = true
+	if (IFrames > 0):
+		if (IFrames % 6 == 0):
+			self.modulate.a = 0
+		else:
+			self.modulate.a = 1
+		IFrames -= 1
+	else :
+		Invincible = false
+	if (DeathCounter > 0 or Dying):
+		DeathCounter -= 1
+		#if (DeathCounter == 0):
+		#   queue_free()
+		return
+	if (StaggerCounter > 0):
+		StaggerCounter -= 1
+		return
+
 	#Spell Wheel
 	if (Input.is_action_pressed("ui_selectFire") && hasSpell["fire"]):
 		currentSpell = "fire"
@@ -228,5 +253,18 @@ func SpawnMeleeHitbox():
 	MeleeHitInstance.set_position(MeleeHitPos)
 	get_node("/root").add_child(MeleeHitInstance)
 	
+func Take_Damage(damage):
+    PlayerHealth -= damage
+    StaggerCounter = 15
+    Animator.play("hurt")
+ 
+func Invincibility_Frames(numFrames):
+    Invincible = true
+    IFrames = numFrames
+   
+func Die():
+    DeathCounter = 42
+    Animator.play("die")
+
 func PlayAnimation():
 	pass

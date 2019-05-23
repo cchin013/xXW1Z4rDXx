@@ -108,4 +108,5 @@ position = Vector2( -654.992, -65.2824 )
 stream = ExtResource( 11 )
 autoplay = true
 
+
 [editable path="enemies/wizard"]

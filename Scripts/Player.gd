@@ -246,8 +246,10 @@ func SpawnMeleeHitbox():
 	MeleeHitInstance.set_name("melee")
 	var MeleeHitPos = get_position()
 	if (RayNode.get_rotation_degrees() == -90):
+		MeleeHitInstance.Direction[0] = 1
 		MeleeHitPos[0] += 16
 	if (RayNode.get_rotation_degrees() == 90):
+		MeleeHitInstance.Direction[0] = -1
 		MeleeHitPos[0] -= 16
 	MeleeHitPos[1] += 2
 	MeleeHitInstance.set_position(MeleeHitPos)

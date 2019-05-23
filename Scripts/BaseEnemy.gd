@@ -33,7 +33,8 @@ func _process(delta):
  
 #Damage Taking Function
 func Take_Damage(damage):
-    Health -= damage
+	Health -= damage
+
  
 func Invincibility_Frames(numFrames):
     Invincible = true

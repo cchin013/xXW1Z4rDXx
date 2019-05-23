@@ -27,8 +27,8 @@ func _process(delta):
     #Enemy Detection
     DistToPlayer = get_global_transform()[2] - (Player.get_global_transform()[2])
     if (abs(DistToPlayer[0]) < MaxDetection):
-        #print(rad2deg(acos(DistToPlayer.normalized().dot(Facing))))
-        if (rad2deg(acos(DistToPlayer.normalized().dot(Facing))) - 135 > FOV):
+        print(rad2deg(acos(DistToPlayer.normalized().dot(Facing))))
+        if (rad2deg(acos(DistToPlayer.normalized().dot(Facing))) - 100 > FOV):
             DetectPlayer = true
             if (abs(DistToPlayer[0]) < AttackDetection and not Attacking):
                 AttackTimer = 120
@@ -49,8 +49,10 @@ func _process(delta):
         if (DeathCounter == 0):
             queue_free()
         return
+    #print(Facing[0])
     if (StaggerCounter > 0):
         StaggerCounter -= 1
+        #print(Facing[0])
         AttackTimer = 0
         Attacking = false
         return
@@ -120,9 +122,15 @@ func SkeletonRandomMovement(delta):
     return "none"
  
 func Take_Damage(damage):
-    Health -= damage
-    StaggerCounter = 42
-    Animator.play("stagger")
+	Health -= damage
+	StaggerCounter = 42
+	Animator.play("stagger")
+	var temp = Vector2()
+	temp = (Player.get_global_transform()[2]) - get_global_transform()[2]
+	if (temp[0] > 0):
+		Facing[0] = 1
+	else:
+		Facing[0] = -1
    
 func Die():
     Animator.play("dead")

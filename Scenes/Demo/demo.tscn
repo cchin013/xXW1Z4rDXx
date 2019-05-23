@@ -87,6 +87,7 @@ position = Vector2( 704.211, -351.579 )
 
 [node name="blue_slime" parent="enemies" instance=ExtResource( 7 )]
 position = Vector2( -288, -6.5835 )
+Health = 50
 
 [node name="summoner" parent="enemies" instance=ExtResource( 8 )]
 position = Vector2( 864, -328 )
@@ -106,6 +107,5 @@ position = Vector2( -654.992, -65.2824 )
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 11 )
-autoplay = true
 
 [editable path="enemies/wizard"]

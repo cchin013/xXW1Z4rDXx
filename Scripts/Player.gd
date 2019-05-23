@@ -1,5 +1,7 @@
 extends KinematicBody2D
 
+#testtest
+
 #Exported Variables
 export var PLAYER_SPEED = 100
 export var PLAYER_JUMP_SPEED = -500

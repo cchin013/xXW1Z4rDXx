@@ -1,19 +1,12 @@
 extends KinematicBody2D
 
 export var Health = 50
-export var MaxDetection = 100
-export var FOV = 40
 
 var Invincible = false
 var IFrames = 0
 var Dying = false
-var DistToPlayer
-var Player
-var Facing = Vector2(1,0)
-var DetectPlayer = false
 
 func _ready():
-	Player = get_node("/root/demo/Player")
 	set_process(true)
 
 func _process(delta):

@@ -2,6 +2,8 @@ extends Area2D
 
 var HitDuration = 1
 
+#testtest
+
 func _ready():
 	set_process(true)
 

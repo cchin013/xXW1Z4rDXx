@@ -1,5 +1,7 @@
 extends KinematicBody2D
 
+#testtest
+
 export var Health = 50
 export var MaxDetection = 100
 export var FOV = 40

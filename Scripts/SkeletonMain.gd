@@ -1,5 +1,7 @@
 extends "res://Scripts/BaseEnemy.gd"
 
+#testtest
+
 #export var SkeletonHealth = 500
 export var SkeletonSpeed = 70
 var moving = false

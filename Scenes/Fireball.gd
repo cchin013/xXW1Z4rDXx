@@ -1,6 +1,6 @@
 extends Area2D
 
-export var LIGHTNING_SPEED = 350
+export var FIREBALL_SPEED = 350
 export var LIFESPAN = 1
 
 var RayNode
@@ -12,7 +12,7 @@ var RemainingLife
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	RayNode = get_node("LightningRotation")
+	RayNode = get_node("FireballRotation")
 	RemainingLife = LIFESPAN
 	set_process(true)
 	
@@ -23,23 +23,22 @@ func _process(delta):
 		free()
 		return
 	DealDamage()
-	var LightningMotion = LIGHTNING_SPEED*delta
+	var FireballMotion = FIREBALL_SPEED*delta
 	if (RayNode.get_rotation_degrees() == -90):
-		LightningMotion = LIGHTNING_SPEED*delta
+		FireballMotion = FIREBALL_SPEED*delta
+		get_node("FireballSprite").flip_h = true
 	if (RayNode.get_rotation_degrees() == 90):
-		LightningMotion = -LIGHTNING_SPEED*delta
-		get_node("LightningSprite").flip_h = true
-		get_node("LightningSprite").flip_v = true
-	var LightningCollisionCheck = global_translate(Vector2(LightningMotion,0))
+		FireballMotion = -FIREBALL_SPEED*delta
+	var FireballCollisionCheck = global_translate(Vector2(FireballMotion,0))
 	RemainingLife -= 1*delta
 
 func DealDamage():
 	var Overlaps = get_overlapping_bodies()
 	for Hit in (Overlaps):
 		if (Hit.is_in_group("Enemies")):
-			if (Hit.Invincible == false and not Hit.Dying):
+			if (Hit.Invincible == false):
 				Hit.Take_Damage(35)
-				Hit.Invincibility_Frames(42)
+				Hit.Invincibility_Frames(30)
 		elif (Hit.is_in_group("Terrain")):
 			queue_free()
 

@@ -1,6 +1,6 @@
 extends Area2D
 
-export var LIGHTNING_SPEED = 350
+export var WATER_SPEED = 350
 export var LIFESPAN = 1
 
 var RayNode
@@ -12,7 +12,7 @@ var RemainingLife
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	RayNode = get_node("LightningRotation")
+	RayNode = get_node("WaterRotation")
 	RemainingLife = LIFESPAN
 	set_process(true)
 	
@@ -23,14 +23,14 @@ func _process(delta):
 		free()
 		return
 	DealDamage()
-	var LightningMotion = LIGHTNING_SPEED*delta
+	var WaterMotion = WATER_SPEED*delta
 	if (RayNode.get_rotation_degrees() == -90):
-		LightningMotion = LIGHTNING_SPEED*delta
+		WaterMotion = WATER_SPEED*delta
 	if (RayNode.get_rotation_degrees() == 90):
-		LightningMotion = -LIGHTNING_SPEED*delta
-		get_node("LightningSprite").flip_h = true
-		get_node("LightningSprite").flip_v = true
-	var LightningCollisionCheck = global_translate(Vector2(LightningMotion,0))
+		WaterMotion = -WATER_SPEED*delta
+		get_node("WaterSprite").flip_h = true
+		get_node("WaterSprite").flip_v = true
+	var LightningCollisionCheck = global_translate(Vector2(WaterMotion,0))
 	RemainingLife -= 1*delta
 
 func DealDamage():
@@ -42,4 +42,3 @@ func DealDamage():
 				Hit.Invincibility_Frames(42)
 		elif (Hit.is_in_group("Terrain")):
 			queue_free()
-

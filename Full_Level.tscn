@@ -1,4 +1,4 @@
-[gd_scene load_steps=59 format=2]
+[gd_scene load_steps=61 format=2]
 
 [ext_resource path="res://Sprites/Zones/Crystal_Caverns/Crystal_Indv/grass1_B.png" type="Texture" id=1]
 [ext_resource path="res://Sprites/Zones/Crystal_Caverns/Crystal_Indv/grass1_T.png" type="Texture" id=2]
@@ -38,6 +38,8 @@
 [ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=36]
 [ext_resource path="res://Sprites/Zones/Crystal_Caverns/environment/layers/background.png" type="Texture" id=37]
 [ext_resource path="res://Sprites/Zones/Crystal_Caverns/environment/layers/middleground.png" type="Texture" id=38]
+[ext_resource path="res://Scenes/enemies/skeleton.tscn" type="PackedScene" id=39]
+[ext_resource path="res://Music/Desert Theme.wav" type="AudioStream" id=40]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
@@ -632,7 +634,7 @@ points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
 3/shapes = [  ]
 3/z_index = 0
 
-[node name="Node2D" type="Node2D"]
+[node name="Bigmap" type="Node2D"]
 
 [node name="TileMap" type="TileMap" parent="."]
 z_index = 2
@@ -648,7 +650,7 @@ format = 1
 tile_data = PoolIntArray( 262149, 1, 0, 262150, 3, 0, 458769, 3, 0, 589852, 2, 0, 589855, 3, 0, 720894, 536870915, 0, 720895, 0, 0, 655360, 0, 0, 655361, 0, 0, 655366, 0, 0, 720906, 2, 0, 786444, 0, 0, 786445, 0, 0, 786460, 3, 0, 786463, 2, 0, 851985, 1, 0, 851989, 1, 0, 983055, 0, 0, 983057, 0, 0, 1114111, 0, 0, 1048576, 1, 0, 1048577, 0, 0, 1048578, 1, 0, 1048579, 0, 0, 1048580, 0, 0, 1048581, 1, 0, 1048582, 0, 0, 1048587, 1, 0, 1048589, 1, 0 )
 
 [node name="Player" parent="." instance=ExtResource( 36 )]
-position = Vector2( -70, 1020 )
+position = Vector2( -20, 1038.5 )
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 scroll_base_scale = Vector2( 0.1, 0.1 )
@@ -669,3 +671,122 @@ scroll_base_scale = Vector2( 0.5, 0.5 )
 position = Vector2( 1050, 170 )
 scale = Vector2( 12.7083, 8.06818 )
 texture = ExtResource( 38 )
+
+[node name="Enemies" type="Node" parent="."]
+editor/display_folded = true
+
+[node name="Skeleton" parent="Enemies" instance=ExtResource( 39 )]
+position = Vector2( 660, 1038.5 )
+
+[node name="Skeleton2" parent="Enemies" instance=ExtResource( 39 )]
+position = Vector2( 880, 1038.5 )
+
+[node name="Skeleton3" parent="Enemies" instance=ExtResource( 39 )]
+position = Vector2( 1020, 973.019 )
+
+[node name="Skeleton4" parent="Enemies" instance=ExtResource( 39 )]
+position = Vector2( 1218.87, 973.019 )
+
+[node name="Skeleton5" parent="Enemies" instance=ExtResource( 39 )]
+position = Vector2( 1490, 920 )
+
+[node name="Skeleton6" parent="Enemies" instance=ExtResource( 39 )]
+position = Vector2( 1340, 920 )
+
+[node name="Skeleton7" parent="Enemies" instance=ExtResource( 39 )]
+position = Vector2( 1318.5, 840 )
+
+[node name="Skeleton8" parent="Enemies" instance=ExtResource( 39 )]
+position = Vector2( 1440, 843.019 )
+
+[node name="Skeleton9" parent="Enemies" instance=ExtResource( 39 )]
+position = Vector2( 1010, 856 )
+
+[node name="Skeleton10" parent="Enemies" instance=ExtResource( 39 )]
+position = Vector2( 1120, 859.019 )
+
+[node name="Skeleton11" parent="Enemies" instance=ExtResource( 39 )]
+position = Vector2( 1750, 780 )
+
+[node name="Skeleton12" parent="Enemies" instance=ExtResource( 39 )]
+position = Vector2( 1910, 783.019 )
+
+[node name="Skeleton13" parent="Enemies" instance=ExtResource( 39 )]
+position = Vector2( 1860, 780 )
+
+[node name="Skeleton14" parent="Enemies" instance=ExtResource( 39 )]
+position = Vector2( 1960, 780 )
+
+[node name="Skeleton15" parent="Enemies" instance=ExtResource( 39 )]
+position = Vector2( 1970, 600 )
+
+[node name="Skeleton16" parent="Enemies" instance=ExtResource( 39 )]
+position = Vector2( 1920, 600 )
+
+[node name="Skeleton17" parent="Enemies" instance=ExtResource( 39 )]
+position = Vector2( 1880, 600 )
+
+[node name="Skeleton18" parent="Enemies" instance=ExtResource( 39 )]
+position = Vector2( 1830, 600 )
+
+[node name="Skeleton19" parent="Enemies" instance=ExtResource( 39 )]
+position = Vector2( 1420, 616 )
+
+[node name="Skeleton20" parent="Enemies" instance=ExtResource( 39 )]
+position = Vector2( 1370, 610 )
+
+[node name="Skeleton21" parent="Enemies" instance=ExtResource( 39 )]
+position = Vector2( 1320, 616 )
+
+[node name="Skeleton22" parent="Enemies" instance=ExtResource( 39 )]
+position = Vector2( 1270, 616 )
+
+[node name="Skeleton23" parent="Enemies" instance=ExtResource( 39 )]
+position = Vector2( 1220, 620 )
+
+[node name="Skeleton24" parent="Enemies" instance=ExtResource( 39 )]
+position = Vector2( 630, 710 )
+
+[node name="Skeleton25" parent="Enemies" instance=ExtResource( 39 )]
+position = Vector2( 810, 630 )
+
+[node name="Skeleton26" parent="Enemies" instance=ExtResource( 39 )]
+position = Vector2( 870, 780 )
+
+[node name="Skeleton27" parent="Enemies" instance=ExtResource( 39 )]
+position = Vector2( 320, 650 )
+
+[node name="Skeleton28" parent="Enemies" instance=ExtResource( 39 )]
+position = Vector2( 30, 640 )
+
+[node name="Skeleton29" parent="Enemies" instance=ExtResource( 39 )]
+position = Vector2( -60, 646 )
+
+[node name="Skeleton30" parent="Enemies" instance=ExtResource( 39 )]
+position = Vector2( 378.868, 280 )
+
+[node name="Skeleton31" parent="Enemies" instance=ExtResource( 39 )]
+position = Vector2( 720, 250 )
+
+[node name="Skeleton32" parent="Enemies" instance=ExtResource( 39 )]
+position = Vector2( 1240, 430 )
+
+[node name="Skeleton33" parent="Enemies" instance=ExtResource( 39 )]
+position = Vector2( 1338.87, 430 )
+
+[node name="Skeleton34" parent="Enemies" instance=ExtResource( 39 )]
+position = Vector2( 1418.5, 430 )
+
+[node name="Skeleton35" parent="Enemies" instance=ExtResource( 39 )]
+position = Vector2( 1290, 430 )
+
+[node name="Skeleton36" parent="Enemies" instance=ExtResource( 39 )]
+position = Vector2( 1260, 180 )
+
+[node name="Skeleton37" parent="Enemies" instance=ExtResource( 39 )]
+position = Vector2( 1410, 183.019 )
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 40 )
+volume_db = -20.594
+autoplay = true

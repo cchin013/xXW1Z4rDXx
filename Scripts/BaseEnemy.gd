@@ -15,7 +15,7 @@ var Facing = Vector2(1,0)
 var DetectPlayer = false
  
 func _ready():
-    Player = get_node("/root/demo/Player")
+    Player = get_node("/root/Bigmap/Player")
     set_process(true)
  
 func _process(delta):

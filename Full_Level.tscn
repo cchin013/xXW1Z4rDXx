@@ -780,7 +780,7 @@ tile_data = PoolIntArray( -196634, 4, 0, -196633, 5, 0, 262119, 5, 0, 262120, 4,
 script = ExtResource( 42 )
 
 [node name="Player" parent="." instance=ExtResource( 43 )]
-position = Vector2( -200, 300 )
+position = Vector2( -48.5, 1030 )
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 scroll_base_scale = Vector2( 0.1, 0.1 )
@@ -916,7 +916,7 @@ position = Vector2( 1260, 180 )
 position = Vector2( 1410, 183.019 )
 
 [node name="SuperSkeleton" parent="Enemies" instance=ExtResource( 46 )]
-position = Vector2( -370, 300 )
+position = Vector2( -410, 303.019 )
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 47 )

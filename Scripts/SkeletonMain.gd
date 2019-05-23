@@ -28,7 +28,7 @@ func _process(delta):
 	DistToPlayer = get_global_transform()[2] - (Player.get_global_transform()[2])
 	if (abs(DistToPlayer[0]) < MaxDetection):
 		#print(rad2deg(acos(DistToPlayer.normalized().dot(Facing))))
-		if (rad2deg(acos(DistToPlayer.normalized().dot(Facing))) - 135 > FOV):
+		if (rad2deg(acos(DistToPlayer.normalized().dot(Facing))) - 100 > FOV):
 			DetectPlayer = true
 			if (abs(DistToPlayer[0]) < AttackDetection and not Attacking):
 				AttackTimer = 120
@@ -123,6 +123,12 @@ func Take_Damage(damage):
 	Health -= damage
 	StaggerCounter = 42
 	Animator.play("stagger")
+	var temp = Vector2()
+	temp = (Player.get_global_transform()[2]) - get_global_transform()[2]
+	if (temp[0] > 0):
+		Facing[0] = 1
+	else:
+		Facing[0] = -1
 	
 func Die():
 	Animator.play("dead")

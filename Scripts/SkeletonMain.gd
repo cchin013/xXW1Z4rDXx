@@ -13,6 +13,10 @@ onready var CurrSprite = get_node("skeleton")
 onready var Animator = CurrSprite.get_node("AnimationPlayer")
 var StaggerCounter = 0
 var DeathCounter = 0
+var DetectAttack = false
+var AttackDetection = 30
+var AttackTimer = 0
+var Attacking = false
 
 
 
@@ -40,25 +44,46 @@ func _process(delta):
 	#moving = false
 	if (DeathCounter > 0):
 		DeathCounter -= 1
-		print(DeathCounter)
+		AttackTimer = 0
+		Attacking = false
 		if (DeathCounter == 0):
-			print("hello")
 			queue_free()
 		return
 	if (StaggerCounter > 0):
 		StaggerCounter -= 1
+		AttackTimer = 0
+		Attacking = false
 		return
-	if (Direction == "left"):
-		motion = Vector2(-1,0)
-		CurrSprite.flip_h = true
-		Animator.play("walk")
-	elif (Direction == "right"):
-		motion = Vector2(1,0)
-		CurrSprite.flip_h = false
-		Animator.play("walk")
-	elif (Direction == "none"):
-		Animator.play("idle")
-		pass
+	if (AttackTimer >= 0):
+		AttackTimer -= 1
+		Animator.play("attack")
+		if (AttackTimer == 68):
+			SkeletonAttack()
+		if (AttackTimer <= 0):
+			Attacking = false
+		return
+	if (DetectPlayer and Facing[0] == -1):
+			motion = Vector2(-1,0)
+			CurrSprite.flip_h = true
+			Animator.play("walk")
+	elif (DetectPlayer and Facing[0] == 1):
+			motion = Vector2(1,0)
+			CurrSprite.flip_h = false
+			Animator.play("walk")
+	else:
+		if (Direction == "left"):
+			motion = Vector2(-1,0)
+			Facing = Vector2(-1,0)
+			CurrSprite.flip_h = true
+			Animator.play("walk")
+		elif (Direction == "right"):
+			motion = Vector2(1,0)
+			Facing = Vector2(1,0)
+			CurrSprite.flip_h = false
+			Animator.play("walk")
+		elif (Direction == "none"):
+			Animator.play("idle")
+			pass
 
 	if (test_move(get_transform(), Vector2(0,0.1))):
 		Skeleton_Gravity = 100
@@ -108,4 +133,19 @@ func Take_Damage(damage):
 func Die():
 	Animator.play("dead")
 	DeathCounter = 90
+
+
+func SkeletonAttack():
+	var MeleeHit = load("res://Scenes/SkeletonAttack.tscn")
+	var MeleeHitInstance = MeleeHit.instance()
+	MeleeHitInstance.set_name("melee")
+	var MeleeHitPos = get_position()
+	if (Facing[0] == -1):
+		MeleeHitPos[0] -= 24
+	if (Facing[0] == 1):
+		MeleeHitPos[0] += 24
+	MeleeHitPos[1] += 2
+	MeleeHitInstance.set_position(MeleeHitPos)
+	get_node("/root").add_child(MeleeHitInstance)
+	
 	

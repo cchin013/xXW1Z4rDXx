@@ -19,14 +19,9 @@ var LongJump = false
 var JumpWait = false
 var ShortHop = false
 var moving = false
-var hasSpell = {"lightning" : true, "fire" : true, "earth" : false, "water" : false}
+var hasSpell = {"lightning" : true, "fire" : true, "earth" : true, "water" : true}
 var currentSpell = "lightning"
 var playerSize
-var Invincible = false
-var IFrames = 0
-var Dying = false
-var StaggerCounter = 0
-var DeathCounter = 0
 
 var RayNode
 var CurrSprite
@@ -67,31 +62,18 @@ func _process(delta):
 	var collide_obj_id = 0
 	moving = false
 	
-	if (PlayerHealth <= 0 and not Dying):
-		Die()
-		Dying = true
-	if (IFrames > 0):
-		if (IFrames % 6 == 0):
-			self.modulate.a = 0
-		else:
-			self.modulate.a = 1
-		IFrames -= 1
-	else :
-		Invincible = false
-	if (DeathCounter > 0 or Dying):
-		DeathCounter -= 1
-		#if (DeathCounter == 0):
-		#	queue_free()
-		return
-	if (StaggerCounter > 0):
-		StaggerCounter -= 1
-		return
 	#Spell Wheel
 	if (Input.is_action_pressed("ui_selectFire") && hasSpell["fire"]):
 		currentSpell = "fire"
 		
 	if (Input.is_action_pressed("ui_selectLightning") && hasSpell["lightning"]):
 		currentSpell = "lightning"
+		
+	if (Input.is_action_pressed("ui_selectEarth") && hasSpell["earth"]):
+		currentSpell = "earth"
+		
+	if (Input.is_action_pressed("ui_selectWater") && hasSpell["water"]):
+		currentSpell = "water"
 		
 	##Shoot
 	if (Input.is_action_pressed("ui_shoot")):
@@ -202,22 +184,35 @@ func _process(delta):
 
 ##Spawns Spell Bolt
 func CreateBolt():
-	var Lightning
+	var Bolt
+	var currRotation = "LightningRotation"
 	if (currentSpell == "lightning"):
-		Lightning = load("res://Scenes/Lightning.tscn")
+		currRotation = "LightningRotation"
+		Bolt = load("res://Scenes/Lightning.tscn")
+		
 	elif (currentSpell == "fire"):
-		Lightning = load("res://Scenes/Lightning.tscn")
-	var LightningInstance = Lightning.instance()
-	LightningInstance.set_name("bolt")
-	LightningInstance.get_node("LightningRotation").set_rotation_degrees(get_node("Rotation").get_rotation_degrees())
-	var LightningPos = get_position()
+		currRotation = "FireballRotation"
+		Bolt = load("res://Scenes/Fireball.tscn")
+		
+	elif (currentSpell == "earth"):
+		currRotation = "EarthRotation"
+		Bolt = load("res://Scenes/Earth.tscn")
+		
+	elif (currentSpell == "water"):
+		currRotation = "WaterRotation"
+		Bolt = load("res://Scenes/Water.tscn")
+		
+	var BoltInstance = Bolt.instance()
+	BoltInstance.set_name("bolt")
+	BoltInstance.get_node(currRotation).set_rotation_degrees(get_node("Rotation").get_rotation_degrees())
+	var BoltPos = get_position()
 	if (RayNode.get_rotation_degrees() == -90):
-		LightningPos[0] += 8
+		BoltPos[0] += 8
 	if (RayNode.get_rotation_degrees() == 90):
-		LightningPos[0] -= 8
-	LightningPos[1] -= 2
-	LightningInstance.set_position(LightningPos)
-	get_node("/root").add_child(LightningInstance)
+		BoltPos[0] -= 8
+	BoltPos[1] -= 2
+	BoltInstance.set_position(BoltPos)
+	get_node("/root").add_child(BoltInstance)
 	
 ##Spawns Melee Hitbox
 func SpawnMeleeHitbox():
@@ -232,19 +227,6 @@ func SpawnMeleeHitbox():
 	MeleeHitPos[1] += 2
 	MeleeHitInstance.set_position(MeleeHitPos)
 	get_node("/root").add_child(MeleeHitInstance)
-	
-func Take_Damage(damage):
-	PlayerHealth -= damage
-	StaggerCounter = 15
-	Animator.play("hurt")
-
-func Invincibility_Frames(numFrames):
-	Invincible = true
-	IFrames = numFrames
-	
-func Die():
-	DeathCounter = 42
-	Animator.play("die")
 	
 func PlayAnimation():
 	pass

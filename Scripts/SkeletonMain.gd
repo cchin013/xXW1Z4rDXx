@@ -38,7 +38,6 @@ func _process(delta):
 			DetectPlayer = false
 	else:
 		DetectPlayer = false
-	#print(DetectAttack)
 	var Direction = SkeletonRandomMovement(delta)
 	var motion = Vector2()
 	var GravityMotion = Vector2(0, Skeleton_Gravity)
@@ -50,11 +49,16 @@ func _process(delta):
 		if (DeathCounter == 0):
 			queue_free()
 		return
+	if (Facing[0] == 1):
+		CurrSprite.flip_h = false
+	else:
+		CurrSprite.flip_h = true
 	if (StaggerCounter > 0):
 		StaggerCounter -= 1
 		AttackTimer = 0
 		Attacking = false
 		return
+	DealDamage()
 	if (AttackTimer >= 0):
 		AttackTimer -= 1
 		Animator.play("attack")
@@ -65,33 +69,29 @@ func _process(delta):
 		return
 	if (DetectPlayer and Facing[0] == -1):
 			motion = Vector2(-1,0)
-			CurrSprite.flip_h = true
 			Animator.play("walk")
 	elif (DetectPlayer and Facing[0] == 1):
 			motion = Vector2(1,0)
-			CurrSprite.flip_h = false
 			Animator.play("walk")
 	else:
 		if (Direction == "left"):
 			testtransform = transform
-			testtransform[2][0] -= SkeletonSpeed*delta*10
+			testtransform[2][0] -= SkeletonSpeed*delta*5
 			if (test_move(testtransform, Vector2(0,2))): #left
 				motion = Vector2(-1,0)
 				Animator.play("walk")
 			else:
 				Animator.play("idle")
 			Facing = Vector2(-1,0)
-			CurrSprite.flip_h = true
 		elif (Direction == "right"):
 			testtransform = transform
-			testtransform[2][0] += SkeletonSpeed*delta*10
+			testtransform[2][0] += SkeletonSpeed*delta*5
 			if (test_move(testtransform, Vector2(0,2))): #left
 				motion = Vector2(1,0)
 				Animator.play("walk")
 			else:
 				Animator.play("idle")
 			Facing = Vector2(1,0)
-			CurrSprite.flip_h = false
 		elif (Direction == "none"):
 			Animator.play("idle")
 			pass
@@ -128,11 +128,23 @@ func Take_Damage(damage):
 	Health -= damage
 	StaggerCounter = 42
 	Animator.play("stagger")
+	var temp = (Player.get_global_transform()[2]) - get_global_transform()[2]
+	if (temp[0] > 0):
+		Facing[0] = 1
+	else:
+		Facing[0] = -1
    
 func Die():
 	Animator.play("dead")
 	DeathCounter = 90
  
+func DealDamage():
+	var Overlaps = get_node("SkeletonDamageBox").get_overlapping_bodies()
+	for Hit in (Overlaps):
+		if (Hit.is_in_group("Player")):
+			if (Hit.Invincible == false and not Hit.Dying):
+				Hit.Take_Damage(20)
+				Hit.Invincibility_Frames(60)
  
 func SkeletonAttack():
 	var MeleeHit = load("res://Scenes/SkeletonAttack.tscn")

@@ -769,7 +769,9 @@ move_to = Vector2( 0, -460 )
 position = Vector2( 869.751, 195.255 )
 move_to = Vector2( 0, -460 )
 
-[node name="TileMap" type="TileMap" parent="."]
+[node name="TileMap" type="TileMap" parent="." groups=[
+"Terrain",
+]]
 z_index = 2
 tile_set = SubResource( 19 )
 cell_size = Vector2( 16, 16 )

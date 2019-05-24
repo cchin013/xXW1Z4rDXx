@@ -790,7 +790,7 @@ tile_data = PoolIntArray( -196634, 4, 0, -196633, 5, 0, 262119, 5, 0, 262120, 4,
 script = ExtResource( 43 )
 
 [node name="Player" parent="." instance=ExtResource( 44 )]
-position = Vector2( -309.923, 278.349 )
+position = Vector2( -50.0006, 999.266 )
 
 [node name="KinematicBody2D" parent="Player" instance=ExtResource( 45 )]
 position = Vector2( 979.297, -1363.8 )

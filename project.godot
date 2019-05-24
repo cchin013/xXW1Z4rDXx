@@ -15,7 +15,7 @@ _global_script_class_icons={
 
 [application]
 
-run/main_scene="res://Scenes/Demo/demo.tscn"
+run/main_scene="res://Full_Level.tscn"
 config/icon="res://icon.png"
 <<<<<<<HEADconfig/name="GalGodot"
 

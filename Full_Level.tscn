@@ -757,7 +757,7 @@ points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
 } ]
 5/z_index = 0
 
-[node name="Bigmap" type="Node2D"]
+[node name="map" type="Node2D"]
 
 [node name="TileMap" type="TileMap" parent="."]
 z_index = 2
@@ -922,3 +922,4 @@ position = Vector2( -410, 303.019 )
 stream = ExtResource( 47 )
 volume_db = -20.594
 autoplay = true
+

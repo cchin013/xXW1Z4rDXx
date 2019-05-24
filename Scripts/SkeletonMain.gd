@@ -95,49 +95,48 @@ func _process(delta):
    
    
 func SkeletonRandomMovement(delta):
-    if (LeftMove > 0):
-        LeftMove -= 1
-        return "left"
-    if (RightMove > 0):
-        RightMove -= 1
-        return "right"
- 
-       
-    if (RandomMoveCounter > 240):
-        var temp = randi()%2 #can be expanded to add things like cool idle animations
-        var transform = get_transform()
-        if (temp == 0):
-            transform[2][0] += -65*SkeletonSpeed*delta
-        if (temp == 1):
-            transform[2][0] += 65*SkeletonSpeed*delta
-        if (temp == 0 and (test_move(transform, Vector2(0,2)))): #left
-            LeftMove = 65
-            RandomMoveCounter = 0
-        elif (temp == 1 and (test_move(transform, Vector2(0,2)))): #right
-            RightMove = 65
-            RandomMoveCounter = 0
-    RandomMoveCounter += 1
-    return "none"
+	if (LeftMove > 0):
+		LeftMove -= 1
+		return "left"
+	if (RightMove > 0):
+		RightMove -= 1
+		return "right"
+		
+	if (RandomMoveCounter > 240):
+		var temp = randi()%2 #can be expanded to add things like cool idle animations
+		var transform = get_transform()
+		if (temp == 0):
+			transform[2][0] += -65*SkeletonSpeed*delta
+		if (temp == 1):
+			transform[2][0] += 65*SkeletonSpeed*delta
+		if (temp == 0 and (test_move(transform, Vector2(0,2)))): #left
+			LeftMove = 65
+			RandomMoveCounter = 0
+		elif (temp == 1 and (test_move(transform, Vector2(0,2)))): #right
+			RightMove = 65
+			RandomMoveCounter = 0
+	RandomMoveCounter += 1
+	return "none"
  
 func Take_Damage(damage):
-    Health -= damage
-    StaggerCounter = 42
-    Animator.play("stagger")
+	Health -= damage
+	StaggerCounter = 42
+	Animator.play("stagger")
    
 func Die():
-    Animator.play("dead")
-    DeathCounter = 90
+	Animator.play("dead")
+	DeathCounter = 90
  
  
 func SkeletonAttack():
-    var MeleeHit = load("res://Scenes/SkeletonAttack.tscn")
-    var MeleeHitInstance = MeleeHit.instance()
-    MeleeHitInstance.set_name("melee")
-    var MeleeHitPos = get_position()
-    if (Facing[0] == -1):
-        MeleeHitPos[0] -= 24
-    if (Facing[0] == 1):
-        MeleeHitPos[0] += 24
-    MeleeHitPos[1] += 2
-    MeleeHitInstance.set_position(MeleeHitPos)
-    get_node("/root").add_child(MeleeHitInstance)
+	var MeleeHit = load("res://Scenes/SkeletonAttack.tscn")
+	var MeleeHitInstance = MeleeHit.instance()
+	MeleeHitInstance.set_name("melee")
+	var MeleeHitPos = get_position()
+	if (Facing[0] == -1):
+	    MeleeHitPos[0] -= 24
+	if (Facing[0] == 1):
+	    MeleeHitPos[0] += 24
+	MeleeHitPos[1] += 2
+	MeleeHitInstance.set_position(MeleeHitPos)
+	get_node("/root").add_child(MeleeHitInstance)

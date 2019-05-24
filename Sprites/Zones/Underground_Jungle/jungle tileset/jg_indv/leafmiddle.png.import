@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/inner_leaf_corner_left.png-49d8a2a21b76e8368f22bb65ae710b0f.stex"
+path="res://.import/leafmiddle.png-bfe6d981c2156b4a3784d982737ad45f.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/Zones/Underground_Jungle/jungle tileset/jg_indv/inner_leaf_corner_left.png"
-dest_files=[ "res://.import/inner_leaf_corner_left.png-49d8a2a21b76e8368f22bb65ae710b0f.stex" ]
+source_file="res://Sprites/Zones/Underground_Jungle/jungle tileset/jg_indv/leafmiddle.png"
+dest_files=[ "res://.import/leafmiddle.png-bfe6d981c2156b4a3784d982737ad45f.stex" ]
 
 [params]
 

@@ -14,9 +14,9 @@ func _ready():
 func _process(delta):
 	
 	# THIS ENTIRE IF TREE CHECKS FOR THE SUPER SKELETON DEATH TO ACTIVATE THE TELEPORTER
-	if (has_node("/root/Bigmap/Enemies/SuperSkeleton")):
+	if (has_node("/root/map/Enemies/SuperSkeleton")):
 		#print("this node exists bruh")
-		Skelenode = get_node("/root/Bigmap/Enemies/SuperSkeleton").DeathCounter
+		Skelenode = get_node("/root/map/Enemies/SuperSkeleton").DeathCounter
 		#print(Skelenode)
 		if (Skelenode == 90):
 			dead = true

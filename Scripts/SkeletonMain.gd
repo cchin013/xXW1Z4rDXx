@@ -1,8 +1,5 @@
 extends "res://Scripts/BaseEnemy.gd"
  
-#testtest
- 
-#export var SkeletonHealth = 500
 export var SkeletonSpeed = 70
 var moving = false
 var Skeleton_Gravity = 100
@@ -15,16 +12,20 @@ var StaggerCounter = 0
 var DeathCounter = 0
 var DetectAttack = false
 var AttackDetection = 30
-var AttackTimer = 0
 var Attacking = false
+var AttackTimer = 0
 var testtransform
- 
- 
- 
+var DamageTimer = 0
+
+
+
+
+
 func _ready():
 	set_process(true)
    
 func _process(delta):
+	print(Engine.get_frames_per_second())
 	#Enemy Detection
 	DistToPlayer = get_global_transform()[2] - (Player.get_global_transform()[2])
 	if (abs(DistToPlayer[0]) < MaxDetection):
@@ -44,7 +45,6 @@ func _process(delta):
 	#moving = false
 	if (DeathCounter > 0):
 		DeathCounter -= 1
-		AttackTimer = 0
 		Attacking = false
 		if (DeathCounter == 0):
 			queue_free()
@@ -58,13 +58,17 @@ func _process(delta):
 		AttackTimer = 0
 		Attacking = false
 		return
-	DealDamage()
-	if (AttackTimer >= 0):
+	if (DamageTimer == 3):
+		DealDamage()
+		DamageTimer = 0
+	else:
+		DamageTimer += 1
+	if (Attacking):
 		AttackTimer -= 1
 		Animator.play("attack")
 		if (AttackTimer == 68):
 			SkeletonAttack()
-		if (AttackTimer <= 0):
+		if (AttackTimer == 0):
 			Attacking = false
 		return
 	if (DetectPlayer and Facing[0] == -1):
@@ -145,6 +149,7 @@ func DealDamage():
 			if (Hit.Invincible == false and not Hit.Dying):
 				Hit.Take_Damage(20)
 				Hit.Invincibility_Frames(60)
+
  
 func SkeletonAttack():
 	var MeleeHit = load("res://Scenes/SkeletonAttack.tscn")

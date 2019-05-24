@@ -5,6 +5,7 @@ export var LIFESPAN = 1
 
 var RayNode
 var RemainingLife
+var DamageTimer = 0
 
 # Declare member variables here. Examples:
 # var a = 2
@@ -22,7 +23,11 @@ func _process(delta):
 	if (RemainingLife <= 0):
 		free()
 		return
-	DealDamage()
+	if (DamageTimer == 3):
+		DealDamage()
+		DamageTimer = 0
+	else:
+		DamageTimer += 1
 	var LightningMotion = LIGHTNING_SPEED*delta
 	if (RayNode.get_rotation_degrees() == -90):
 		LightningMotion = LIGHTNING_SPEED*delta

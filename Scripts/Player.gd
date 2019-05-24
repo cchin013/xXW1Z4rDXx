@@ -30,6 +30,7 @@ var DeathCounter = 0
 var RayNode
 var CurrSprite
 var CurrCollision
+var startPos
 
 var Animator
 
@@ -58,6 +59,7 @@ func _ready():
 	RayNode.set_rotation_degrees(-90)
 	Animator = CurrSprite.get_node("general") # animation player
 	playerSize = self.get_node("PlayerCollision").get_shape().get_extents()
+	startPos = get_global_transform()
 
 ##Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -65,6 +67,10 @@ func _process(delta):
 	var GravityMotion = Vector2(0, Player_Gravity)
 	var collide_obj_id = 0
 	moving = false
+	
+	if (Input.is_action_just_pressed("ui_revive") and Dying):
+		Revive()
+		return
 	
 	if (PlayerHealth <= 0 and not Dying):
 		Die()
@@ -266,5 +272,10 @@ func Die():
 	DeathCounter = 42
 	Animator.play("die")
    
+func Revive():
+	PlayerHealth = 100
+	Dying = false
+	self.set_transform(startPos)
+
 func PlayAnimation():
 	pass

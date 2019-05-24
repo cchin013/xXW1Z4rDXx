@@ -67,24 +67,24 @@ func _process(delta):
 	moving = false
 	
 	if (PlayerHealth <= 0 and not Dying):
-        Die()
-        Dying = true
+		Die()
+		Dying = true
 	if (IFrames > 0):
-	    if (IFrames % 6 == 0):
-	        self.modulate.a = 0
-	    else:
-	        self.modulate.a = 1
-	    IFrames -= 1
+		if (IFrames % 6 == 0):
+			self.modulate.a = 0
+		else:
+			self.modulate.a = 1
+		IFrames -= 1
 	else :
-	    Invincible = false
+		Invincible = false
 	if (DeathCounter > 0 or Dying):
-	    DeathCounter -= 1
-	    #if (DeathCounter == 0):
-	    #   queue_free()
-	    return
+		DeathCounter -= 1
+		#if (DeathCounter == 0):
+		#   queue_free()
+		return
 	if (StaggerCounter > 0):
-	    StaggerCounter -= 1
-	    return
+		StaggerCounter -= 1
+		return
 	
 	#Spell Wheel
 	if (Input.is_action_pressed("ui_selectFire") && hasSpell["fire"]):
@@ -254,17 +254,17 @@ func SpawnMeleeHitbox():
 	
 	
 func Take_Damage(damage):
-    PlayerHealth -= damage
-    StaggerCounter = 15
-    Animator.play("hurt")
+	PlayerHealth -= damage
+	StaggerCounter = 15
+	Animator.play("hurt")
  
 func Invincibility_Frames(numFrames):
-    Invincible = true
-    IFrames = numFrames
+	Invincible = true
+	IFrames = numFrames
    
 func Die():
-    DeathCounter = 42
-    Animator.play("die")
+	DeathCounter = 42
+	Animator.play("die")
    
 func PlayAnimation():
-    pass
+	pass

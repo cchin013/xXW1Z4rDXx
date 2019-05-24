@@ -21,77 +21,77 @@ var Attacking = false
  
  
 func _ready():
-    set_process(true)
+	set_process(true)
    
 func _process(delta):
-    #Enemy Detection
-    DistToPlayer = get_global_transform()[2] - (Player.get_global_transform()[2])
-    if (abs(DistToPlayer[0]) < MaxDetection):
-        #print(rad2deg(acos(DistToPlayer.normalized().dot(Facing))))
-        if (rad2deg(acos(DistToPlayer.normalized().dot(Facing))) - 135 > FOV):
-            DetectPlayer = true
-            if (abs(DistToPlayer[0]) < AttackDetection and not Attacking):
-                AttackTimer = 120
-                Attacking = true
-        else:
-            DetectPlayer = false
-    else:
-        DetectPlayer = false
-    #print(DetectAttack)
-    var Direction = SkeletonRandomMovement(delta)
-    var motion = Vector2()
-    var GravityMotion = Vector2(0, Skeleton_Gravity)
-    #moving = false
-    if (DeathCounter > 0):
-        DeathCounter -= 1
-        AttackTimer = 0
-        Attacking = false
-        if (DeathCounter == 0):
-            queue_free()
-        return
-    if (StaggerCounter > 0):
-        StaggerCounter -= 1
-        AttackTimer = 0
-        Attacking = false
-        return
-    if (AttackTimer >= 0):
-        AttackTimer -= 1
-        Animator.play("attack")
-        if (AttackTimer == 68):
-            SkeletonAttack()
-        if (AttackTimer <= 0):
-            Attacking = false
-        return
-    if (DetectPlayer and Facing[0] == -1):
-            motion = Vector2(-1,0)
-            CurrSprite.flip_h = true
-            Animator.play("walk")
-    elif (DetectPlayer and Facing[0] == 1):
-            motion = Vector2(1,0)
-            CurrSprite.flip_h = false
-            Animator.play("walk")
-    else:
-        if (Direction == "left"):
-            motion = Vector2(-1,0)
-            Facing = Vector2(-1,0)
-            CurrSprite.flip_h = true
-            Animator.play("walk")
-        elif (Direction == "right"):
-            motion = Vector2(1,0)
-            Facing = Vector2(1,0)
-            CurrSprite.flip_h = false
-            Animator.play("walk")
-        elif (Direction == "none"):
-            Animator.play("idle")
-            pass
+	#Enemy Detection
+	DistToPlayer = get_global_transform()[2] - (Player.get_global_transform()[2])
+	if (abs(DistToPlayer[0]) < MaxDetection):
+		#print(rad2deg(acos(DistToPlayer.normalized().dot(Facing))))
+		if (rad2deg(acos(DistToPlayer.normalized().dot(Facing))) - 135 > FOV):
+			DetectPlayer = true
+			if (abs(DistToPlayer[0]) < AttackDetection and not Attacking):
+				AttackTimer = 120
+				Attacking = true
+		else:
+			DetectPlayer = false
+	else:
+		DetectPlayer = false
+	#print(DetectAttack)
+	var Direction = SkeletonRandomMovement(delta)
+	var motion = Vector2()
+	var GravityMotion = Vector2(0, Skeleton_Gravity)
+	#moving = false
+	if (DeathCounter > 0):
+		DeathCounter -= 1
+		AttackTimer = 0
+		Attacking = false
+		if (DeathCounter == 0):
+			queue_free()
+		return
+	if (StaggerCounter > 0):
+		StaggerCounter -= 1
+		AttackTimer = 0
+		Attacking = false
+		return
+	if (AttackTimer >= 0):
+		AttackTimer -= 1
+		Animator.play("attack")
+		if (AttackTimer == 68):
+			SkeletonAttack()
+		if (AttackTimer <= 0):
+			Attacking = false
+		return
+	if (DetectPlayer and Facing[0] == -1):
+			motion = Vector2(-1,0)
+			CurrSprite.flip_h = true
+			Animator.play("walk")
+	elif (DetectPlayer and Facing[0] == 1):
+			motion = Vector2(1,0)
+			CurrSprite.flip_h = false
+			Animator.play("walk")
+	else:
+		if (Direction == "left"):
+			motion = Vector2(-1,0)
+			Facing = Vector2(-1,0)
+			CurrSprite.flip_h = true
+			Animator.play("walk")
+		elif (Direction == "right"):
+			motion = Vector2(1,0)
+			Facing = Vector2(1,0)
+			CurrSprite.flip_h = false
+			Animator.play("walk")
+		elif (Direction == "none"):
+			Animator.play("idle")
+			pass
  
-    if (test_move(get_transform(), Vector2(0,0.1))):
-        Skeleton_Gravity = 100
-    else:
-        Skeleton_Gravity += 12
-    motion[0] *= SkeletonSpeed
-    motion[1] += GravityMotion[1]
-    move_and_slide(motion)
+	if (test_move(get_transform(), Vector2(0,0.1))):
+		Skeleton_Gravity = 100
+	else:
+		Skeleton_Gravity += 12
+	motion[0] *= SkeletonSpeed
+	motion[1] += GravityMotion[1]
+	move_and_slide(motion)
    
    
 func SkeletonRandomMovement(delta):
@@ -134,9 +134,9 @@ func SkeletonAttack():
 	MeleeHitInstance.set_name("melee")
 	var MeleeHitPos = get_position()
 	if (Facing[0] == -1):
-	    MeleeHitPos[0] -= 24
+		MeleeHitPos[0] -= 24
 	if (Facing[0] == 1):
-	    MeleeHitPos[0] += 24
+		MeleeHitPos[0] += 24
 	MeleeHitPos[1] += 2
 	MeleeHitInstance.set_position(MeleeHitPos)
 	get_node("/root").add_child(MeleeHitInstance)

@@ -790,7 +790,7 @@ tile_data = PoolIntArray( -196634, 4, 0, -196633, 5, 0, 262119, 5, 0, 262120, 4,
 script = ExtResource( 43 )
 
 [node name="Player" parent="." instance=ExtResource( 44 )]
-position = Vector2( -50, 1038.5 )
+position = Vector2( -309.923, 278.349 )
 
 [node name="KinematicBody2D" parent="Player" instance=ExtResource( 45 )]
 position = Vector2( 979.297, -1363.8 )
@@ -950,7 +950,7 @@ position = Vector2( 760.177, -252.039 )
 position = Vector2( 791.388, -257.403 )
 
 [node name="SuperSkeleton" parent="Enemies" instance=ExtResource( 48 )]
-position = Vector2( 771.48, -258.184 )
+position = Vector2( -155.414, 281.278 )
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 49 )

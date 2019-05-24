@@ -7,11 +7,21 @@ var telecell2
 var telecell3
 var telecell4
 var active = false
+var playerpos
+var x
+var y
+
 
 func _ready():
 	pass # Replace with function body.
 
 func _process(delta):
+	
+	# GET PLAYER POSITION EVERY FRAME 
+	playerpos = get_node("/root/map/Player").get_global_transform()
+	x = playerpos[2][0]
+	y = playerpos[2][1]
+	print(x," ", y)
 	
 	# THIS ENTIRE IF TREE CHECKS FOR THE SUPER SKELETON DEATH TO ACTIVATE THE TELEPORTER
 	if (has_node("/root/map/Enemies/SuperSkeleton")):
@@ -35,6 +45,10 @@ func _process(delta):
 		set_cell ( -29, 18, 4, false, false,false, Vector2( 0, 0 ))
 		set_cell ( -28, 18, 5, false, false,false, Vector2( 0, 0 ))
 		active = true
-		
+	
+	if (active && x < -421 && y > 302):
+		if (Input.is_action_pressed("Interact")):
+			get_node("/root/map/Player").set_transform(Transform2D(0, Vector2(-300, 302)))
+			#print("we in it to win it")
 	pass
 # Called every frame. 'delta' is the elapsed time since the previous frame.

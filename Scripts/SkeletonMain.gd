@@ -29,7 +29,7 @@ func _process(delta):
 	DistToPlayer = get_global_transform()[2] - (Player.get_global_transform()[2])
 	if (abs(DistToPlayer[0]) < MaxDetection):
 		#print(rad2deg(acos(DistToPlayer.normalized().dot(Facing))))
-		if (rad2deg(acos(DistToPlayer.normalized().dot(Facing))) - 135 > FOV):
+		if (rad2deg(acos(DistToPlayer.normalized().dot(Facing))) - 100 > FOV):
 			DetectPlayer = true
 			if (abs(DistToPlayer[0]) < AttackDetection and not Attacking):
 				AttackTimer = 120

@@ -17,6 +17,7 @@ var DetectAttack = false
 var AttackDetection = 30
 var AttackTimer = 0
 var Attacking = false
+var testtransform
  
  
  
@@ -72,15 +73,25 @@ func _process(delta):
 			Animator.play("walk")
 	else:
 		if (Direction == "left"):
-			motion = Vector2(-1,0)
+			testtransform = transform
+			testtransform[2][0] -= SkeletonSpeed*delta*10
+			if (test_move(testtransform, Vector2(0,2))): #left
+				motion = Vector2(-1,0)
+				Animator.play("walk")
+			else:
+				Animator.play("idle")
 			Facing = Vector2(-1,0)
 			CurrSprite.flip_h = true
-			Animator.play("walk")
 		elif (Direction == "right"):
-			motion = Vector2(1,0)
+			testtransform = transform
+			testtransform[2][0] += SkeletonSpeed*delta*10
+			if (test_move(testtransform, Vector2(0,2))): #left
+				motion = Vector2(1,0)
+				Animator.play("walk")
+			else:
+				Animator.play("idle")
 			Facing = Vector2(1,0)
 			CurrSprite.flip_h = false
-			Animator.play("walk")
 		elif (Direction == "none"):
 			Animator.play("idle")
 			pass
@@ -104,15 +115,10 @@ func SkeletonRandomMovement(delta):
 		
 	if (RandomMoveCounter > 240):
 		var temp = randi()%2 #can be expanded to add things like cool idle animations
-		var transform = get_transform()
 		if (temp == 0):
-			transform[2][0] += -65*SkeletonSpeed*delta
-		if (temp == 1):
-			transform[2][0] += 65*SkeletonSpeed*delta
-		if (temp == 0 and (test_move(transform, Vector2(0,2)))): #left
 			LeftMove = 65
 			RandomMoveCounter = 0
-		elif (temp == 1 and (test_move(transform, Vector2(0,2)))): #right
+		if (temp == 1):
 			RightMove = 65
 			RandomMoveCounter = 0
 	RandomMoveCounter += 1

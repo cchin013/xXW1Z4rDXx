@@ -87,9 +87,11 @@ func _process(delta):
 		DeathCounter -= 1
 		#if (DeathCounter == 0):
 		#   queue_free()
+		#move_and_slide(GravityMotion)
 		return
 	if (StaggerCounter > 0):
 		StaggerCounter -= 1
+		#move_and_slide(GravityMotion)
 		return
 	
 	#Spell Wheel
@@ -193,7 +195,7 @@ func _process(delta):
 		moving = true
 	#GravityMotion *= delta
 	##Finalizes motion vector and moves character
-	motion[0] = motion[0]*PLAYER_SPEED#*delta
+	motion[0] = motion[0]*PLAYER_SPEED
 	motion[1] += GravityMotion[1]
 	#Maximum Fall Speed
 	if (motion[1] >= 450):

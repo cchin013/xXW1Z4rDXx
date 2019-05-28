@@ -25,7 +25,6 @@ func _ready():
 	set_process(true)
    
 func _process(delta):
-	print(Engine.get_frames_per_second())
 	#Enemy Detection
 	DistToPlayer = get_global_transform()[2] - (Player.get_global_transform()[2])
 	if (abs(DistToPlayer[0]) < MaxDetection):
@@ -48,6 +47,7 @@ func _process(delta):
 		Attacking = false
 		if (DeathCounter == 0):
 			queue_free()
+		move_and_slide(GravityMotion)
 		return
 	if (Facing[0] == 1):
 		CurrSprite.flip_h = false
@@ -57,6 +57,7 @@ func _process(delta):
 		StaggerCounter -= 1
 		AttackTimer = 0
 		Attacking = false
+		move_and_slide(GravityMotion)
 		return
 	if (DamageTimer == 3):
 		DealDamage()
@@ -70,6 +71,7 @@ func _process(delta):
 			SkeletonAttack()
 		if (AttackTimer == 0):
 			Attacking = false
+		move_and_slide(GravityMotion)
 		return
 	if (DetectPlayer and Facing[0] == -1):
 			motion = Vector2(-1,0)

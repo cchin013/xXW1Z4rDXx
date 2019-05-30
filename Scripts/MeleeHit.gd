@@ -17,4 +17,4 @@ func DealDamage():
 		if (Hit.is_in_group("Enemies")):
 			if (Hit.Invincible == false and not Hit.Dying):
 				Hit.Take_Damage(15)
-				Hit.Invincibility_Frames(42)
+				Hit.Invincibility_Frames(30)

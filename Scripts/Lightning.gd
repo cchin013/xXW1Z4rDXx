@@ -1,11 +1,9 @@
 extends Area2D
 
-export var LIGHTNING_SPEED = 350
 export var LIFESPAN = 1
 
 var RayNode
 var RemainingLife
-var DamageTimer = 0
 
 # Declare member variables here. Examples:
 # var a = 2
@@ -14,6 +12,20 @@ var DamageTimer = 0
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	RayNode = get_node("LightningRotation")
+	if (RayNode.get_rotation_degrees() == -90):
+		pass
+	if (RayNode.get_rotation_degrees() == 90):
+		set_rotation_degrees(180)
+		#get_node("LightningSprite1").flip_h = true
+		#get_node("LightningSprite1").flip_v = true
+		#get_node("LightningSprite2").flip_h = true
+		#get_node("LightningSprite2").flip_v = true
+		#get_node("LightningSprite3").flip_h = true
+		#get_node("LightningSprite3").flip_v = true
+		#get_node("LightningSprite4").flip_h = true
+		#get_node("LightningSprite4").flip_v = true
+		#get_node("LightningSprite5").flip_h = true
+		#get_node("LightningSprite5").flip_v = true
 	RemainingLife = LIFESPAN
 	set_process(true)
 	
@@ -23,20 +35,8 @@ func _process(delta):
 	if (RemainingLife <= 0):
 		free()
 		return
-	if (DamageTimer == 3):
-		DealDamage()
-		DamageTimer = 0
-	else:
-		DamageTimer += 1
-	var LightningMotion = LIGHTNING_SPEED*delta
-	if (RayNode.get_rotation_degrees() == -90):
-		LightningMotion = LIGHTNING_SPEED*delta
-	if (RayNode.get_rotation_degrees() == 90):
-		LightningMotion = -LIGHTNING_SPEED*delta
-		get_node("LightningSprite").flip_h = true
-		get_node("LightningSprite").flip_v = true
-	var LightningCollisionCheck = global_translate(Vector2(LightningMotion,0))
-	RemainingLife -= 1*delta
+	DealDamage()
+	RemainingLife -= 30*delta
 
 func DealDamage():
 	var Overlaps = get_overlapping_bodies()
@@ -44,7 +44,5 @@ func DealDamage():
 		if (Hit.is_in_group("Enemies")):
 			if (Hit.Invincible == false and not Hit.Dying):
 				Hit.Take_Damage(35)
-				Hit.Invincibility_Frames(42)
-		elif (Hit.is_in_group("Terrain")):
-			queue_free()
+				Hit.Invincibility_Frames(30)
 

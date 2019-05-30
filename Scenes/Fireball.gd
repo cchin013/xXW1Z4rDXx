@@ -26,7 +26,7 @@ func _process(delta):
 	var FireballMotion = FIREBALL_SPEED*delta
 	if (RayNode.get_rotation_degrees() == -90):
 		FireballMotion = FIREBALL_SPEED*delta
-		get_node("FireballSprite").flip_h = true
+		set_rotation_degrees(180)
 	if (RayNode.get_rotation_degrees() == 90):
 		FireballMotion = -FIREBALL_SPEED*delta
 	var FireballCollisionCheck = global_translate(Vector2(FireballMotion,0))
@@ -37,8 +37,9 @@ func DealDamage():
 	for Hit in (Overlaps):
 		if (Hit.is_in_group("Enemies")):
 			if (Hit.Invincible == false):
-				Hit.Take_Damage(35)
+				Hit.Take_Damage(20)
 				Hit.Invincibility_Frames(30)
+				queue_free()
 		elif (Hit.is_in_group("Terrain")):
 			queue_free()
 

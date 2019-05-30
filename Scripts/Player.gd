@@ -31,6 +31,7 @@ var RayNode
 var CurrSprite
 var CurrCollision
 var startPos
+var DisableInput = false
 
 var Animator
 
@@ -85,14 +86,16 @@ func _process(delta):
 		Invincible = false
 	if (DeathCounter > 0 or Dying):
 		DeathCounter -= 1
+		DisableInput = true
 		#if (DeathCounter == 0):
 		#   queue_free()
 		#move_and_slide(GravityMotion)
-		return
+		#return
 	if (StaggerCounter > 0):
 		StaggerCounter -= 1
+		DisableInput = true
 		#move_and_slide(GravityMotion)
-		return
+		#return
 	
 	#Spell Wheel
 	if (Input.is_action_pressed("ui_selectFire") && hasSpell["fire"]):
@@ -106,52 +109,55 @@ func _process(delta):
 		
 	if (Input.is_action_pressed("ui_selectWater") && hasSpell["water"]):
 		currentSpell = "water"
-		
-	##Shoot
-	if (Input.is_action_pressed("ui_shoot")):
-		if (BoltCooldown <= 0):
-			CreateBolt()
-			BoltCooldown = 2
-				
-	##Punching
-	if (Input.is_action_just_pressed("ui_melee") and MeleeTimer <= 0):
-		MeleeTimer = 1
-		SpawnMeleeHitbox()
-		
-	##Jumping
-	if (Input.is_action_pressed("ui_up") and !jumping and test_move(get_transform(), Vector2(0,0.1)) and jumpReset):
-		jumping = true
-		LongJump = true
-		jumpReset = false
-		JumpVelocity = PLAYER_JUMP_SPEED
-		Animator.play("jump")
-		moving = true
-	elif (Input.is_action_pressed("ui_up") and jumping and test_move(get_transform(), Vector2(0,0.1))):
-		jumping = false
-		LongJump = false
-		ShortHop = false
-		JumpWait = true
-		JumpVelocity = 0
-	##Left/Right Movement
-	if (Input.is_action_pressed("ui_right")):
-		motion += Vector2(1, 0)
-		RayNode.set_rotation_degrees(-90)
-		CurrSprite.flip_h = false
-		Animator.play("run")
-		moving = true
-	if (Input.is_action_pressed("ui_left")):
-		motion += Vector2(-1, 0)
-		RayNode.set_rotation_degrees(90)
-		CurrSprite.flip_h = true
-		Animator.play("run")
-		moving = true
-	##Crouch, TODO
-	if (Input.is_action_pressed("ui_down")):
-		Animator.play("crouch")
-		moving = true
-		pass
-	else:
-		pass
+	
+	#Begin General Input Block	
+	if (!DisableInput):
+		##Shoot
+		if (Input.is_action_pressed("ui_shoot")):
+			if (BoltCooldown <= 0):
+				CreateBolt()
+				BoltCooldown = 2
+					
+		##Punching
+		if (Input.is_action_just_pressed("ui_melee") and MeleeTimer <= 0):
+			MeleeTimer = 1
+			SpawnMeleeHitbox()
+			
+		##Jumping
+		if (Input.is_action_pressed("ui_up") and !jumping and test_move(get_transform(), Vector2(0,0.1)) and jumpReset):
+			jumping = true
+			LongJump = true
+			jumpReset = false
+			JumpVelocity = PLAYER_JUMP_SPEED
+			Animator.play("jump")
+			moving = true
+		elif (Input.is_action_pressed("ui_up") and jumping and test_move(get_transform(), Vector2(0,0.1))):
+			jumping = false
+			LongJump = false
+			ShortHop = false
+			JumpWait = true
+			JumpVelocity = 0
+		##Left/Right Movement
+		if (Input.is_action_pressed("ui_right")):
+			motion += Vector2(1, 0)
+			RayNode.set_rotation_degrees(-90)
+			CurrSprite.flip_h = false
+			Animator.play("run")
+			moving = true
+		if (Input.is_action_pressed("ui_left")):
+			motion += Vector2(-1, 0)
+			RayNode.set_rotation_degrees(90)
+			CurrSprite.flip_h = true
+			Animator.play("run")
+			moving = true
+		##Crouch, TODO
+		if (Input.is_action_pressed("ui_down")):
+			Animator.play("crouch")
+			moving = true
+			pass
+		else:
+			pass
+	#End General Input Block	
 		
 	#Melee Hitbox Timing
 	if (MeleeTimer >= 0):
@@ -176,7 +182,7 @@ func _process(delta):
 			JumpWait = true
 			JumpVelocity = 0
 		moving = true
-	if (jumping and (JumpVelocity + Player_Gravity) >= 20):
+	if (jumping and (JumpVelocity + Player_Gravity) >= 20 and !DisableInput):
 		Animator.play("fall")
 	if (JumpWait):
 		if (not Input.is_action_pressed("ui_up")):
@@ -211,8 +217,9 @@ func _process(delta):
 #		else:
 #			self.set_sync_to_physics(false)
 	
-	if(!moving):
+	if(!moving and !DisableInput):
 		Animator.play("idle")
+	DisableInput = false
 
 ##Spawns Spell Bolt
 func CreateBolt():
@@ -244,6 +251,9 @@ func CreateBolt():
 		BoltPos[0] -= 8
 	BoltPos[1] -= 2
 	BoltInstance.set_position(BoltPos)
+	#if (currentSpell == "lightning"):
+	#	add_child(BoltInstance)
+	#	return
 	get_node("/root").add_child(BoltInstance)
 	
 ##Spawns Melee Hitbox

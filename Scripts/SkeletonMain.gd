@@ -31,11 +31,13 @@ func _process(delta):
 		#print(rad2deg(acos(DistToPlayer.normalized().dot(Facing))))
 		if (rad2deg(acos(DistToPlayer.normalized().dot(Facing))) - 100 > FOV):
 			DetectPlayer = true
+			SkeletonSpeed = 115
 			if (abs(DistToPlayer[0]) < AttackDetection and not Attacking):
 				AttackTimer = 120
 				Attacking = true
 		else:
 			DetectPlayer = false
+			SkeletonSpeed = 70
 	else:
 		DetectPlayer = false
 	var Direction = SkeletonRandomMovement(delta)

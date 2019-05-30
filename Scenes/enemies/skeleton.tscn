@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Scripts/SkeletonMain.gd" type="Script" id=1]
 [ext_resource path="res://Sprites/enemies/skeleton/Sprite Sheets/Skeleton Idle.png" type="Texture" id=2]
@@ -65,16 +65,13 @@ tracks/3/keys = {
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 9.32635, 13.0381 )
 
-[sub_resource type="RectangleShape2D" id=3]
-extents = Vector2( 8.94534, 12.1925 )
-
 [node name="Skeleton" type="KinematicBody2D" groups=[
 "Enemies",
 ]]
 collision_layer = 4
 collision_mask = 2
 script = ExtResource( 1 )
-Health = 100
+Health = 200
 
 [node name="skeleton" type="Sprite" parent="."]
 texture = ExtResource( 2 )
@@ -97,7 +94,6 @@ shape = SubResource( 2 )
 [node name="SkeletonDamageBox" type="Area2D" parent="."]
 collision_layer = 4
 
-[node name="BodyBox" type="CollisionShape2D" parent="SkeletonDamageBox"]
-position = Vector2( -3.00415, 4.25586 )
-shape = SubResource( 3 )
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="SkeletonDamageBox"]
+polygon = PoolVector2Array( -12.3341, 16.3467, -9.32996, 10.0881, -9.32996, 10.0881, -11.8334, 7.08399, -10.5817, -2.42909, -7.07686, -1.17737, -8.07824, -7.68632, 1.18449, -8.6877, 3.18726, -14.696, 10.1969, -16.6987, 13.7017, -13.4442, 11.699, -7.18563, 6.94241, -5.43322, 6.94241, 16.3467 )
 

@@ -6,17 +6,9 @@
 anchor_right = 1.0
 margin_bottom = 24.0
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
+[node name="Bars" type="VBoxContainer" parent="."]
 margin_right = 1920.0
 margin_bottom = 53.0
 
-[node name="Bars" type="VBoxContainer" parent="HBoxContainer"]
-margin_right = 500.0
-margin_bottom = 53.0
-
-[node name="Bar" parent="HBoxContainer/Bars" instance=ExtResource( 1 )]
-
-[node name="Counters" type="HBoxContainer" parent="HBoxContainer"]
-margin_left = 504.0
-margin_right = 504.0
-margin_bottom = 53.0
+[node name="LifeBar" parent="Bars" instance=ExtResource( 1 )]
+margin_right = 1920.0

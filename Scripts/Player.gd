@@ -2,7 +2,7 @@ extends KinematicBody2D
 
 #testtest
 
-signal playerHit
+signal healthChanged
 
 #Exported Variables
 export var PLAYER_SPEED = 100
@@ -264,7 +264,7 @@ func SpawnMeleeHitbox():
 func Take_Damage(damage):
 	PlayerHealth -= damage
 	StaggerCounter = 15
-	emit_signal("playerHit", damage)
+	emit_signal("healthChanged", damage)
 	Animator.play("hurt")
  
 func Invincibility_Frames(numFrames):
@@ -277,6 +277,7 @@ func Die():
    
 func Revive():
 	PlayerHealth = 100
+	emit_signal("healthChanged", 100, true)
 	Dying = false
 	self.set_transform(startPos)
 

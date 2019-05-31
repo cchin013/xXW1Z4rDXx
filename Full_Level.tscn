@@ -971,4 +971,4 @@ position = Vector2( -155.414, 281.278 )
 stream = ExtResource( 51 )
 volume_db = -20.594
 autoplay = true
-[connection signal="playerHit" from="Player" to="CanvasLayer/GUI" method="_on_Player_playerHit"]
+[connection signal="healthChanged" from="Player" to="CanvasLayer/GUI" method="_on_Player_healthChanged"]

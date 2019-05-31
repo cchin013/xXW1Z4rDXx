@@ -36,10 +36,22 @@ func DealDamage():
 	var Overlaps = get_overlapping_bodies()
 	for Hit in (Overlaps):
 		if (Hit.is_in_group("Enemies")):
-			if (Hit.Invincible == false):
-				Hit.Take_Damage(20)
-				Hit.Invincibility_Frames(30)
+			if (Hit.Invincible == false and Hit.DeathCounter == 0):
+				Hit.Take_Damage(15)
+				#Hit.Invincibility_Frames(30)
+				SpawnExplosion()
 				queue_free()
 		elif (Hit.is_in_group("Terrain")):
+			SpawnExplosion()
 			queue_free()
 
+func SpawnExplosion():
+	var explosion = load("res://Scenes/FireballExplosion.tscn")
+	var ExplosionInstance = explosion.instance()
+	if (RayNode.get_rotation_degrees() == -90):
+		ExplosionInstance.set_position(get_position() + Vector2(15,0))
+	if (RayNode.get_rotation_degrees() == 90):
+		ExplosionInstance.set_position(get_position() + Vector2(-15,0))
+	get_node("/root").add_child(ExplosionInstance)
+	
+	

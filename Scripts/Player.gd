@@ -7,6 +7,7 @@ export var PLAYER_SPEED = 100
 export var PLAYER_JUMP_SPEED = -500
 export var Player_Gravity = 100
 export var PlayerHealth = 100
+export var PlayerMana = 100
 
 #Global Variables
 var BoltCooldown = 0
@@ -32,6 +33,7 @@ var CurrSprite
 var CurrCollision
 var startPos
 var DisableInput = false
+var ManaRegenCount = 30
 
 var Animator
 
@@ -189,6 +191,11 @@ func _process(delta):
 			jumpReset = true
 			JumpWait = false
 			
+	if (ManaRegenCount <= 0):
+		if (PlayerMana < 100):
+			PlayerMana += 1
+		ManaRegenCount = 30
+	ManaRegenCount -= 1
 	##Ticks Down Bolt Cooldown
 	BoltCooldown -= 2*delta
 	##Gravity acceleration if not on ground
@@ -225,22 +232,28 @@ func _process(delta):
 func CreateBolt():
 	var Bolt
 	var currRotation = "LightningRotation"
-	if (currentSpell == "lightning"):
+	if (currentSpell == "lightning" and PlayerMana >= 35):
+		PlayerMana -= 35
 		currRotation = "LightningRotation"
 		Bolt = load("res://Scenes/Lightning.tscn")
 		
-	elif (currentSpell == "fire"):
+	elif (currentSpell == "fire" and PlayerMana >= 30):
+		PlayerMana -= 30
 		currRotation = "FireballRotation"
 		Bolt = load("res://Scenes/Fireball.tscn")
 		
-	elif (currentSpell == "earth"):
+	elif (currentSpell == "earth" and PlayerMana >= 40):
+		PlayerMana -= 40
 		currRotation = "EarthRotation"
 		Bolt = load("res://Scenes/Earth.tscn")
 		
-	elif (currentSpell == "water"):
+	elif (currentSpell == "water" and PlayerMana >= 45):
+		PlayerMana -= 45
 		currRotation = "WaterRotation"
 		Bolt = load("res://Scenes/Water.tscn")
-		
+	else:
+		return
+			
 	var BoltInstance = Bolt.instance()
 	BoltInstance.set_name("bolt")
 	BoltInstance.get_node(currRotation).set_rotation_degrees(get_node("Rotation").get_rotation_degrees())
@@ -251,9 +264,11 @@ func CreateBolt():
 		BoltPos[0] -= 8
 	BoltPos[1] -= 2
 	BoltInstance.set_position(BoltPos)
-	#if (currentSpell == "lightning"):
-	#	add_child(BoltInstance)
-	#	return
+	if (currentSpell == "water"):
+		BoltPos = get_position() + Vector2(0,-16)
+		get_node("/root").add_child(BoltInstance)
+		PlayerHealth += 25
+		return
 	get_node("/root").add_child(BoltInstance)
 	
 ##Spawns Melee Hitbox

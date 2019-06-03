@@ -1,4 +1,4 @@
-[gd_scene load_steps=77 format=2]
+[gd_scene load_steps=78 format=2]
 
 [ext_resource path="res://Scenes/MovingPlatformV.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Sprites/Zones/Crystal_Caverns/Crystal_Indv/grass1_B.png" type="Texture" id=2]
@@ -48,7 +48,8 @@
 [ext_resource path="res://Sprites/Zones/Crystal_Caverns/environment/layers/background.png" type="Texture" id=46]
 [ext_resource path="res://Sprites/Zones/Crystal_Caverns/environment/layers/middleground.png" type="Texture" id=47]
 [ext_resource path="res://Scenes/enemies/skeleton.tscn" type="PackedScene" id=48]
-[ext_resource path="res://Music/Desert Theme.wav" type="AudioStream" id=49]
+[ext_resource path="res://Scenes/enemies/slime.tscn" type="PackedScene" id=49]
+[ext_resource path="res://Music/Desert Theme.wav" type="AudioStream" id=50]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
@@ -960,7 +961,10 @@ position = Vector2( 791.388, -257.403 )
 [node name="SuperSkeleton" parent="Enemies" instance=ExtResource( 48 )]
 position = Vector2( 771.48, -258.184 )
 
+[node name="Slime" parent="Enemies" instance=ExtResource( 49 )]
+position = Vector2( 188.679, 1046.77 )
+
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 49 )
+stream = ExtResource( 50 )
 volume_db = -20.594
 

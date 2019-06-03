@@ -232,23 +232,23 @@ func _process(delta):
 func CreateBolt():
 	var Bolt
 	var currRotation = "LightningRotation"
-	if (currentSpell == "lightning" and PlayerMana >= 35):
-		PlayerMana -= 35
+	if (currentSpell == "lightning" and PlayerMana >= 20):
+		PlayerMana -= 20
 		currRotation = "LightningRotation"
 		Bolt = load("res://Scenes/Lightning.tscn")
 		
-	elif (currentSpell == "fire" and PlayerMana >= 30):
-		PlayerMana -= 30
+	elif (currentSpell == "fire" and PlayerMana >= 15):
+		PlayerMana -= 15
 		currRotation = "FireballRotation"
 		Bolt = load("res://Scenes/Fireball.tscn")
 		
-	elif (currentSpell == "earth" and PlayerMana >= 40):
-		PlayerMana -= 40
+	elif (currentSpell == "earth" and PlayerMana >= 20):
+		PlayerMana -= 20
 		currRotation = "EarthRotation"
 		Bolt = load("res://Scenes/Earth.tscn")
 		
-	elif (currentSpell == "water" and PlayerMana >= 45):
-		PlayerMana -= 45
+	elif (currentSpell == "water" and PlayerMana >= 30):
+		PlayerMana -= 30
 		currRotation = "WaterRotation"
 		Bolt = load("res://Scenes/Water.tscn")
 	else:

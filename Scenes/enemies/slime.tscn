@@ -1,14 +1,62 @@
 [gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://Scripts/SlimeMain.gd" type="Script" id=1]
-[ext_resource path="res://Sprites/enemies/slimes/Slime_Medium_Blue.png" type="Texture" id=2]
-[ext_resource path="res://Sprites/enemies/slimes/Slime_Medium_Red.png" type="Texture" id=3]
-[ext_resource path="res://Sprites/enemies/slimes/Slime_Medium_Green.png" type="Texture" id=4]
+[ext_resource path="res://Sprites/enemies/slimes/Slime_Medium_Green.png" type="Texture" id=2]
+[ext_resource path="res://Sprites/enemies/slimes/Slime_Medium_Blue.png" type="Texture" id=3]
+[ext_resource path="res://Sprites/enemies/slimes/Slime_Medium_Red.png" type="Texture" id=4]
 [ext_resource path="res://Sprites/enemies/slimes/Slime_Medium_Grayscale.png" type="Texture" id=5]
 [ext_resource path="res://Scripts/modulate.gd" type="Script" id=6]
 
-[sub_resource type="RectangleShape2D" id=14]
-extents = Vector2( 8.39857, 8.28155 )
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 12.531, 9.09042 )
+
+[sub_resource type="Animation" id=8]
+length = 0.4
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 0.999999, 1, 1 ),
+"update": 0,
+"values": [ 0, 1, 2, 3 ]
+}
+
+[sub_resource type="Animation" id=9]
+length = 0.4
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 12, 13, 14, 15 ]
+}
+
+[sub_resource type="Animation" id=10]
+length = 0.4
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 4, 5, 6, 7 ]
+}
 
 [sub_resource type="Animation" id=2]
 length = 0.4
@@ -107,54 +155,6 @@ tracks/0/keys = {
 "values": [ 4, 5, 6, 7 ]
 }
 
-[sub_resource type="Animation" id=8]
-length = 0.4
-loop = true
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = false
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
-"transitions": PoolRealArray( 1, 0.999999, 1, 1 ),
-"update": 0,
-"values": [ 0, 1, 2, 3 ]
-}
-
-[sub_resource type="Animation" id=9]
-length = 0.4
-loop = true
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
-"transitions": PoolRealArray( 1, 1, 1, 1 ),
-"update": 1,
-"values": [ 12, 13, 14, 15 ]
-}
-
-[sub_resource type="Animation" id=10]
-length = 0.4
-loop = true
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
-"transitions": PoolRealArray( 1, 1, 1, 1 ),
-"update": 1,
-"values": [ 4, 5, 6, 7 ]
-}
-
 [sub_resource type="Animation" id=11]
 length = 0.4
 loop = true
@@ -207,23 +207,43 @@ tracks/0/keys = {
 "Enemies",
 ]]
 collision_layer = 4
-collision_mask = 3
+collision_mask = 2
 script = ExtResource( 1 )
-Health = 120
+Health = 250
+MaxDetection = 150
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource( 14 )
+[node name="CollisionBox" type="CollisionShape2D" parent="."]
+position = Vector2( -0.203903, -0.611721 )
+shape = SubResource( 1 )
+
+[node name="green" type="Sprite" parent="."]
+editor/display_folded = true
+position = Vector2( 0.659348, 0.564083 )
+scale = Vector2( 1.5, 1.5 )
+texture = ExtResource( 2 )
+vframes = 4
+hframes = 4
+frame = 14
+region_rect = Rect2( 0, 0, 30, 30 )
+
+[node name="green_player" type="AnimationPlayer" parent="green"]
+autoplay = "Bounce"
+anims/Bounce = SubResource( 8 )
+anims/Left = SubResource( 9 )
+anims/Right = SubResource( 10 )
 
 [node name="slime" type="Node2D" parent="."]
+editor/display_folded = true
+visible = false
 position = Vector2( 8, -8 )
 
 [node name="blue" type="Sprite" parent="slime"]
 position = Vector2( -7.37657, 8.60601 )
 scale = Vector2( 1.04761, 1.02265 )
-texture = ExtResource( 2 )
+texture = ExtResource( 3 )
 vframes = 4
 hframes = 4
-frame = 13
+frame = 3
 region_rect = Rect2( 0, 0, 30, 30 )
 
 [node name="blue_player" type="AnimationPlayer" parent="slime/blue"]
@@ -234,7 +254,7 @@ anims/Right = SubResource( 4 )
 
 [node name="red" type="Sprite" parent="slime"]
 visible = false
-texture = ExtResource( 3 )
+texture = ExtResource( 4 )
 vframes = 4
 hframes = 4
 frame = 3
@@ -245,20 +265,6 @@ autoplay = "Bounce"
 anims/Bounce = SubResource( 5 )
 anims/Left = SubResource( 6 )
 anims/Right = SubResource( 7 )
-
-[node name="green" type="Sprite" parent="slime"]
-visible = false
-texture = ExtResource( 4 )
-vframes = 4
-hframes = 4
-frame = 2
-region_rect = Rect2( 0, 0, 30, 30 )
-
-[node name="green_player" type="AnimationPlayer" parent="slime/green"]
-autoplay = "Bounce"
-anims/Bounce = SubResource( 8 )
-anims/Left = SubResource( 9 )
-anims/Right = SubResource( 10 )
 
 [node name="modulate" type="Sprite" parent="slime"]
 visible = false
@@ -275,4 +281,11 @@ autoplay = "Bounce"
 anims/Bounce = SubResource( 11 )
 anims/Left = SubResource( 12 )
 anims/Right = SubResource( 13 )
+
+[node name="SlimeDamageBox" type="Area2D" parent="."]
+collision_layer = 4
+
+[node name="DamageBox" type="CollisionShape2D" parent="SlimeDamageBox"]
+position = Vector2( -0.203903, -0.611721 )
+shape = SubResource( 1 )
 

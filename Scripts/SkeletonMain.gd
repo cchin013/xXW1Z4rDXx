@@ -47,9 +47,9 @@ func _process(delta):
 	if (DeathCounter > 0):
 		DeathCounter -= 1
 		Attacking = false
+		move_and_slide(GravityMotion)
 		if (DeathCounter == 0):
 			queue_free()
-		move_and_slide(GravityMotion)
 		return
 	if (Facing[0] == 1):
 		CurrSprite.flip_h = false

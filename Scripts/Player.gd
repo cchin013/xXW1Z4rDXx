@@ -273,7 +273,7 @@ func Invincibility_Frames(numFrames):
    
 func Die():
 	DeathCounter = 42
-	Animator.play("die")
+	# Animator.play("die") There is no death
    
 func Revive():
 	PlayerHealth = 100

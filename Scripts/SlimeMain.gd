@@ -5,8 +5,8 @@ var SlimeGravity = 50
 var RightMove = 0
 var RandomMoveCounter = 0
 export var SlimeSpeed = 50
-onready var CurrSprite = get_node("green")
-onready var Animator = CurrSprite.get_node("green_player")
+onready var CurrSprite = get_node("blue")
+onready var Animator = CurrSprite.get_node("blue_player")
 var DeathCounter = 0
 var StaggerCounter = 0
 var DamageTimer = 0
@@ -47,31 +47,31 @@ func _process(delta):
 	var testtransform
 	if (DetectPlayer and Facing[0] == -1):
 			motion = Vector2(-1,0)
-			Animator.play("Left")
+			Animator.play("move_left")
 	elif (DetectPlayer and Facing[0] == 1):
 			motion = Vector2(1,0)
-			Animator.play("Right")
+			Animator.play("move_right")
 	else:
 		if (Direction == "left"):
 			testtransform = transform
 			testtransform[2][0] -= SlimeSpeed*delta*5
 			if (test_move(testtransform, Vector2(0,2))): #left
 				motion = Vector2(-1,0)
-				Animator.play("Left")
+				Animator.play("move_left")
 			else:
-				Animator.play("Bounce")
+				Animator.play("idle")
 			Facing = Vector2(-1,0)
 		elif (Direction == "right"):
 			testtransform = transform
 			testtransform[2][0] += SlimeSpeed*delta*5
 			if (test_move(testtransform, Vector2(0,2))): #left
 				motion = Vector2(1,0)
-				Animator.play("Right")
+				Animator.play("move_right")
 			else:
-				Animator.play("Bounce")
+				Animator.play("idle")
 			Facing = Vector2(1,0)
 		elif (Direction == "none"):
-			Animator.play("Bounce")
+			Animator.play("idle")
 			
 	if (test_move(get_transform(), Vector2(0,0.1))):
 		SlimeGravity = 50
@@ -93,7 +93,7 @@ func DealDamage():
 func Take_Damage(damage):
 	Health -= damage
 	StaggerCounter = 42
-	Animator.play("Bounce")
+	Animator.play("hurt")
 	var temp = (Player.get_global_transform()[2]) - get_global_transform()[2]
 	if (temp[0] > 0):
 		Facing[0] = 1
@@ -120,5 +120,5 @@ func SlimeRandomMovement():
 	return "none"
 
 func Die():
-	Animator.play("Bounce")
+	Animator.play("die")
 	DeathCounter = 60

@@ -798,12 +798,14 @@ tile_data = PoolIntArray( -196634, 4, 0, -196633, 5, 0, 262119, 5, 0, 262120, 4,
 script = ExtResource( 43 )
 
 [node name="Player" parent="." instance=ExtResource( 44 )]
+editor/display_folded = true
 position = Vector2( -50, 1038.5 )
 
 [node name="KinematicBody2D" parent="Player" instance=ExtResource( 45 )]
 position = Vector2( 979.297, -1363.8 )
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+editor/display_folded = true
 scroll_base_scale = Vector2( 0.1, 0.1 )
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
@@ -824,6 +826,7 @@ scale = Vector2( 12.7083, 8.06818 )
 texture = ExtResource( 47 )
 
 [node name="Enemies" type="Node" parent="."]
+editor/display_folded = true
 
 [node name="Skeleton" parent="Enemies" instance=ExtResource( 45 )]
 position = Vector2( 660, 1038.5 )

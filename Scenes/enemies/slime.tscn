@@ -1,32 +1,106 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://Scripts/SlimeMain.gd" type="Script" id=1]
-[ext_resource path="res://Sprites/enemies/slimes/Slime_Medium_Green.png" type="Texture" id=2]
-[ext_resource path="res://Sprites/enemies/slimes/Slime_Medium_Blue.png" type="Texture" id=3]
-[ext_resource path="res://Sprites/enemies/slimes/Slime_Medium_Red.png" type="Texture" id=4]
-[ext_resource path="res://Sprites/enemies/slimes/Slime_Medium_Grayscale.png" type="Texture" id=5]
-[ext_resource path="res://Scripts/modulate.gd" type="Script" id=6]
+[ext_resource path="res://Sprites/enemies/slimes/slime-Sheet.png" type="Texture" id=2]
+[ext_resource path="res://Sprites/enemies/slimes/Slime_Medium_Green.png" type="Texture" id=3]
+[ext_resource path="res://Sprites/enemies/slimes/Slime_Medium_Blue.png" type="Texture" id=4]
+[ext_resource path="res://Sprites/enemies/slimes/Slime_Medium_Red.png" type="Texture" id=5]
+[ext_resource path="res://Sprites/enemies/slimes/Slime_Medium_Grayscale.png" type="Texture" id=6]
+[ext_resource path="res://Scripts/modulate.gd" type="Script" id=7]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 12.531, 9.09042 )
+extents = Vector2( 14.0662, 7.72359 )
 
-[sub_resource type="Animation" id=8]
-length = 0.4
-loop = true
+[sub_resource type="Animation" id=16]
+resource_name = "attack_left"
+length = 0.5
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:frame")
 tracks/0/interp = 1
-tracks/0/loop_wrap = false
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 9, 10, 11, 12, 13 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:flip_h")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+
+[sub_resource type="Animation" id=20]
+resource_name = "attack_right"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 9, 10, 11, 12, 13 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:flip_h")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+
+[sub_resource type="Animation" id=17]
+resource_name = "die"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
 "times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
-"transitions": PoolRealArray( 1, 0.999999, 1, 1 ),
-"update": 0,
-"values": [ 0, 1, 2, 3 ]
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 17, 18, 19, 20 ]
 }
 
-[sub_resource type="Animation" id=9]
+[sub_resource type="Animation" id=18]
+resource_name = "hurt"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 13, 14, 15, 16 ]
+}
+
+[sub_resource type="Animation" id=14]
+resource_name = "idle"
 length = 0.4
 loop = true
 tracks/0/type = "value"
@@ -39,10 +113,11 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 1,
-"values": [ 12, 13, 14, 15 ]
+"values": [ 0, 1, 2, 3 ]
 }
 
-[sub_resource type="Animation" id=10]
+[sub_resource type="Animation" id=15]
+resource_name = "move_left"
 length = 0.4
 loop = true
 tracks/0/type = "value"
@@ -56,6 +131,47 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 1,
 "values": [ 4, 5, 6, 7 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:flip_h")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+
+[sub_resource type="Animation" id=19]
+resource_name = "move_right"
+length = 0.4
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 4, 5, 6, 7 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:flip_h")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
 }
 
 [sub_resource type="Animation" id=2]
@@ -75,9 +191,8 @@ tracks/0/keys = {
 }
 
 [sub_resource type="Animation" id=3]
-length = 0.6
+length = 0.4
 loop = true
-step = 0.15
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:frame")
 tracks/0/interp = 1
@@ -85,7 +200,7 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.15, 0.3, 0.45 ),
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 1,
 "values": [ 12, 13, 14, 15 ]
@@ -124,6 +239,55 @@ tracks/0/keys = {
 }
 
 [sub_resource type="Animation" id=6]
+length = 0.6
+loop = true
+step = 0.15
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.15, 0.3, 0.45 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 12, 13, 14, 15 ]
+}
+
+[sub_resource type="Animation" id=7]
+length = 0.4
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 4, 5, 6, 7 ]
+}
+
+[sub_resource type="Animation" id=8]
+length = 0.4
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 0.999999, 1, 1 ),
+"update": 0,
+"values": [ 0, 1, 2, 3 ]
+}
+
+[sub_resource type="Animation" id=9]
 length = 0.4
 loop = true
 tracks/0/type = "value"
@@ -139,7 +303,7 @@ tracks/0/keys = {
 "values": [ 12, 13, 14, 15 ]
 }
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=10]
 length = 0.4
 loop = true
 tracks/0/type = "value"
@@ -216,11 +380,28 @@ MaxDetection = 150
 position = Vector2( -0.203903, -0.611721 )
 shape = SubResource( 1 )
 
+[node name="blue" type="Sprite" parent="."]
+texture = ExtResource( 2 )
+flip_h = true
+vframes = 3
+hframes = 8
+frame = 16
+
+[node name="blue_player" type="AnimationPlayer" parent="blue"]
+autoplay = "idle"
+anims/attack_left = SubResource( 16 )
+anims/attack_right = SubResource( 20 )
+anims/die = SubResource( 17 )
+anims/hurt = SubResource( 18 )
+anims/idle = SubResource( 14 )
+anims/move_left = SubResource( 15 )
+anims/move_right = SubResource( 19 )
+
 [node name="green" type="Sprite" parent="."]
-editor/display_folded = true
+visible = false
 position = Vector2( 0.659348, 0.564083 )
 scale = Vector2( 1.5, 1.5 )
-texture = ExtResource( 2 )
+texture = ExtResource( 3 )
 vframes = 4
 hframes = 4
 frame = 14
@@ -228,9 +409,9 @@ region_rect = Rect2( 0, 0, 30, 30 )
 
 [node name="green_player" type="AnimationPlayer" parent="green"]
 autoplay = "Bounce"
-anims/Bounce = SubResource( 8 )
-anims/Left = SubResource( 9 )
-anims/Right = SubResource( 10 )
+anims/Bounce = SubResource( 2 )
+anims/Left = SubResource( 3 )
+anims/Right = SubResource( 4 )
 
 [node name="slime" type="Node2D" parent="."]
 editor/display_folded = true
@@ -238,9 +419,10 @@ visible = false
 position = Vector2( 8, -8 )
 
 [node name="blue" type="Sprite" parent="slime"]
+visible = false
 position = Vector2( -7.37657, 8.60601 )
 scale = Vector2( 1.04761, 1.02265 )
-texture = ExtResource( 3 )
+texture = ExtResource( 4 )
 vframes = 4
 hframes = 4
 frame = 3
@@ -248,13 +430,13 @@ region_rect = Rect2( 0, 0, 30, 30 )
 
 [node name="blue_player" type="AnimationPlayer" parent="slime/blue"]
 autoplay = "Bounce"
-anims/Bounce = SubResource( 2 )
-anims/Left = SubResource( 3 )
-anims/Right = SubResource( 4 )
+anims/Bounce = SubResource( 5 )
+anims/Left = SubResource( 6 )
+anims/Right = SubResource( 7 )
 
 [node name="red" type="Sprite" parent="slime"]
 visible = false
-texture = ExtResource( 4 )
+texture = ExtResource( 5 )
 vframes = 4
 hframes = 4
 frame = 3
@@ -262,19 +444,19 @@ region_rect = Rect2( 0, 0, 30, 30 )
 
 [node name="red_player" type="AnimationPlayer" parent="slime/red"]
 autoplay = "Bounce"
-anims/Bounce = SubResource( 5 )
-anims/Left = SubResource( 6 )
-anims/Right = SubResource( 7 )
+anims/Bounce = SubResource( 8 )
+anims/Left = SubResource( 9 )
+anims/Right = SubResource( 10 )
 
 [node name="modulate" type="Sprite" parent="slime"]
 visible = false
 scale = Vector2( 1.04761, 1.02265 )
-texture = ExtResource( 5 )
+texture = ExtResource( 6 )
 vframes = 4
 hframes = 4
 frame = 1
 region_rect = Rect2( 0, 0, 30, 30 )
-script = ExtResource( 6 )
+script = ExtResource( 7 )
 
 [node name="colorful_player" type="AnimationPlayer" parent="slime/modulate"]
 autoplay = "Bounce"
@@ -286,6 +468,6 @@ anims/Right = SubResource( 13 )
 collision_layer = 4
 
 [node name="DamageBox" type="CollisionShape2D" parent="SlimeDamageBox"]
-position = Vector2( -0.203903, -0.611721 )
+position = Vector2( 0.0596163, 3.34108 )
 shape = SubResource( 1 )
 

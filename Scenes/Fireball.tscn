@@ -11,7 +11,7 @@ script = ExtResource( 1 )
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 position = Vector2( 10.1059, 1.49495 )
 scale = Vector2( 18.7872, 14.929 )
-polygon = PoolVector2Array( -1.47466, 0.111406, -0.832618, 0.126943, -0.289353, 0.142481, 1.27871, 0.189095, 1.19845, -0.49457, -0.425169, -0.370267, -1.78333, -0.253733 )
+polygon = PoolVector2Array( -2.11387, 0.106071, -0.832618, 0.126943, -0.314963, 0.0389948, 0.57783, 0.00545689, 0.337975, -0.246078, -0.425169, -0.370267, -2.16717, -0.413768 )
 
 [node name="FireballRotation" type="RayCast2D" parent="."]
 collision_mask = 0

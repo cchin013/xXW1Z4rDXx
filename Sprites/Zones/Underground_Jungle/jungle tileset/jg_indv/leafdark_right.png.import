@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/darkleaf_TL.png-5594835dc24a3338a206310d9ff0d72b.stex"
+path="res://.import/leafdark_right.png-7eea815713e26c5233633f40475076ed.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/Zones/Underground_Jungle/jungle tileset/jg_indv/darkleaf_TL.png"
-dest_files=[ "res://.import/darkleaf_TL.png-5594835dc24a3338a206310d9ff0d72b.stex" ]
+source_file="res://Sprites/Zones/Underground_Jungle/jungle tileset/jg_indv/leafdark_right.png"
+dest_files=[ "res://.import/leafdark_right.png-7eea815713e26c5233633f40475076ed.stex" ]
 
 [params]
 

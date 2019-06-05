@@ -1,7 +1,7 @@
 extends MarginContainer
 
-onready var number_label = $Bars/LifeBar/Count/Background/Number
-onready var bar = $Bars/LifeBar/Gauge
+onready var number_label = $Top/Bars/LifeBar/Count/Background/Number
+onready var bar = $Top/Bars/LifeBar/Gauge
 onready var tween = $Tween
 var player_max_health = 0
 
@@ -11,7 +11,6 @@ func _ready():
 	bar.max_value = player_max_health
 	bar.value = player_max_health
 	number_label.text = str(player_max_health)
-	
 
 func _on_Player_healthChanged(value, revive=false):
 	update_health(value, revive)

@@ -1,8 +1,8 @@
 [gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://Scripts/Player.gd" type="Script" id=1]
-[ext_resource path="res://Sprites/enemies/gothicvania/gothic-hero-attack.png" type="Texture" id=2]
-[ext_resource path="res://Sprites/enemies/gothicvania/gothic-hero-crouch.png" type="Texture" id=3]
+[ext_resource path="res://Sprites/enemies/gothicvania/gothic-hero-crouch.png" type="Texture" id=2]
+[ext_resource path="res://Sprites/enemies/gothicvania/gothic-hero-attack.png" type="Texture" id=3]
 [ext_resource path="res://Sprites/enemies/gothicvania/gothic-hero-crouch-slash.png" type="Texture" id=4]
 [ext_resource path="res://Sprites/enemies/gothicvania/gothic-hero-jump.png" type="Texture" id=5]
 [ext_resource path="res://Sprites/enemies/gothicvania/gothic-hero-hurt.png" type="Texture" id=6]
@@ -14,7 +14,7 @@
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 10, 17 )
 
-[sub_resource type="Animation" id=10]
+[sub_resource type="Animation" id=12]
 resource_name = "attack"
 length = 0.6
 tracks/0/type = "value"
@@ -28,58 +28,6 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
 "update": 1,
 "values": [ 0, 1, 2, 3, 4, 5 ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath(".:texture")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ ExtResource( 2 ) ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath(".:position")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector2( 0, 0 ) ]
-}
-tracks/3/type = "value"
-tracks/3/path = NodePath(".:hframes")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ 6 ]
-}
-
-[sub_resource type="Animation" id=2]
-resource_name = "crouch"
-length = 0.3
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 1,
-"values": [ 0, 1, 2 ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath(".:texture")
@@ -115,11 +63,61 @@ tracks/3/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
+"values": [ 6 ]
+}
+
+[sub_resource type="Animation" id=13]
+length = 0.3
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ ExtResource( 2 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath(".:hframes")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
 "values": [ 3 ]
 }
 
-[sub_resource type="Animation" id=3]
-resource_name = "crouch_slash"
+[sub_resource type="Animation" id=14]
 length = 0.4
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:frame")
@@ -170,7 +168,7 @@ tracks/3/keys = {
 "values": [ 4 ]
 }
 
-[sub_resource type="Animation" id=14]
+[sub_resource type="Animation" id=5]
 resource_name = "fall"
 length = 0.2
 loop = true
@@ -223,8 +221,7 @@ tracks/3/keys = {
 "values": [ 5 ]
 }
 
-[sub_resource type="Animation" id=4]
-resource_name = "hurt"
+[sub_resource type="Animation" id=6]
 length = 0.3
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:frame")
@@ -275,7 +272,7 @@ tracks/3/keys = {
 "values": [ 3 ]
 }
 
-[sub_resource type="Animation" id=11]
+[sub_resource type="Animation" id=7]
 length = 0.6
 loop = true
 step = 0.15
@@ -328,7 +325,7 @@ tracks/3/keys = {
 "values": [ 4 ]
 }
 
-[sub_resource type="Animation" id=12]
+[sub_resource type="Animation" id=15]
 resource_name = "jump"
 length = 0.5
 tracks/0/type = "value"
@@ -380,7 +377,7 @@ tracks/3/keys = {
 "values": [ 5 ]
 }
 
-[sub_resource type="Animation" id=13]
+[sub_resource type="Animation" id=16]
 length = 0.6
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:frame")
@@ -431,7 +428,7 @@ tracks/3/keys = {
 "values": [ 6 ]
 }
 
-[sub_resource type="Animation" id=8]
+[sub_resource type="Animation" id=10]
 length = 0.7
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:frame")
@@ -482,7 +479,7 @@ tracks/3/keys = {
 "values": [ 7 ]
 }
 
-[sub_resource type="Animation" id=9]
+[sub_resource type="Animation" id=11]
 length = 1.2
 loop = true
 tracks/0/type = "value"
@@ -563,19 +560,19 @@ __meta__ = {
 
 [node name="PlayerSprite" type="Sprite" parent="."]
 texture = ExtResource( 2 )
-hframes = 6
-frame = 5
+hframes = 3
+frame = 2
 
 [node name="general" type="AnimationPlayer" parent="PlayerSprite"]
 autoplay = "idle"
-anims/attack = SubResource( 10 )
-anims/crouch = SubResource( 2 )
-anims/crouch_slash = SubResource( 3 )
-anims/fall = SubResource( 14 )
-anims/hurt = SubResource( 4 )
-anims/idle = SubResource( 11 )
-anims/jump = SubResource( 12 )
-anims/jump_attack = SubResource( 13 )
-anims/jump_climb = SubResource( 8 )
-anims/run = SubResource( 9 )
+anims/attack = SubResource( 12 )
+anims/crouch = SubResource( 13 )
+anims/crouch_slash = SubResource( 14 )
+anims/fall = SubResource( 5 )
+anims/hurt = SubResource( 6 )
+anims/idle = SubResource( 7 )
+anims/jump = SubResource( 15 )
+anims/jump_attack = SubResource( 16 )
+anims/jump_climb = SubResource( 10 )
+anims/run = SubResource( 11 )
 

@@ -1,20 +1,20 @@
 [gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://Scripts/Player.gd" type="Script" id=1]
-[ext_resource path="res://Sprites/enemies/gothicvania/gothic-hero-crouch.png" type="Texture" id=2]
+[ext_resource path="res://Sprites/enemies/gothicvania/gothic-hero-idle.png" type="Texture" id=2]
 [ext_resource path="res://Sprites/enemies/gothicvania/gothic-hero-attack.png" type="Texture" id=3]
-[ext_resource path="res://Sprites/enemies/gothicvania/gothic-hero-crouch-slash.png" type="Texture" id=4]
-[ext_resource path="res://Sprites/enemies/gothicvania/gothic-hero-jump.png" type="Texture" id=5]
-[ext_resource path="res://Sprites/enemies/gothicvania/gothic-hero-hurt.png" type="Texture" id=6]
-[ext_resource path="res://Sprites/enemies/gothicvania/gothic-hero-idle.png" type="Texture" id=7]
+[ext_resource path="res://Sprites/enemies/gothicvania/gothic-hero-crouch.png" type="Texture" id=4]
+[ext_resource path="res://Sprites/enemies/gothicvania/gothic-hero-crouch-slash.png" type="Texture" id=5]
+[ext_resource path="res://Sprites/enemies/gothicvania/gothic-hero-jump.png" type="Texture" id=6]
+[ext_resource path="res://Sprites/enemies/gothicvania/gothic-hero-hurt.png" type="Texture" id=7]
 [ext_resource path="res://Sprites/enemies/gothicvania/gothic-hero-jump-attack.png" type="Texture" id=8]
 [ext_resource path="res://Sprites/enemies/gothicvania/gothic-hero-jump-climb.png" type="Texture" id=9]
 [ext_resource path="res://Sprites/enemies/gothicvania/gothic-hero-run.png" type="Texture" id=10]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 10, 17 )
+extents = Vector2( 11.4123, 17 )
 
-[sub_resource type="Animation" id=12]
+[sub_resource type="Animation" id=2]
 resource_name = "attack"
 length = 0.6
 tracks/0/type = "value"
@@ -66,7 +66,7 @@ tracks/3/keys = {
 "values": [ 6 ]
 }
 
-[sub_resource type="Animation" id=13]
+[sub_resource type="Animation" id=3]
 length = 0.3
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:frame")
@@ -90,7 +90,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ ExtResource( 2 ) ]
+"values": [ ExtResource( 4 ) ]
 }
 tracks/2/type = "value"
 tracks/2/path = NodePath(".:position")
@@ -117,7 +117,7 @@ tracks/3/keys = {
 "values": [ 3 ]
 }
 
-[sub_resource type="Animation" id=14]
+[sub_resource type="Animation" id=4]
 length = 0.4
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:frame")
@@ -141,7 +141,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ ExtResource( 4 ) ]
+"values": [ ExtResource( 5 ) ]
 }
 tracks/2/type = "value"
 tracks/2/path = NodePath(".:position")
@@ -194,7 +194,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ ExtResource( 5 ) ]
+"values": [ ExtResource( 6 ) ]
 }
 tracks/2/type = "value"
 tracks/2/path = NodePath(".:position")
@@ -245,7 +245,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ ExtResource( 6 ) ]
+"values": [ ExtResource( 7 ) ]
 }
 tracks/2/type = "value"
 tracks/2/path = NodePath(".:position")
@@ -298,7 +298,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ ExtResource( 7 ) ]
+"values": [ ExtResource( 2 ) ]
 }
 tracks/2/type = "value"
 tracks/2/path = NodePath(".:position")
@@ -325,7 +325,7 @@ tracks/3/keys = {
 "values": [ 4 ]
 }
 
-[sub_resource type="Animation" id=15]
+[sub_resource type="Animation" id=8]
 resource_name = "jump"
 length = 0.5
 tracks/0/type = "value"
@@ -350,7 +350,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ ExtResource( 5 ) ]
+"values": [ ExtResource( 6 ) ]
 }
 tracks/2/type = "value"
 tracks/2/path = NodePath(".:position")
@@ -377,7 +377,7 @@ tracks/3/keys = {
 "values": [ 5 ]
 }
 
-[sub_resource type="Animation" id=16]
+[sub_resource type="Animation" id=9]
 length = 0.6
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:frame")
@@ -560,19 +560,19 @@ __meta__ = {
 
 [node name="PlayerSprite" type="Sprite" parent="."]
 texture = ExtResource( 2 )
-hframes = 3
+hframes = 4
 frame = 2
 
 [node name="general" type="AnimationPlayer" parent="PlayerSprite"]
 autoplay = "idle"
-anims/attack = SubResource( 12 )
-anims/crouch = SubResource( 13 )
-anims/crouch_slash = SubResource( 14 )
+anims/attack = SubResource( 2 )
+anims/crouch = SubResource( 3 )
+anims/crouch_slash = SubResource( 4 )
 anims/fall = SubResource( 5 )
 anims/hurt = SubResource( 6 )
 anims/idle = SubResource( 7 )
-anims/jump = SubResource( 15 )
-anims/jump_attack = SubResource( 16 )
+anims/jump = SubResource( 8 )
+anims/jump_attack = SubResource( 9 )
 anims/jump_climb = SubResource( 10 )
 anims/run = SubResource( 11 )
 

@@ -426,7 +426,7 @@ points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
 29/shapes = [  ]
 29/z_index = 0
 
-[node name="Node2D" type="Node2D"]
+[node name="Level2" type="Node2D"]
 
 [node name="TileMap" type="TileMap" parent="."]
 z_index = -1

@@ -49,7 +49,7 @@ func _process(delta):
 	if (active && x < -421 && y > 302):
 		if (Input.is_action_pressed("Interact")):
 			#get_node("/root/map/Player").set_transform(Transform2D(0, Vector2(-300, 302)))
-			get_tree().change_scene("res://Scenes/Demo/demo.tscn")
+			get_tree().change_scene("res://Level2.tscn")
 			#print("we in it to win it")
 	pass
 # Called every frame. 'delta' is the elapsed time since the previous frame.

@@ -1,5 +1,7 @@
 extends "res://Scripts/BaseEnemy.gd"
 
+signal display_text
+
 onready var CurrSprite = get_node("ghost/GhostSprite")
 onready var Animator = CurrSprite.get_node("AnimationPlayer")
 var Attacking = false
@@ -55,6 +57,7 @@ func _process(delta):
 func Die():
 	DeathCounter = 45
 	Animator.play("vanish")
+	emit_signal("display_text", "You defeated the ghost!")
 
 func SpawnShadowBall():
 	var ShadowBall = load("res://Scenes/ShadowBall.tscn")

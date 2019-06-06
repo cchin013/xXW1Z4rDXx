@@ -25,11 +25,11 @@ margin_bottom = 24.0
 
 [node name="Top" type="HBoxContainer" parent="."]
 margin_right = 1920.0
-margin_bottom = 428.0
+margin_bottom = 97.0
 
 [node name="Bars" type="VBoxContainer" parent="Top"]
 margin_right = 1920.0
-margin_bottom = 428.0
+margin_bottom = 97.0
 size_flags_horizontal = 3
 
 [node name="LifeBar" parent="Top/Bars" instance=ExtResource( 1 )]

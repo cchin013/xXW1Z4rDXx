@@ -1,6 +1,16 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Menu/sprites/title.png" type="Texture" id=1]
+[ext_resource path="res://GUI/official_gui_sprites/Harmonic.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://Menu/sprites/Background/parallax-mountain-bg.png" type="Texture" id=3]
+[ext_resource path="res://Menu/sprites/Background/parallax-mountain-montain-far.png" type="Texture" id=4]
+[ext_resource path="res://Menu/sprites/Background/parallax-mountain-mountains.png" type="Texture" id=5]
+[ext_resource path="res://Menu/sprites/Background/parallax-mountain-trees.png" type="Texture" id=6]
+[ext_resource path="res://Menu/sprites/Background/parallax-mountain-foreground-trees.png" type="Texture" id=7]
+
+[sub_resource type="DynamicFont" id=1]
+size = 72
+font_data = ExtResource( 2 )
 
 [node name="MarginContainer" type="MarginContainer"]
 anchor_right = 1.0
@@ -31,4 +41,71 @@ margin_bottom = 184.0
 margin_top = 188.0
 margin_right = 1680.0
 margin_bottom = 188.0
+
+[node name="Continue_label" type="Label" parent="VBoxContainer"]
+margin_top = 192.0
+margin_right = 1680.0
+margin_bottom = 264.0
+custom_fonts/font = SubResource( 1 )
+text = "Continue"
+align = 1
+valign = 2
+
+[node name="Quit_label" type="Label" parent="VBoxContainer"]
+margin_top = 268.0
+margin_right = 1680.0
+margin_bottom = 340.0
+custom_fonts/font = SubResource( 1 )
+text = "Quit"
+align = 1
+valign = 2
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="back" type="ParallaxLayer" parent="ParallaxBackground"]
+
+[node name="background" type="Sprite" parent="ParallaxBackground/back"]
+scale = Vector2( 7.0625, 7.0625 )
+texture = ExtResource( 3 )
+centered = false
+region_rect = Rect2( 0, 0, 1920, 1080 )
+
+[node name="mountain" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2( 0.8, 0.8 )
+
+[node name="foreground" type="Sprite" parent="ParallaxBackground/mountain"]
+scale = Vector2( 7, 7 )
+texture = ExtResource( 4 )
+centered = false
+region_rect = Rect2( 0, 0, 1920, 1080 )
+
+[node name="little" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2( 0.8, 0.8 )
+
+[node name="little_mountains" type="Sprite" parent="ParallaxBackground/little"]
+position = Vector2( 0, 520 )
+scale = Vector2( 3.5, 3.5 )
+texture = ExtResource( 5 )
+centered = false
+region_rect = Rect2( 0, 0, 1920, 1080 )
+
+[node name="forest" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2( 0.8, 0.8 )
+
+[node name="forest_trees" type="Sprite" parent="ParallaxBackground/forest"]
+position = Vector2( 0, 520 )
+scale = Vector2( 3.5, 3.5 )
+texture = ExtResource( 6 )
+centered = false
+region_rect = Rect2( 0, 0, 1920, 1080 )
+
+[node name="fore" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2( 0.8, 0.8 )
+
+[node name="foreground" type="Sprite" parent="ParallaxBackground/fore"]
+position = Vector2( 0, 520 )
+scale = Vector2( 3.5, 3.5 )
+texture = ExtResource( 7 )
+centered = false
+region_rect = Rect2( 0, 0, 1920, 1080 )
 

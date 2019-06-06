@@ -37,6 +37,7 @@ var CurrCollision
 var startPos
 var DisableInput = false
 var ManaRegenCount = 30
+var AttackAnimationTimer = 0
 
 var Animator
 
@@ -96,11 +97,17 @@ func _process(delta):
 		#   queue_free()
 		#move_and_slide(GravityMotion)
 		#return
-	if (StaggerCounter > 0):
+	elif (StaggerCounter > 0):
 		StaggerCounter -= 1
 		DisableInput = true
 		#move_and_slide(GravityMotion)
 		#return
+	elif (AttackAnimationTimer > 0):
+		Animator.play("attack")
+		DisableInput = true
+		AttackAnimationTimer -= 1
+		if (AttackAnimationTimer == 30):
+			SpawnMeleeHitbox()
 	
 	#Spell Wheel
 	if (Input.is_action_pressed("ui_selectFire") && hasSpell["fire"]):
@@ -126,7 +133,8 @@ func _process(delta):
 		##Punching
 		if (Input.is_action_just_pressed("ui_melee") and MeleeTimer <= 0):
 			MeleeTimer = 1
-			SpawnMeleeHitbox()
+			AttackAnimationTimer = 40
+			#SpawnMeleeHitbox()
 			
 		##Jumping
 		if (Input.is_action_pressed("ui_up") and !jumping and test_move(get_transform(), Vector2(0,0.1)) and jumpReset):
@@ -286,9 +294,9 @@ func SpawnMeleeHitbox():
 	MeleeHitInstance.set_name("melee")
 	var MeleeHitPos = get_position()
 	if (RayNode.get_rotation_degrees() == -90):
-		MeleeHitPos[0] += 16
+		MeleeHitPos[0] += 32
 	if (RayNode.get_rotation_degrees() == 90):
-		MeleeHitPos[0] -= 16
+		MeleeHitPos[0] -= 32
 	MeleeHitPos[1] += 2
 	MeleeHitInstance.set_position(MeleeHitPos)
 	get_node("/root").add_child(MeleeHitInstance)

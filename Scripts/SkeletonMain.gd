@@ -31,7 +31,7 @@ func _process(delta):
 		#print(rad2deg(acos(DistToPlayer.normalized().dot(Facing))))
 		if (rad2deg(acos(DistToPlayer.normalized().dot(Facing))) - 100 > FOV):
 			DetectPlayer = true
-			SkeletonSpeed = 115
+			SkeletonSpeed = 105
 			if (abs(DistToPlayer[0]) < AttackDetection and not Attacking):
 				AttackTimer = 120
 				Attacking = true

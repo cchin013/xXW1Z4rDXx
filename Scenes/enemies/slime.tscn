@@ -11,7 +11,7 @@
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 14.0662, 7.72359 )
 
-[sub_resource type="Animation" id=16]
+[sub_resource type="Animation" id=2]
 resource_name = "attack_left"
 length = 0.5
 tracks/0/type = "value"
@@ -39,7 +39,7 @@ tracks/1/keys = {
 "values": [ false ]
 }
 
-[sub_resource type="Animation" id=20]
+[sub_resource type="Animation" id=3]
 resource_name = "attack_right"
 length = 0.5
 tracks/0/type = "value"
@@ -67,7 +67,7 @@ tracks/1/keys = {
 "values": [ true ]
 }
 
-[sub_resource type="Animation" id=17]
+[sub_resource type="Animation" id=4]
 resource_name = "die"
 length = 0.4
 tracks/0/type = "value"
@@ -83,7 +83,7 @@ tracks/0/keys = {
 "values": [ 17, 18, 19, 20 ]
 }
 
-[sub_resource type="Animation" id=18]
+[sub_resource type="Animation" id=5]
 resource_name = "hurt"
 length = 0.4
 tracks/0/type = "value"
@@ -99,7 +99,7 @@ tracks/0/keys = {
 "values": [ 13, 14, 15, 16 ]
 }
 
-[sub_resource type="Animation" id=14]
+[sub_resource type="Animation" id=6]
 resource_name = "idle"
 length = 0.4
 loop = true
@@ -116,7 +116,7 @@ tracks/0/keys = {
 "values": [ 0, 1, 2, 3 ]
 }
 
-[sub_resource type="Animation" id=15]
+[sub_resource type="Animation" id=7]
 resource_name = "move_left"
 length = 0.4
 loop = true
@@ -145,7 +145,7 @@ tracks/1/keys = {
 "values": [ false ]
 }
 
-[sub_resource type="Animation" id=19]
+[sub_resource type="Animation" id=8]
 resource_name = "move_right"
 length = 0.4
 loop = true
@@ -174,7 +174,7 @@ tracks/1/keys = {
 "values": [ true ]
 }
 
-[sub_resource type="Animation" id=2]
+[sub_resource type="Animation" id=9]
 length = 0.4
 loop = true
 tracks/0/type = "value"
@@ -190,7 +190,7 @@ tracks/0/keys = {
 "values": [ 0, 1, 2, 3 ]
 }
 
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id=10]
 length = 0.4
 loop = true
 tracks/0/type = "value"
@@ -206,7 +206,7 @@ tracks/0/keys = {
 "values": [ 12, 13, 14, 15 ]
 }
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=11]
 length = 0.4
 loop = true
 tracks/0/type = "value"
@@ -222,7 +222,7 @@ tracks/0/keys = {
 "values": [ 4, 5, 6, 7 ]
 }
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=12]
 length = 0.4
 loop = true
 tracks/0/type = "value"
@@ -238,7 +238,7 @@ tracks/0/keys = {
 "values": [ 0, 1, 2, 3 ]
 }
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=13]
 length = 0.6
 loop = true
 step = 0.15
@@ -255,7 +255,7 @@ tracks/0/keys = {
 "values": [ 12, 13, 14, 15 ]
 }
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=14]
 length = 0.4
 loop = true
 tracks/0/type = "value"
@@ -271,7 +271,7 @@ tracks/0/keys = {
 "values": [ 4, 5, 6, 7 ]
 }
 
-[sub_resource type="Animation" id=8]
+[sub_resource type="Animation" id=15]
 length = 0.4
 loop = true
 tracks/0/type = "value"
@@ -287,7 +287,7 @@ tracks/0/keys = {
 "values": [ 0, 1, 2, 3 ]
 }
 
-[sub_resource type="Animation" id=9]
+[sub_resource type="Animation" id=16]
 length = 0.4
 loop = true
 tracks/0/type = "value"
@@ -303,7 +303,7 @@ tracks/0/keys = {
 "values": [ 12, 13, 14, 15 ]
 }
 
-[sub_resource type="Animation" id=10]
+[sub_resource type="Animation" id=17]
 length = 0.4
 loop = true
 tracks/0/type = "value"
@@ -319,7 +319,7 @@ tracks/0/keys = {
 "values": [ 4, 5, 6, 7 ]
 }
 
-[sub_resource type="Animation" id=11]
+[sub_resource type="Animation" id=18]
 length = 0.4
 loop = true
 tracks/0/type = "value"
@@ -335,7 +335,7 @@ tracks/0/keys = {
 "values": [ 0, 1, 2, 3 ]
 }
 
-[sub_resource type="Animation" id=12]
+[sub_resource type="Animation" id=19]
 length = 0.4
 loop = true
 tracks/0/type = "value"
@@ -351,7 +351,7 @@ tracks/0/keys = {
 "values": [ 12, 13, 14, 15 ]
 }
 
-[sub_resource type="Animation" id=13]
+[sub_resource type="Animation" id=20]
 length = 0.4
 loop = true
 tracks/0/type = "value"
@@ -373,45 +373,44 @@ tracks/0/keys = {
 collision_layer = 4
 collision_mask = 2
 script = ExtResource( 1 )
-Health = 250
-MaxDetection = 150
+Health = 150
+MaxDetection = 120
 
 [node name="CollisionBox" type="CollisionShape2D" parent="."]
 position = Vector2( -0.203903, -0.611721 )
 shape = SubResource( 1 )
 
 [node name="blue" type="Sprite" parent="."]
+visible = false
 texture = ExtResource( 2 )
-flip_h = true
 vframes = 3
 hframes = 8
-frame = 16
+frame = 13
 
 [node name="blue_player" type="AnimationPlayer" parent="blue"]
 autoplay = "idle"
-anims/attack_left = SubResource( 16 )
-anims/attack_right = SubResource( 20 )
-anims/die = SubResource( 17 )
-anims/hurt = SubResource( 18 )
-anims/idle = SubResource( 14 )
-anims/move_left = SubResource( 15 )
-anims/move_right = SubResource( 19 )
+anims/attack_left = SubResource( 2 )
+anims/attack_right = SubResource( 3 )
+anims/die = SubResource( 4 )
+anims/hurt = SubResource( 5 )
+anims/idle = SubResource( 6 )
+anims/move_left = SubResource( 7 )
+anims/move_right = SubResource( 8 )
 
 [node name="green" type="Sprite" parent="."]
-visible = false
 position = Vector2( 0.659348, 0.564083 )
 scale = Vector2( 1.5, 1.5 )
 texture = ExtResource( 3 )
 vframes = 4
 hframes = 4
-frame = 14
+frame = 3
 region_rect = Rect2( 0, 0, 30, 30 )
 
 [node name="green_player" type="AnimationPlayer" parent="green"]
 autoplay = "Bounce"
-anims/Bounce = SubResource( 2 )
-anims/Left = SubResource( 3 )
-anims/Right = SubResource( 4 )
+anims/Bounce = SubResource( 9 )
+anims/Left = SubResource( 10 )
+anims/Right = SubResource( 11 )
 
 [node name="slime" type="Node2D" parent="."]
 editor/display_folded = true
@@ -430,9 +429,9 @@ region_rect = Rect2( 0, 0, 30, 30 )
 
 [node name="blue_player" type="AnimationPlayer" parent="slime/blue"]
 autoplay = "Bounce"
-anims/Bounce = SubResource( 5 )
-anims/Left = SubResource( 6 )
-anims/Right = SubResource( 7 )
+anims/Bounce = SubResource( 12 )
+anims/Left = SubResource( 13 )
+anims/Right = SubResource( 14 )
 
 [node name="red" type="Sprite" parent="slime"]
 visible = false
@@ -444,9 +443,9 @@ region_rect = Rect2( 0, 0, 30, 30 )
 
 [node name="red_player" type="AnimationPlayer" parent="slime/red"]
 autoplay = "Bounce"
-anims/Bounce = SubResource( 8 )
-anims/Left = SubResource( 9 )
-anims/Right = SubResource( 10 )
+anims/Bounce = SubResource( 15 )
+anims/Left = SubResource( 16 )
+anims/Right = SubResource( 17 )
 
 [node name="modulate" type="Sprite" parent="slime"]
 visible = false
@@ -460,9 +459,9 @@ script = ExtResource( 7 )
 
 [node name="colorful_player" type="AnimationPlayer" parent="slime/modulate"]
 autoplay = "Bounce"
-anims/Bounce = SubResource( 11 )
-anims/Left = SubResource( 12 )
-anims/Right = SubResource( 13 )
+anims/Bounce = SubResource( 18 )
+anims/Left = SubResource( 19 )
+anims/Right = SubResource( 20 )
 
 [node name="SlimeDamageBox" type="Area2D" parent="."]
 collision_layer = 4

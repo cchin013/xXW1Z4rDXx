@@ -38,6 +38,7 @@ var startPos
 var DisableInput = false
 var ManaRegenCount = 30
 var AttackAnimationTimer = 0
+var HealthRegenCount = 120
 
 var Animator
 
@@ -201,22 +202,40 @@ func _process(delta):
 		if (not Input.is_action_pressed("ui_up")):
 			jumpReset = true
 			JumpWait = false
-			
+	
+	#Mana And Health Regeneration	
 	if (ManaRegenCount <= 0):
 		if (PlayerMana < 100):
 			PlayerMana += 1
 			emit_signal("manaChanged", 1)
-		ManaRegenCount = 30
+		ManaRegenCount = 31
 	ManaRegenCount -= 1
+	if (HealthRegenCount <= 0):
+		if (PlayerHealth < 100):
+			PlayerHealth += 1
+			emit_signal("healthChanged")
+		HealthRegenCount = 121
+	HealthRegenCount -= 1
+	
 	##Ticks Down Bolt Cooldown
 	BoltCooldown -= 2*delta
 	##Gravity acceleration if not on ground
-	if (test_move(get_transform(), Vector2(0,0.1))):
+	var OnPlatform = false
+	var Collisions = get_node("PlatformCheck").get_overlapping_bodies()
+	for Hit in Collisions:
+		if (Hit.is_in_group("Platform")):
+			OnPlatform = true
+	if (test_move(get_transform(), Vector2(0,0.1)) or OnPlatform):
+		if (Player_Gravity >= 1300):
+			Take_Damage(25)
+			Invincibility_Frames(60)
 		Player_Gravity = 100
 	else:
 		Player_Gravity += 12
+		if (Player_Gravity >= 1300):
+			Player_Gravity = 1300
 	if (jumping):
-		motion[1] += JumpVelocity#*delta
+		motion[1] += JumpVelocity
 		moving = true
 	#GravityMotion *= delta
 	##Finalizes motion vector and moves character
@@ -225,8 +244,8 @@ func _process(delta):
 	#Maximum Fall Speed
 	if (motion[1] >= 450):
 		motion[1] = 450
-		
-	var snap = Vector2.DOWN * 32 if (!jumping and test_move(get_transform(), Vector2(0,0.1))) else Vector2.ZERO
+	
+	var snap = Vector2.DOWN * 32 if (OnPlatform) else Vector2.ZERO
 	move_and_slide_with_snap(motion, snap, UP)
 	
 #	if get_slide_count() > 0:
@@ -284,6 +303,7 @@ func CreateBolt():
 		BoltPos = get_position() + Vector2(0,-16)
 		get_node("/root").add_child(BoltInstance)
 		PlayerHealth += 25
+		emit_signal("healthChanged")
 		return
 	get_node("/root").add_child(BoltInstance)
 	

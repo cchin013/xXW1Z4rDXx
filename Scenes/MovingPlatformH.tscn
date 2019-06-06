@@ -8,6 +8,7 @@ extents = Vector2( 16.1499, 4.06422 )
 
 [node name="MovingPlatformH" type="Node2D" groups=[
 "Terrain",
+"Platform",
 ]]
 script = ExtResource( 1 )
 

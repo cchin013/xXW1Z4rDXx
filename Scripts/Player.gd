@@ -2,6 +2,9 @@ extends KinematicBody2D
 
 #testtest
 
+signal healthChanged
+signal manaChanged
+
 #Exported Variables
 export var PLAYER_SPEED = 100
 export var PLAYER_JUMP_SPEED = -500
@@ -194,6 +197,7 @@ func _process(delta):
 	if (ManaRegenCount <= 0):
 		if (PlayerMana < 100):
 			PlayerMana += 1
+			emit_signal("manaChanged", 1)
 		ManaRegenCount = 30
 	ManaRegenCount -= 1
 	##Ticks Down Bolt Cooldown
@@ -231,29 +235,33 @@ func _process(delta):
 ##Spawns Spell Bolt
 func CreateBolt():
 	var Bolt
+	var manaCost
 	var currRotation = "LightningRotation"
 	if (currentSpell == "lightning" and PlayerMana >= 20):
-		PlayerMana -= 20
+		manaCost = -20
 		currRotation = "LightningRotation"
 		Bolt = load("res://Scenes/Lightning.tscn")
 		
 	elif (currentSpell == "fire" and PlayerMana >= 15):
-		PlayerMana -= 15
+		manaCost = -15
 		currRotation = "FireballRotation"
 		Bolt = load("res://Scenes/Fireball.tscn")
 		
 	elif (currentSpell == "earth" and PlayerMana >= 20):
-		PlayerMana -= 20
+		manaCost = -20
 		currRotation = "EarthRotation"
 		Bolt = load("res://Scenes/Earth.tscn")
 		
 	elif (currentSpell == "water" and PlayerMana >= 30):
-		PlayerMana -= 30
+		manaCost = -30
 		currRotation = "WaterRotation"
 		Bolt = load("res://Scenes/Water.tscn")
 	else:
 		return
-			
+		
+	PlayerMana += manaCost
+	emit_signal("manaChanged", manaCost)
+	
 	var BoltInstance = Bolt.instance()
 	BoltInstance.set_name("bolt")
 	BoltInstance.get_node(currRotation).set_rotation_degrees(get_node("Rotation").get_rotation_degrees())
@@ -289,6 +297,7 @@ func SpawnMeleeHitbox():
 func Take_Damage(damage):
 	PlayerHealth -= damage
 	StaggerCounter = 15
+	emit_signal("healthChanged", damage)
 	Animator.play("hurt")
  
 func Invincibility_Frames(numFrames):
@@ -297,10 +306,11 @@ func Invincibility_Frames(numFrames):
    
 func Die():
 	DeathCounter = 42
-	Animator.play("die")
+	# Animator.play("die") There is no death
    
 func Revive():
 	PlayerHealth = 100
+	emit_signal("healthChanged", 100, true)
 	Dying = false
 	self.set_transform(startPos)
 

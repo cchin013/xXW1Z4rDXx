@@ -314,10 +314,10 @@ func SpawnMeleeHitbox():
 	MeleeHitInstance.set_name("melee")
 	var MeleeHitPos = get_position()
 	if (RayNode.get_rotation_degrees() == -90):
-		MeleeHitPos[0] += 32
+		MeleeHitPos[0] += 24
 	if (RayNode.get_rotation_degrees() == 90):
-		MeleeHitPos[0] -= 32
-	MeleeHitPos[1] += 2
+		MeleeHitPos[0] -= 24
+	MeleeHitPos[1] -= 2
 	MeleeHitInstance.set_position(MeleeHitPos)
 	get_node("/root").add_child(MeleeHitInstance)
 	

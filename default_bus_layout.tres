@@ -22,7 +22,7 @@ voice/4/cutoff_hz = 16000.0
 voice/4/pan = 0.0
 
 [resource]
-bus/0/volume_db = 3.5
+bus/0/volume_db = -6.6
 bus/0/effect/0/effect = SubResource( 1 )
 bus/0/effect/0/enabled = false
 bus/0/effect/1/effect = SubResource( 2 )

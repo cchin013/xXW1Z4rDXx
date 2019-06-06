@@ -7,12 +7,13 @@
 [ext_resource path="res://Scenes/MovingPlatformH.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Sprites/spells/big_fire.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Scenes/enemies/slime.tscn" type="PackedScene" id=7]
-[ext_resource path="res://Scenes/enemies/summoner.tscn" type="PackedScene" id=8]
-[ext_resource path="res://Scenes/enemies/wizard.tscn" type="PackedScene" id=9]
-[ext_resource path="res://Scenes/enemies/skeleton.tscn" type="PackedScene" id=10]
+[ext_resource path="res://Scenes/enemies/illegal_enemies/summoner.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Scenes/enemies/illegal_enemies/wizard.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Scenes/enemies/illegal_enemies/skeleton.tscn" type="PackedScene" id=10]
 [ext_resource path="res://Music/Desert Theme.wav" type="AudioStream" id=11]
 
-[node name="demo" type="Node2D"]
+
+[node name="map" type="Node2D"]
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = ExtResource( 1 )
@@ -87,6 +88,7 @@ position = Vector2( 704.211, -351.579 )
 
 [node name="blue_slime" parent="enemies" instance=ExtResource( 7 )]
 position = Vector2( -288, -6.5835 )
+Health = 50
 
 [node name="summoner" parent="enemies" instance=ExtResource( 8 )]
 position = Vector2( 864, -328 )

@@ -3,13 +3,14 @@
 [ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://tileset/test_tiles.tres" type="TileSet" id=2]
 [ext_resource path="res://Scenes/enemies/slime.tscn" type="PackedScene" id=3]
-[ext_resource path="res://Scenes/enemies/skeleton.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Scenes/enemies/wizard.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Scenes/enemies/illegal_enemies/skeleton.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Scenes/enemies/illegal_enemies/wizard.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Sprites/spells/flames.tscn" type="PackedScene" id=6]
-[ext_resource path="res://Scenes/enemies/summoner.tscn" type="PackedScene" id=7]
-[ext_resource path="res://Scenes/enemies/rogue.tscn" type="PackedScene" id=8]
-[ext_resource path="res://Scenes/enemies/imp.tscn" type="PackedScene" id=9]
-[ext_resource path="res://Scenes/enemies/chibis.tscn" type="PackedScene" id=10]
+[ext_resource path="res://Scenes/enemies/illegal_enemies/summoner.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Scenes/enemies/illegal_enemies/rogue.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Scenes/enemies/illegal_enemies/imp.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Scenes/enemies/illegal_enemies/chibis.tscn" type="PackedScene" id=10]
+
 
 
 

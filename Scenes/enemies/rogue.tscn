@@ -452,9 +452,10 @@ tracks/4/keys = {
 [node name="rogue" type="Node2D"]
 
 [node name="sprite" type="Sprite" parent="."]
-position = Vector2( 0.011261, -0.088213 )
+position = Vector2( 10, -10 )
 texture = ExtResource( 1 )
 hframes = 3
+frame = 2
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="sprite"]
 autoplay = "idle"

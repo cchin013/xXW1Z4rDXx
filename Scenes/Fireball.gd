@@ -26,7 +26,7 @@ func _process(delta):
 	var FireballMotion = FIREBALL_SPEED*delta
 	if (RayNode.get_rotation_degrees() == -90):
 		FireballMotion = FIREBALL_SPEED*delta
-		set_rotation_degrees(180)
+		get_node("FireballSprite").flip_h = true
 	if (RayNode.get_rotation_degrees() == 90):
 		FireballMotion = -FIREBALL_SPEED*delta
 	var FireballCollisionCheck = global_translate(Vector2(FireballMotion,0))
@@ -36,22 +36,9 @@ func DealDamage():
 	var Overlaps = get_overlapping_bodies()
 	for Hit in (Overlaps):
 		if (Hit.is_in_group("Enemies")):
-			if (Hit.Invincible == false and Hit.DeathCounter == 0):
-				Hit.Take_Damage(15)
-				#Hit.Invincibility_Frames(30)
-				SpawnExplosion()
-				queue_free()
+			if (Hit.Invincible == false):
+				Hit.Take_Damage(35)
+				Hit.Invincibility_Frames(30)
 		elif (Hit.is_in_group("Terrain")):
-			SpawnExplosion()
 			queue_free()
 
-func SpawnExplosion():
-	var explosion = load("res://Scenes/FireballExplosion.tscn")
-	var ExplosionInstance = explosion.instance()
-	if (RayNode.get_rotation_degrees() == -90):
-		ExplosionInstance.set_position(get_position() + Vector2(15,0))
-	if (RayNode.get_rotation_degrees() == 90):
-		ExplosionInstance.set_position(get_position() + Vector2(-15,0))
-	get_node("/root").add_child(ExplosionInstance)
-	
-	

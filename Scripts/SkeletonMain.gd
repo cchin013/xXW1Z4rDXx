@@ -1,5 +1,8 @@
 extends "res://Scripts/BaseEnemy.gd"
  
+#testtest
+ 
+#export var SkeletonHealth = 500
 export var SkeletonSpeed = 70
 var moving = false
 var Skeleton_Gravity = 100
@@ -12,15 +15,12 @@ var StaggerCounter = 0
 var DeathCounter = 0
 var DetectAttack = false
 var AttackDetection = 30
-var Attacking = false
 var AttackTimer = 0
+var Attacking = false
 var testtransform
-var DamageTimer = 0
-
-
-
-
-
+ 
+ 
+ 
 func _ready():
 	set_process(true)
    
@@ -29,77 +29,69 @@ func _process(delta):
 	DistToPlayer = get_global_transform()[2] - (Player.get_global_transform()[2])
 	if (abs(DistToPlayer[0]) < MaxDetection):
 		#print(rad2deg(acos(DistToPlayer.normalized().dot(Facing))))
-		if (rad2deg(acos(DistToPlayer.normalized().dot(Facing))) - 100 > FOV):
+		if (rad2deg(acos(DistToPlayer.normalized().dot(Facing))) - 135 > FOV):
 			DetectPlayer = true
-			SkeletonSpeed = 115
 			if (abs(DistToPlayer[0]) < AttackDetection and not Attacking):
 				AttackTimer = 120
 				Attacking = true
 		else:
 			DetectPlayer = false
-			SkeletonSpeed = 70
 	else:
 		DetectPlayer = false
+	#print(DetectAttack)
 	var Direction = SkeletonRandomMovement(delta)
 	var motion = Vector2()
 	var GravityMotion = Vector2(0, Skeleton_Gravity)
 	#moving = false
 	if (DeathCounter > 0):
 		DeathCounter -= 1
+		AttackTimer = 0
 		Attacking = false
-		move_and_slide(GravityMotion)
 		if (DeathCounter == 0):
 			queue_free()
 		return
-	if (Facing[0] == 1):
-		CurrSprite.flip_h = false
-	else:
-		CurrSprite.flip_h = true
 	if (StaggerCounter > 0):
 		StaggerCounter -= 1
 		AttackTimer = 0
 		Attacking = false
-		move_and_slide(GravityMotion)
 		return
-	if (DamageTimer == 3):
-		DealDamage()
-		DamageTimer = 0
-	else:
-		DamageTimer += 1
-	if (Attacking):
+	if (AttackTimer >= 0):
 		AttackTimer -= 1
 		Animator.play("attack")
 		if (AttackTimer == 68):
 			SkeletonAttack()
-		if (AttackTimer == 0):
+		if (AttackTimer <= 0):
 			Attacking = false
-		move_and_slide(GravityMotion)
 		return
 	if (DetectPlayer and Facing[0] == -1):
 			motion = Vector2(-1,0)
+			CurrSprite.flip_h = true
 			Animator.play("walk")
 	elif (DetectPlayer and Facing[0] == 1):
 			motion = Vector2(1,0)
+			CurrSprite.flip_h = false
 			Animator.play("walk")
 	else:
 		if (Direction == "left"):
 			testtransform = transform
-			testtransform[2][0] -= SkeletonSpeed*delta*5
+			testtransform[2][0] -= SkeletonSpeed*delta*10
 			if (test_move(testtransform, Vector2(0,2))): #left
 				motion = Vector2(-1,0)
 				Animator.play("walk")
 			else:
 				Animator.play("idle")
 			Facing = Vector2(-1,0)
+			CurrSprite.flip_h = true
 		elif (Direction == "right"):
 			testtransform = transform
-			testtransform[2][0] += SkeletonSpeed*delta*5
+			testtransform[2][0] += SkeletonSpeed*delta*10
 			if (test_move(testtransform, Vector2(0,2))): #left
 				motion = Vector2(1,0)
 				Animator.play("walk")
 			else:
 				Animator.play("idle")
 			Facing = Vector2(1,0)
+			CurrSprite.flip_h = false
 		elif (Direction == "none"):
 			Animator.play("idle")
 			pass
@@ -136,24 +128,11 @@ func Take_Damage(damage):
 	Health -= damage
 	StaggerCounter = 42
 	Animator.play("stagger")
-	var temp = (Player.get_global_transform()[2]) - get_global_transform()[2]
-	if (temp[0] > 0):
-		Facing[0] = 1
-	else:
-		Facing[0] = -1
    
 func Die():
 	Animator.play("dead")
 	DeathCounter = 90
  
-func DealDamage():
-	var Overlaps = get_node("SkeletonDamageBox").get_overlapping_bodies()
-	for Hit in (Overlaps):
-		if (Hit.is_in_group("Player")):
-			if (Hit.Invincible == false and not Hit.Dying):
-				Hit.Take_Damage(20)
-				Hit.Invincibility_Frames(60)
-
  
 func SkeletonAttack():
 	var MeleeHit = load("res://Scenes/SkeletonAttack.tscn")

@@ -765,6 +765,7 @@ points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
 [node name="map" type="Node2D"]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+editor/display_folded = true
 
 [node name="GUI" parent="CanvasLayer" instance=ExtResource( 1 )]
 margin_left = 18.0

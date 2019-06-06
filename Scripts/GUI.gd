@@ -40,13 +40,19 @@ func update_health(value, revive):
 	if revive:
 		new_value = player_max_health
 	else:
-		new_value = hp_bar.value - value if ((hp_bar.value - value) > 0) else 0
+		new_value = hp_bar.value + value
+		if new_value < 0:
+			new_value = 0
+		elif new_value > player_max_health:
+			new_value = player_max_health
+		else:
+			pass
 		
 	hp_number_label.text = str(new_value)
 	hp_bar.value = new_value
 
 func update_mana(value):
 	var new_value
-	new_value = mp_bar.value + value if ((mp_bar.value - value) > 0) else 0
+	new_value = mp_bar.value + value if ((mp_bar.value + value) > 0) else 0
 	mp_number_label.text = str(new_value)
 	mp_bar.value = new_value

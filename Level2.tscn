@@ -1,41 +1,43 @@
-[gd_scene load_steps=48 format=2]
+[gd_scene load_steps=50 format=2]
 
-[ext_resource path="res://Sprites/Zones/Underground_Jungle/newstuff/caveroom_background.png" type="Texture" id=1]
-[ext_resource path="res://Sprites/Zones/Underground_Jungle/newstuff/caveroom_C.png" type="Texture" id=2]
-[ext_resource path="res://Sprites/Zones/Underground_Jungle/newstuff/ground_T.png" type="Texture" id=3]
-[ext_resource path="res://Sprites/Zones/Underground_Jungle/newstuff/propvine2_B.png" type="Texture" id=4]
-[ext_resource path="res://Sprites/Zones/Underground_Jungle/newstuff/propvine2_T.png" type="Texture" id=5]
-[ext_resource path="res://Sprites/Zones/Underground_Jungle/newstuff/propvine_B.png" type="Texture" id=6]
-[ext_resource path="res://Sprites/Zones/Underground_Jungle/newstuff/propvine_M.png" type="Texture" id=7]
-[ext_resource path="res://Sprites/Zones/Underground_Jungle/newstuff/propvine_T.png" type="Texture" id=8]
-[ext_resource path="res://Sprites/Zones/Underground_Jungle/newstuff/backprop.png" type="Texture" id=9]
-[ext_resource path="res://Sprites/Zones/Underground_Jungle/newstuff/backprop3.png" type="Texture" id=10]
-[ext_resource path="res://Sprites/Zones/Underground_Jungle/newstuff/backprop2.png" type="Texture" id=11]
-[ext_resource path="res://Sprites/Zones/Underground_Jungle/newstuff/vines1.png" type="Texture" id=12]
-[ext_resource path="res://Sprites/Zones/Underground_Jungle/newstuff/caveroom_P.png" type="Texture" id=13]
-[ext_resource path="res://Sprites/Zones/Underground_Jungle/newstuff/vines2.png" type="Texture" id=14]
-[ext_resource path="res://Sprites/Zones/Underground_Jungle/newstuff/bush5.png" type="Texture" id=15]
-[ext_resource path="res://Sprites/Zones/Underground_Jungle/newstuff/bush4.png" type="Texture" id=16]
-[ext_resource path="res://Sprites/Zones/Underground_Jungle/newstuff/bush3.png" type="Texture" id=17]
-[ext_resource path="res://Sprites/Zones/Underground_Jungle/newstuff/bush2.png" type="Texture" id=18]
-[ext_resource path="res://Sprites/Zones/Underground_Jungle/newstuff/bush1.png" type="Texture" id=19]
-[ext_resource path="res://Sprites/Zones/Underground_Jungle/newstuff/bush6.png" type="Texture" id=20]
-[ext_resource path="res://Sprites/Zones/Underground_Jungle/newstuff/rockceil3.png" type="Texture" id=21]
-[ext_resource path="res://Sprites/Zones/Underground_Jungle/newstuff/rockceil2.png" type="Texture" id=22]
-[ext_resource path="res://Sprites/Zones/Underground_Jungle/newstuff/rockceil1.png" type="Texture" id=23]
-[ext_resource path="res://Sprites/Zones/Underground_Jungle/newstuff/caveroom_TL.png" type="Texture" id=24]
-[ext_resource path="res://Sprites/Zones/Underground_Jungle/newstuff/caveroom_TR.png" type="Texture" id=25]
-[ext_resource path="res://Sprites/Zones/Underground_Jungle/newstuff/grass_L.png" type="Texture" id=26]
-[ext_resource path="res://Sprites/Zones/Underground_Jungle/newstuff/grass_M.png" type="Texture" id=27]
-[ext_resource path="res://Sprites/Zones/Underground_Jungle/newstuff/grass_R.png" type="Texture" id=28]
-[ext_resource path="res://Sprites/Zones/Underground_Jungle/newstuff/ground_L.png" type="Texture" id=29]
-[ext_resource path="res://Sprites/Zones/Underground_Jungle/newstuff/ground_M.png" type="Texture" id=30]
-[ext_resource path="res://Sprites/Backgrounds/parallax-forest-middle-trees.png" type="Texture" id=31]
-[ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=32]
-[ext_resource path="res://Music/Possibility V2.wav" type="AudioStream" id=33]
-[ext_resource path="res://Scenes/enemies/illegal_enemies/skeleton.tscn" type="PackedScene" id=34]
-[ext_resource path="res://Scenes/enemies/slime.tscn" type="PackedScene" id=35]
-[ext_resource path="res://Scenes/enemies/legal_enemies/ghost.tscn" type="PackedScene" id=36]
+[ext_resource path="res://GUI/gui_scenes/GUI.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Scripts/GUI.gd" type="Script" id=2]
+[ext_resource path="res://Sprites/Zones/Underground_Jungle/newstuff/caveroom_background.png" type="Texture" id=3]
+[ext_resource path="res://Sprites/Zones/Underground_Jungle/newstuff/caveroom_C.png" type="Texture" id=4]
+[ext_resource path="res://Sprites/Zones/Underground_Jungle/newstuff/ground_T.png" type="Texture" id=5]
+[ext_resource path="res://Sprites/Zones/Underground_Jungle/newstuff/propvine2_B.png" type="Texture" id=6]
+[ext_resource path="res://Sprites/Zones/Underground_Jungle/newstuff/propvine2_T.png" type="Texture" id=7]
+[ext_resource path="res://Sprites/Zones/Underground_Jungle/newstuff/propvine_B.png" type="Texture" id=8]
+[ext_resource path="res://Sprites/Zones/Underground_Jungle/newstuff/propvine_M.png" type="Texture" id=9]
+[ext_resource path="res://Sprites/Zones/Underground_Jungle/newstuff/propvine_T.png" type="Texture" id=10]
+[ext_resource path="res://Sprites/Zones/Underground_Jungle/newstuff/backprop.png" type="Texture" id=11]
+[ext_resource path="res://Sprites/Zones/Underground_Jungle/newstuff/backprop3.png" type="Texture" id=12]
+[ext_resource path="res://Sprites/Zones/Underground_Jungle/newstuff/backprop2.png" type="Texture" id=13]
+[ext_resource path="res://Sprites/Zones/Underground_Jungle/newstuff/vines1.png" type="Texture" id=14]
+[ext_resource path="res://Sprites/Zones/Underground_Jungle/newstuff/caveroom_P.png" type="Texture" id=15]
+[ext_resource path="res://Sprites/Zones/Underground_Jungle/newstuff/vines2.png" type="Texture" id=16]
+[ext_resource path="res://Sprites/Zones/Underground_Jungle/newstuff/bush5.png" type="Texture" id=17]
+[ext_resource path="res://Sprites/Zones/Underground_Jungle/newstuff/bush4.png" type="Texture" id=18]
+[ext_resource path="res://Sprites/Zones/Underground_Jungle/newstuff/bush3.png" type="Texture" id=19]
+[ext_resource path="res://Sprites/Zones/Underground_Jungle/newstuff/bush2.png" type="Texture" id=20]
+[ext_resource path="res://Sprites/Zones/Underground_Jungle/newstuff/bush1.png" type="Texture" id=21]
+[ext_resource path="res://Sprites/Zones/Underground_Jungle/newstuff/bush6.png" type="Texture" id=22]
+[ext_resource path="res://Sprites/Zones/Underground_Jungle/newstuff/rockceil3.png" type="Texture" id=23]
+[ext_resource path="res://Sprites/Zones/Underground_Jungle/newstuff/rockceil2.png" type="Texture" id=24]
+[ext_resource path="res://Sprites/Zones/Underground_Jungle/newstuff/rockceil1.png" type="Texture" id=25]
+[ext_resource path="res://Sprites/Zones/Underground_Jungle/newstuff/caveroom_TL.png" type="Texture" id=26]
+[ext_resource path="res://Sprites/Zones/Underground_Jungle/newstuff/caveroom_TR.png" type="Texture" id=27]
+[ext_resource path="res://Sprites/Zones/Underground_Jungle/newstuff/grass_L.png" type="Texture" id=28]
+[ext_resource path="res://Sprites/Zones/Underground_Jungle/newstuff/grass_M.png" type="Texture" id=29]
+[ext_resource path="res://Sprites/Zones/Underground_Jungle/newstuff/grass_R.png" type="Texture" id=30]
+[ext_resource path="res://Sprites/Zones/Underground_Jungle/newstuff/ground_L.png" type="Texture" id=31]
+[ext_resource path="res://Sprites/Zones/Underground_Jungle/newstuff/ground_M.png" type="Texture" id=32]
+[ext_resource path="res://Sprites/Backgrounds/parallax-forest-middle-trees.png" type="Texture" id=33]
+[ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=34]
+[ext_resource path="res://Music/Possibility V2.wav" type="AudioStream" id=35]
+[ext_resource path="res://Scenes/enemies/illegal_enemies/skeleton.tscn" type="PackedScene" id=36]
+[ext_resource path="res://Scenes/enemies/slime.tscn" type="PackedScene" id=37]
+[ext_resource path="res://Scenes/enemies/legal_enemies/ghost.tscn" type="PackedScene" id=38]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
@@ -69,7 +71,7 @@ points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
 
 [sub_resource type="TileSet" id=11]
 0/name = "caveroom_background.png 0"
-0/texture = ExtResource( 1 )
+0/texture = ExtResource( 3 )
 0/tex_offset = Vector2( 0, 0 )
 0/modulate = Color( 1, 1, 1, 1 )
 0/region = Rect2( 0, 0, 16, 16 )
@@ -79,7 +81,7 @@ points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
 0/shapes = [  ]
 0/z_index = 0
 1/name = "caveroom_C.png 1"
-1/texture = ExtResource( 2 )
+1/texture = ExtResource( 4 )
 1/tex_offset = Vector2( 0, 0 )
 1/modulate = Color( 1, 1, 1, 1 )
 1/region = Rect2( 0, 0, 16, 16 )
@@ -95,7 +97,7 @@ points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
 } ]
 1/z_index = 0
 2/name = "caveroom_P.png 2"
-2/texture = ExtResource( 13 )
+2/texture = ExtResource( 15 )
 2/tex_offset = Vector2( 0, 0 )
 2/modulate = Color( 1, 1, 1, 1 )
 2/region = Rect2( 0, 0, 16, 16 )
@@ -111,7 +113,7 @@ points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
 } ]
 2/z_index = 0
 3/name = "caveroom_TL.png 3"
-3/texture = ExtResource( 24 )
+3/texture = ExtResource( 26 )
 3/tex_offset = Vector2( 0, 0 )
 3/modulate = Color( 1, 1, 1, 1 )
 3/region = Rect2( 0, 0, 16, 16 )
@@ -127,7 +129,7 @@ points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
 } ]
 3/z_index = 0
 4/name = "caveroom_TR.png 4"
-4/texture = ExtResource( 25 )
+4/texture = ExtResource( 27 )
 4/tex_offset = Vector2( 0, 0 )
 4/modulate = Color( 1, 1, 1, 1 )
 4/region = Rect2( 0, 0, 16, 16 )
@@ -143,7 +145,7 @@ points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
 } ]
 4/z_index = 0
 5/name = "grass_L.png 5"
-5/texture = ExtResource( 26 )
+5/texture = ExtResource( 28 )
 5/tex_offset = Vector2( 0, 0 )
 5/modulate = Color( 1, 1, 1, 1 )
 5/region = Rect2( 0, 0, 16, 16 )
@@ -159,7 +161,7 @@ points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
 } ]
 5/z_index = 0
 6/name = "grass_M.png 6"
-6/texture = ExtResource( 27 )
+6/texture = ExtResource( 29 )
 6/tex_offset = Vector2( 0, 0 )
 6/modulate = Color( 1, 1, 1, 1 )
 6/region = Rect2( 0, 0, 16, 16 )
@@ -175,7 +177,7 @@ points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
 } ]
 6/z_index = 0
 7/name = "grass_R.png 7"
-7/texture = ExtResource( 28 )
+7/texture = ExtResource( 30 )
 7/tex_offset = Vector2( 0, 0 )
 7/modulate = Color( 1, 1, 1, 1 )
 7/region = Rect2( 0, 0, 16, 16 )
@@ -191,7 +193,7 @@ points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
 } ]
 7/z_index = 0
 8/name = "ground_L.png 8"
-8/texture = ExtResource( 29 )
+8/texture = ExtResource( 31 )
 8/tex_offset = Vector2( 0, 0 )
 8/modulate = Color( 1, 1, 1, 1 )
 8/region = Rect2( 0, 0, 16, 16 )
@@ -207,7 +209,7 @@ points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
 } ]
 8/z_index = 0
 9/name = "ground_M.png 9"
-9/texture = ExtResource( 30 )
+9/texture = ExtResource( 32 )
 9/tex_offset = Vector2( 0, 0 )
 9/modulate = Color( 1, 1, 1, 1 )
 9/region = Rect2( 0, 0, 16, 16 )
@@ -223,7 +225,7 @@ points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
 } ]
 9/z_index = 0
 10/name = "ground_T.png 10"
-10/texture = ExtResource( 3 )
+10/texture = ExtResource( 5 )
 10/tex_offset = Vector2( 0, 0 )
 10/modulate = Color( 1, 1, 1, 1 )
 10/region = Rect2( 0, 0, 16, 16 )
@@ -239,7 +241,7 @@ points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
 } ]
 10/z_index = 0
 11/name = "propvine2_B.png 11"
-11/texture = ExtResource( 4 )
+11/texture = ExtResource( 6 )
 11/tex_offset = Vector2( 0, 0 )
 11/modulate = Color( 1, 1, 1, 1 )
 11/region = Rect2( 0, 0, 16, 16 )
@@ -249,7 +251,7 @@ points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
 11/shapes = [  ]
 11/z_index = 0
 12/name = "propvine2_T.png 12"
-12/texture = ExtResource( 5 )
+12/texture = ExtResource( 7 )
 12/tex_offset = Vector2( 0, 0 )
 12/modulate = Color( 1, 1, 1, 1 )
 12/region = Rect2( 0, 0, 16, 16 )
@@ -259,7 +261,7 @@ points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
 12/shapes = [  ]
 12/z_index = 0
 13/name = "propvine_B.png 13"
-13/texture = ExtResource( 6 )
+13/texture = ExtResource( 8 )
 13/tex_offset = Vector2( 0, 0 )
 13/modulate = Color( 1, 1, 1, 1 )
 13/region = Rect2( 0, 0, 16, 16 )
@@ -269,7 +271,7 @@ points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
 13/shapes = [  ]
 13/z_index = 0
 14/name = "propvine_M.png 14"
-14/texture = ExtResource( 7 )
+14/texture = ExtResource( 9 )
 14/tex_offset = Vector2( 0, 0 )
 14/modulate = Color( 1, 1, 1, 1 )
 14/region = Rect2( 0, 0, 16, 16 )
@@ -279,7 +281,7 @@ points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
 14/shapes = [  ]
 14/z_index = 0
 15/name = "propvine_T.png 15"
-15/texture = ExtResource( 8 )
+15/texture = ExtResource( 10 )
 15/tex_offset = Vector2( 0, 0 )
 15/modulate = Color( 1, 1, 1, 1 )
 15/region = Rect2( 0, 0, 16, 16 )
@@ -289,7 +291,7 @@ points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
 15/shapes = [  ]
 15/z_index = 0
 16/name = "backprop.png 16"
-16/texture = ExtResource( 9 )
+16/texture = ExtResource( 11 )
 16/tex_offset = Vector2( 0, 0 )
 16/modulate = Color( 1, 1, 1, 1 )
 16/region = Rect2( 0, 0, 16, 16 )
@@ -299,7 +301,7 @@ points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
 16/shapes = [  ]
 16/z_index = 0
 17/name = "backprop3.png 17"
-17/texture = ExtResource( 10 )
+17/texture = ExtResource( 12 )
 17/tex_offset = Vector2( 0, 0 )
 17/modulate = Color( 1, 1, 1, 1 )
 17/region = Rect2( 0, 0, 16, 16 )
@@ -309,7 +311,7 @@ points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
 17/shapes = [  ]
 17/z_index = 0
 18/name = "backprop2.png 18"
-18/texture = ExtResource( 11 )
+18/texture = ExtResource( 13 )
 18/tex_offset = Vector2( 0, 0 )
 18/modulate = Color( 1, 1, 1, 1 )
 18/region = Rect2( 0, 0, 16, 16 )
@@ -319,7 +321,7 @@ points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
 18/shapes = [  ]
 18/z_index = 0
 19/name = "vines1.png 19"
-19/texture = ExtResource( 12 )
+19/texture = ExtResource( 14 )
 19/tex_offset = Vector2( 0, 0 )
 19/modulate = Color( 1, 1, 1, 1 )
 19/region = Rect2( 0, 0, 16, 16 )
@@ -329,7 +331,7 @@ points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
 19/shapes = [  ]
 19/z_index = 0
 20/name = "vines2.png 20"
-20/texture = ExtResource( 14 )
+20/texture = ExtResource( 16 )
 20/tex_offset = Vector2( 0, 0 )
 20/modulate = Color( 1, 1, 1, 1 )
 20/region = Rect2( 0, 0, 16, 16 )
@@ -339,7 +341,7 @@ points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
 20/shapes = [  ]
 20/z_index = 0
 21/name = "bush5.png 21"
-21/texture = ExtResource( 15 )
+21/texture = ExtResource( 17 )
 21/tex_offset = Vector2( 0, 0 )
 21/modulate = Color( 1, 1, 1, 1 )
 21/region = Rect2( 0, 0, 16, 16 )
@@ -349,7 +351,7 @@ points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
 21/shapes = [  ]
 21/z_index = 0
 22/name = "bush4.png 22"
-22/texture = ExtResource( 16 )
+22/texture = ExtResource( 18 )
 22/tex_offset = Vector2( 0, 0 )
 22/modulate = Color( 1, 1, 1, 1 )
 22/region = Rect2( 0, 0, 16, 16 )
@@ -359,7 +361,7 @@ points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
 22/shapes = [  ]
 22/z_index = 0
 23/name = "bush3.png 23"
-23/texture = ExtResource( 17 )
+23/texture = ExtResource( 19 )
 23/tex_offset = Vector2( 0, 0 )
 23/modulate = Color( 1, 1, 1, 1 )
 23/region = Rect2( 0, 0, 16, 16 )
@@ -369,7 +371,7 @@ points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
 23/shapes = [  ]
 23/z_index = 0
 24/name = "bush2.png 24"
-24/texture = ExtResource( 18 )
+24/texture = ExtResource( 20 )
 24/tex_offset = Vector2( 0, 0 )
 24/modulate = Color( 1, 1, 1, 1 )
 24/region = Rect2( 0, 0, 16, 16 )
@@ -379,7 +381,7 @@ points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
 24/shapes = [  ]
 24/z_index = 0
 25/name = "bush1.png 25"
-25/texture = ExtResource( 19 )
+25/texture = ExtResource( 21 )
 25/tex_offset = Vector2( 0, 0 )
 25/modulate = Color( 1, 1, 1, 1 )
 25/region = Rect2( 0, 0, 16, 16 )
@@ -389,7 +391,7 @@ points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
 25/shapes = [  ]
 25/z_index = 0
 26/name = "bush6.png 26"
-26/texture = ExtResource( 20 )
+26/texture = ExtResource( 22 )
 26/tex_offset = Vector2( 0, 0 )
 26/modulate = Color( 1, 1, 1, 1 )
 26/region = Rect2( 0, 0, 16, 16 )
@@ -399,7 +401,7 @@ points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
 26/shapes = [  ]
 26/z_index = 0
 27/name = "rockceil3.png 27"
-27/texture = ExtResource( 21 )
+27/texture = ExtResource( 23 )
 27/tex_offset = Vector2( 0, 0 )
 27/modulate = Color( 1, 1, 1, 1 )
 27/region = Rect2( 0, 0, 16, 16 )
@@ -409,7 +411,7 @@ points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
 27/shapes = [  ]
 27/z_index = 0
 28/name = "rockceil2.png 28"
-28/texture = ExtResource( 22 )
+28/texture = ExtResource( 24 )
 28/tex_offset = Vector2( 0, 0 )
 28/modulate = Color( 1, 1, 1, 1 )
 28/region = Rect2( 0, 0, 16, 16 )
@@ -419,7 +421,7 @@ points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
 28/shapes = [  ]
 28/z_index = 0
 29/name = "rockceil1.png 29"
-29/texture = ExtResource( 23 )
+29/texture = ExtResource( 25 )
 29/tex_offset = Vector2( 0, 0 )
 29/modulate = Color( 1, 1, 1, 1 )
 29/region = Rect2( 0, 0, 16, 16 )
@@ -429,7 +431,12 @@ points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
 29/shapes = [  ]
 29/z_index = 0
 
-[node name="Level2" type="Node2D"]
+[node name="map" type="Node2D"]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="GUI" parent="CanvasLayer" instance=ExtResource( 1 )]
+script = ExtResource( 2 )
 
 [node name="TileMap" type="TileMap" parent="."]
 z_index = -1
@@ -448,75 +455,77 @@ scroll_base_scale = Vector2( 0.6, 0.6 )
 [node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer"]
 position = Vector2( 1570, 1740 )
 scale = Vector2( 16.0074, 18.0781 )
-texture = ExtResource( 31 )
+texture = ExtResource( 33 )
 
-[node name="Player" parent="." instance=ExtResource( 32 )]
+[node name="Player" parent="." instance=ExtResource( 34 )]
 position = Vector2( 2830, 2660 )
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 33 )
+stream = ExtResource( 35 )
 autoplay = true
 
-[node name="Skeleton" parent="." instance=ExtResource( 34 )]
+[node name="Skeleton" parent="." instance=ExtResource( 36 )]
 position = Vector2( 1904.64, 2635.69 )
 
-[node name="Skeleton2" parent="." instance=ExtResource( 34 )]
+[node name="Skeleton2" parent="." instance=ExtResource( 36 )]
 position = Vector2( 2144.9, 2442.07 )
 
-[node name="Skeleton5" parent="." instance=ExtResource( 34 )]
+[node name="Skeleton5" parent="." instance=ExtResource( 36 )]
 position = Vector2( 1080.72, 2264.2 )
 
-[node name="Skeleton6" parent="." instance=ExtResource( 34 )]
+[node name="Skeleton6" parent="." instance=ExtResource( 36 )]
 position = Vector2( 1156.09, 2265.71 )
 
-[node name="Skeleton7" parent="." instance=ExtResource( 34 )]
+[node name="Skeleton7" parent="." instance=ExtResource( 36 )]
 position = Vector2( 817.426, 2136.17 )
 
-[node name="Skeleton3" parent="." instance=ExtResource( 34 )]
+[node name="Skeleton3" parent="." instance=ExtResource( 36 )]
 position = Vector2( 2862.21, 2346.43 )
 
-[node name="Skeleton4" parent="." instance=ExtResource( 34 )]
+[node name="Skeleton4" parent="." instance=ExtResource( 36 )]
 position = Vector2( 2520.04, 1928.9 )
 
-[node name="Slime" parent="." instance=ExtResource( 35 )]
+[node name="Slime" parent="." instance=ExtResource( 37 )]
 position = Vector2( 2574.04, 2512.21 )
 
-[node name="Slime2" parent="." instance=ExtResource( 35 )]
+[node name="Slime2" parent="." instance=ExtResource( 37 )]
 position = Vector2( 2085.4, 2254.38 )
 
-[node name="Slime4" parent="." instance=ExtResource( 35 )]
+[node name="Slime4" parent="." instance=ExtResource( 37 )]
 position = Vector2( 2632.07, 2077.33 )
 
-[node name="Slime3" parent="." instance=ExtResource( 35 )]
+[node name="Slime3" parent="." instance=ExtResource( 37 )]
 position = Vector2( 1654.46, 2305.95 )
 
-[node name="Slime5" parent="." instance=ExtResource( 35 )]
+[node name="Slime5" parent="." instance=ExtResource( 37 )]
 position = Vector2( 1832.33, 2061.76 )
 
-[node name="Slime6" parent="." instance=ExtResource( 35 )]
+[node name="Slime6" parent="." instance=ExtResource( 37 )]
 position = Vector2( 1430.74, 1789.72 )
 
-[node name="Slime8" parent="." instance=ExtResource( 35 )]
+[node name="Slime8" parent="." instance=ExtResource( 37 )]
 position = Vector2( 2095.55, 1783.24 )
 
-[node name="Slime7" parent="." instance=ExtResource( 35 )]
+[node name="Slime7" parent="." instance=ExtResource( 37 )]
 position = Vector2( 1029.16, 2059.91 )
 
-[node name="Ghost" parent="." instance=ExtResource( 36 )]
+[node name="Ghost" parent="." instance=ExtResource( 38 )]
 position = Vector2( 2139.51, 2564.64 )
 
-[node name="Ghost5" parent="." instance=ExtResource( 36 )]
+[node name="Ghost5" parent="." instance=ExtResource( 38 )]
 position = Vector2( 1634.55, 2055.16 )
 
-[node name="Ghost6" parent="." instance=ExtResource( 36 )]
+[node name="Ghost6" parent="." instance=ExtResource( 38 )]
 position = Vector2( 1849.23, 1784.97 )
 
-[node name="Ghost4" parent="." instance=ExtResource( 36 )]
+[node name="Ghost4" parent="." instance=ExtResource( 38 )]
 position = Vector2( 2261.61, 2002.4 )
 
-[node name="Ghost2" parent="." instance=ExtResource( 36 )]
+[node name="Ghost2" parent="." instance=ExtResource( 38 )]
 position = Vector2( 1731.29, 2500.49 )
 
-[node name="Ghost3" parent="." instance=ExtResource( 36 )]
+[node name="Ghost3" parent="." instance=ExtResource( 38 )]
 position = Vector2( 1167.15, 2466.47 )
 
+[connection signal="healthChanged" from="Player" to="CanvasLayer/GUI" method="_on_Player_healthChanged"]
+[connection signal="manaChanged" from="Player" to="CanvasLayer/GUI" method="_on_Player_manaChanged"]

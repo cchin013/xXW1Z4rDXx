@@ -213,7 +213,7 @@ func _process(delta):
 	if (HealthRegenCount <= 0):
 		if (PlayerHealth < 100):
 			PlayerHealth += 1
-			emit_signal("healthChanged")
+			emit_signal("healthChanged", 1)
 		HealthRegenCount = 121
 	HealthRegenCount -= 1
 	
@@ -280,7 +280,7 @@ func CreateBolt():
 		Bolt = load("res://Scenes/Earth.tscn")
 		
 	elif (currentSpell == "water" and PlayerMana >= 30):
-		manaCost = -30
+		manaCost = 30
 		currRotation = "WaterRotation"
 		Bolt = load("res://Scenes/Water.tscn")
 	else:
@@ -303,7 +303,7 @@ func CreateBolt():
 		BoltPos = get_position() + Vector2(0,-16)
 		get_node("/root").add_child(BoltInstance)
 		PlayerHealth += 25
-		emit_signal("healthChanged")
+		emit_signal("healthChanged", 25)
 		return
 	get_node("/root").add_child(BoltInstance)
 	
@@ -325,7 +325,7 @@ func SpawnMeleeHitbox():
 func Take_Damage(damage):
 	PlayerHealth -= damage
 	StaggerCounter = 15
-	emit_signal("healthChanged", damage)
+	emit_signal("healthChanged", -damage)
 	Animator.play("hurt")
  
 func Invincibility_Frames(numFrames):

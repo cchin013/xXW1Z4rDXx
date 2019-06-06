@@ -15,7 +15,7 @@ func _ready():
 	set_process(true)
 
 func _process(delta):
-	DistToPlayer = get_global_transform()[2] - (Player.get_global_transform()[2])
+	DistToPlayer = Vector2(10,10)#get_global_transform()[2] - (Player.get_global_transform()[2])
 	if (abs(DistToPlayer[0]) < MaxDetection):
 		#print(rad2deg(acos(DistToPlayer.normalized().dot(Facing))))
 		if (DistToPlayer[0] > 0):

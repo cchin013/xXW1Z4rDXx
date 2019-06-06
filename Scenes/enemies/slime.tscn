@@ -381,7 +381,6 @@ position = Vector2( -0.203903, -0.611721 )
 shape = SubResource( 1 )
 
 [node name="blue" type="Sprite" parent="."]
-visible = false
 texture = ExtResource( 2 )
 vframes = 3
 hframes = 8
@@ -398,6 +397,7 @@ anims/move_left = SubResource( 7 )
 anims/move_right = SubResource( 8 )
 
 [node name="green" type="Sprite" parent="."]
+visible = false
 position = Vector2( 0.659348, 0.564083 )
 scale = Vector2( 1.5, 1.5 )
 texture = ExtResource( 3 )

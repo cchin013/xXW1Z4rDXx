@@ -836,7 +836,6 @@ scale = Vector2( 12.7083, 8.06818 )
 texture = ExtResource( 49 )
 
 [node name="Enemies" type="Node" parent="."]
-editor/display_folded = true
 
 [node name="Skeleton" parent="Enemies" instance=ExtResource( 47 )]
 position = Vector2( 660, 1038.5 )
@@ -946,32 +945,8 @@ position = Vector2( 1290, 430 )
 [node name="Skeleton36" parent="Enemies" instance=ExtResource( 47 )]
 position = Vector2( 1260, 180 )
 
-[node name="Skeleton37" parent="Enemies" instance=ExtResource( 47 )]
-position = Vector2( 933.79, -264.719 )
-
-[node name="Skeleton38" parent="Enemies" instance=ExtResource( 47 )]
-position = Vector2( 970.366, -262.28 )
-
-[node name="Skeleton39" parent="Enemies" instance=ExtResource( 47 )]
-position = Vector2( 951.834, -255.453 )
-
-[node name="Skeleton40" parent="Enemies" instance=ExtResource( 47 )]
-position = Vector2( 930.376, -248.138 )
-
-[node name="Skeleton41" parent="Enemies" instance=ExtResource( 47 )]
-position = Vector2( 793.827, -261.305 )
-
-[node name="Skeleton42" parent="Enemies" instance=ExtResource( 47 )]
-position = Vector2( 778.221, -255.94 )
-
-[node name="Skeleton43" parent="Enemies" instance=ExtResource( 47 )]
-position = Vector2( 760.177, -252.039 )
-
-[node name="Skeleton44" parent="Enemies" instance=ExtResource( 47 )]
-position = Vector2( 791.388, -257.403 )
-
 [node name="SuperSkeleton" parent="Enemies" instance=ExtResource( 47 )]
-position = Vector2( 771.48, -258.184 )
+position = Vector2( -390, 296 )
 
 [node name="Slime" parent="Enemies" instance=ExtResource( 50 )]
 position = Vector2( 188.679, 1046.77 )
@@ -979,6 +954,5 @@ position = Vector2( 188.679, 1046.77 )
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 51 )
 volume_db = -20.594
-
 [connection signal="healthChanged" from="Player" to="CanvasLayer/GUI" method="_on_Player_healthChanged"]
 [connection signal="manaChanged" from="Player" to="CanvasLayer/GUI" method="_on_Player_manaChanged"]

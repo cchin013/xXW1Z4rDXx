@@ -813,7 +813,7 @@ tile_data = PoolIntArray( -196634, 4, 0, -196633, 5, 0, 262119, 5, 0, 262120, 4,
 script = ExtResource( 46 )
 
 [node name="Player" parent="." instance=ExtResource( 47 )]
-position = Vector2( -50, 1030 )
+position = Vector2( -40, 1040 )
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 scroll_base_scale = Vector2( 0.1, 0.1 )
@@ -950,4 +950,4 @@ autoplay = true
 
 [connection signal="healthChanged" from="Player" to="CanvasLayer/GUI" method="_on_Player_healthChanged"]
 [connection signal="manaChanged" from="Player" to="CanvasLayer/GUI" method="_on_Player_manaChanged"]
-[connection signal="display_text" from="Enemies/Ghost" to="CanvasLayer/message_text" method="_on_Ghost_display_text"]
+[connection signal="display_text" from="Enemies/SuperSkeleton" to="CanvasLayer/message_text" method="_on_SuperSkeleton_display_text"]

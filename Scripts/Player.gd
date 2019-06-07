@@ -280,7 +280,7 @@ func CreateBolt():
 		Bolt = load("res://Scenes/Earth.tscn")
 		
 	elif (currentSpell == "water" and PlayerMana >= 30):
-		manaCost = 30
+		manaCost = -30
 		currRotation = "WaterRotation"
 		Bolt = load("res://Scenes/Water.tscn")
 	else:

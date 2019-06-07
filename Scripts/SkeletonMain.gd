@@ -1,5 +1,7 @@
 extends "res://Scripts/BaseEnemy.gd"
  
+signal display_text
+
 export var SkeletonSpeed = 70
 var moving = false
 var Skeleton_Gravity = 100
@@ -16,10 +18,6 @@ var Attacking = false
 var AttackTimer = 0
 var testtransform
 var DamageTimer = 0
-
-
-
-
 
 func _ready():
 	set_process(true)
@@ -145,6 +143,7 @@ func Take_Damage(damage):
 func Die():
 	Animator.play("dead")
 	DeathCounter = 90
+	emit_signal("display_text", "Skeleton added to the scrum sheet")
  
 func DealDamage():
 	var Overlaps = get_node("SkeletonDamageBox").get_overlapping_bodies()

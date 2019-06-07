@@ -6,6 +6,7 @@ onready var text_label = $message_text/
 func _ready():
 	self.hide()
 
-func _on_Ghost_display_text(message):
+func _on_SuperSkeleton_display_text(message):
 	self.text = str(message)
 	self.show()	
+	

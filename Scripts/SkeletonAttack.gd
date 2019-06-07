@@ -18,5 +18,5 @@ func DealDamage():
 	for Hit in (Overlaps):
 		if (Hit.is_in_group("Player")):
 			if (not Hit.Invincible and not Hit.Dying):
-				Hit.Take_Damage(40)
+				Hit.Take_Damage(25)
 				Hit.Invincibility_Frames(60)

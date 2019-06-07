@@ -9,7 +9,7 @@
 [ext_resource path="res://Scripts/modulate.gd" type="Script" id=7]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 14.0662, 7.72359 )
+extents = Vector2( 12.6753, 7.72359 )
 
 [sub_resource type="Animation" id=2]
 resource_name = "attack_left"
@@ -381,6 +381,7 @@ position = Vector2( -0.203903, -0.611721 )
 shape = SubResource( 1 )
 
 [node name="blue" type="Sprite" parent="."]
+visible = false
 texture = ExtResource( 2 )
 vframes = 3
 hframes = 8
@@ -397,7 +398,6 @@ anims/move_left = SubResource( 7 )
 anims/move_right = SubResource( 8 )
 
 [node name="green" type="Sprite" parent="."]
-visible = false
 position = Vector2( 0.659348, 0.564083 )
 scale = Vector2( 1.5, 1.5 )
 texture = ExtResource( 3 )
@@ -467,6 +467,6 @@ anims/Right = SubResource( 20 )
 collision_layer = 4
 
 [node name="DamageBox" type="CollisionShape2D" parent="SlimeDamageBox"]
-position = Vector2( 0.0596163, 3.34108 )
+position = Vector2( -0.247741, 1.18958 )
 shape = SubResource( 1 )
 

@@ -47,9 +47,9 @@
 [ext_resource path="res://Sprites/Zones/Crystal_Caverns/Crystal_Indv/teleport_active_TR.png" type="Texture" id=45]
 [ext_resource path="res://SkeletonTeleporter.gd" type="Script" id=46]
 [ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=47]
-[ext_resource path="res://Scenes/enemies/illegal_enemies/skeleton.tscn" type="PackedScene" id=48]
-[ext_resource path="res://Sprites/Zones/Crystal_Caverns/environment/layers/background.png" type="Texture" id=49]
-[ext_resource path="res://Sprites/Zones/Crystal_Caverns/environment/layers/middleground.png" type="Texture" id=50]
+[ext_resource path="res://Sprites/Zones/Crystal_Caverns/environment/layers/background.png" type="Texture" id=48]
+[ext_resource path="res://Sprites/Zones/Crystal_Caverns/environment/layers/middleground.png" type="Texture" id=49]
+[ext_resource path="res://Scenes/enemies/illegal_enemies/skeleton.tscn" type="PackedScene" id=50]
 [ext_resource path="res://Scenes/enemies/slime.tscn" type="PackedScene" id=51]
 [ext_resource path="res://Scenes/enemies/legal_enemies/ghost.tscn" type="PackedScene" id=52]
 [ext_resource path="res://Music/Destiny.wav" type="AudioStream" id=53]
@@ -813,11 +813,7 @@ tile_data = PoolIntArray( -196634, 4, 0, -196633, 5, 0, 262119, 5, 0, 262120, 4,
 script = ExtResource( 46 )
 
 [node name="Player" parent="." instance=ExtResource( 47 )]
-editor/display_folded = true
 position = Vector2( -50, 1030 )
-
-[node name="KinematicBody2D" parent="Player" instance=ExtResource( 48 )]
-position = Vector2( 979.297, -1363.8 )
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 scroll_base_scale = Vector2( 0.1, 0.1 )
@@ -827,7 +823,7 @@ scroll_base_scale = Vector2( 0.1, 0.1 )
 [node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer"]
 position = Vector2( 1050, 170 )
 scale = Vector2( 12.7083, 8.06818 )
-texture = ExtResource( 49 )
+texture = ExtResource( 48 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -840,77 +836,77 @@ scroll_base_scale = Vector2( 0.5, 0.5 )
 [node name="Sprite" type="Sprite" parent="ParallaxBackground2/ParallaxLayer"]
 position = Vector2( 1050, 170 )
 scale = Vector2( 12.7083, 8.06818 )
-texture = ExtResource( 50 )
+texture = ExtResource( 49 )
 __meta__ = {
 "_edit_lock_": true
 }
 
 [node name="Enemies" type="Node" parent="."]
 
-[node name="Skeleton4" parent="Enemies" instance=ExtResource( 48 )]
+[node name="Skeleton4" parent="Enemies" instance=ExtResource( 50 )]
 position = Vector2( 1218.87, 973.019 )
 
-[node name="Skeleton5" parent="Enemies" instance=ExtResource( 48 )]
+[node name="Skeleton5" parent="Enemies" instance=ExtResource( 50 )]
 position = Vector2( 1490, 920 )
 
-[node name="Skeleton8" parent="Enemies" instance=ExtResource( 48 )]
+[node name="Skeleton8" parent="Enemies" instance=ExtResource( 50 )]
 position = Vector2( 1440, 843.019 )
 
-[node name="Skeleton9" parent="Enemies" instance=ExtResource( 48 )]
+[node name="Skeleton9" parent="Enemies" instance=ExtResource( 50 )]
 position = Vector2( 1010, 856 )
 
-[node name="Skeleton11" parent="Enemies" instance=ExtResource( 48 )]
+[node name="Skeleton11" parent="Enemies" instance=ExtResource( 50 )]
 position = Vector2( 1750, 780 )
 
-[node name="Skeleton12" parent="Enemies" instance=ExtResource( 48 )]
+[node name="Skeleton12" parent="Enemies" instance=ExtResource( 50 )]
 position = Vector2( 1910, 783.019 )
 
-[node name="Skeleton14" parent="Enemies" instance=ExtResource( 48 )]
+[node name="Skeleton14" parent="Enemies" instance=ExtResource( 50 )]
 position = Vector2( 1960, 780 )
 
-[node name="Skeleton15" parent="Enemies" instance=ExtResource( 48 )]
+[node name="Skeleton15" parent="Enemies" instance=ExtResource( 50 )]
 position = Vector2( 1970, 600 )
 
-[node name="Skeleton17" parent="Enemies" instance=ExtResource( 48 )]
+[node name="Skeleton17" parent="Enemies" instance=ExtResource( 50 )]
 position = Vector2( 1880, 600 )
 
-[node name="Skeleton18" parent="Enemies" instance=ExtResource( 48 )]
+[node name="Skeleton18" parent="Enemies" instance=ExtResource( 50 )]
 position = Vector2( 1830, 600 )
 
-[node name="Skeleton19" parent="Enemies" instance=ExtResource( 48 )]
+[node name="Skeleton19" parent="Enemies" instance=ExtResource( 50 )]
 position = Vector2( 1420, 616 )
 
-[node name="Skeleton21" parent="Enemies" instance=ExtResource( 48 )]
+[node name="Skeleton21" parent="Enemies" instance=ExtResource( 50 )]
 position = Vector2( 1320, 616 )
 
-[node name="Skeleton23" parent="Enemies" instance=ExtResource( 48 )]
+[node name="Skeleton23" parent="Enemies" instance=ExtResource( 50 )]
 position = Vector2( 1220, 620 )
 
-[node name="Skeleton26" parent="Enemies" instance=ExtResource( 48 )]
+[node name="Skeleton26" parent="Enemies" instance=ExtResource( 50 )]
 position = Vector2( 870, 780 )
 
-[node name="Skeleton28" parent="Enemies" instance=ExtResource( 48 )]
+[node name="Skeleton28" parent="Enemies" instance=ExtResource( 50 )]
 position = Vector2( 30, 640 )
 
-[node name="Skeleton30" parent="Enemies" instance=ExtResource( 48 )]
+[node name="Skeleton30" parent="Enemies" instance=ExtResource( 50 )]
 position = Vector2( 378.868, 280 )
 
-[node name="Skeleton31" parent="Enemies" instance=ExtResource( 48 )]
+[node name="Skeleton31" parent="Enemies" instance=ExtResource( 50 )]
 position = Vector2( 720, 250 )
 
-[node name="Skeleton32" parent="Enemies" instance=ExtResource( 48 )]
+[node name="Skeleton32" parent="Enemies" instance=ExtResource( 50 )]
 position = Vector2( 1240, 430 )
 
-[node name="Skeleton33" parent="Enemies" instance=ExtResource( 48 )]
+[node name="Skeleton33" parent="Enemies" instance=ExtResource( 50 )]
 position = Vector2( 1338.87, 430 )
 
-[node name="Skeleton34" parent="Enemies" instance=ExtResource( 48 )]
+[node name="Skeleton34" parent="Enemies" instance=ExtResource( 50 )]
 position = Vector2( 1418.5, 430 )
 
-[node name="Skeleton36" parent="Enemies" instance=ExtResource( 48 )]
+[node name="Skeleton36" parent="Enemies" instance=ExtResource( 50 )]
 position = Vector2( 1260, 180 )
 
-[node name="SuperSkeleton" parent="Enemies" instance=ExtResource( 48 )]
+[node name="SuperSkeleton" parent="Enemies" instance=ExtResource( 50 )]
 position = Vector2( -390, 296 )
 
 [node name="Slime" parent="Enemies" instance=ExtResource( 51 )]

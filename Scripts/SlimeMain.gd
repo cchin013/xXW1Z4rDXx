@@ -21,10 +21,10 @@ func _process(delta):
 		#print(rad2deg(acos(DistToPlayer.normalized().dot(Facing))))
 		if (rad2deg(acos(DistToPlayer.normalized().dot(Facing))) - 100 > FOV):
 			DetectPlayer = true
-			SlimeSpeed = 80
+			SlimeSpeed = 65
 		else:
 			DetectPlayer = false
-			SlimeSpeed = 50
+			SlimeSpeed = 45
 	else:
 		DetectPlayer = false
 		SlimeSpeed = 50

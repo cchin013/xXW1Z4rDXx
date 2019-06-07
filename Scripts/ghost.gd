@@ -17,15 +17,13 @@ func _ready():
 	set_process(true)
 
 func _process(delta):
-	DistToPlayer = Vector2(10,10)#get_global_transform()[2] - (Player.get_global_transform()[2])
+	DistToPlayer = get_global_transform()[2] - (Player.get_global_transform()[2])
 	if (abs(DistToPlayer[0]) < MaxDetection):
 		#print(rad2deg(acos(DistToPlayer.normalized().dot(Facing))))
 		if (DistToPlayer[0] > 0):
 			Facing[0] = -1
-			print("face left")
 		else:
 			Facing[0] = 1
-			print("face right")
 		if (rad2deg(acos(DistToPlayer.normalized().dot(Facing))) - 100 > FOV):
 			DetectPlayer = true
 			if (abs(DistToPlayer[0]) < AttackDetection and AttackCooldown <= 0):

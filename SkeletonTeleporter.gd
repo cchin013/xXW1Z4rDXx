@@ -47,7 +47,7 @@ func _process(delta):
 		set_cell ( -28, 18, 5, false, false,false, Vector2( 0, 0 ))
 		active = true
 	
-	if (active && x < -419 && y > 302):
+	if (active && x > -425 && y > 295):
 		if (Input.is_action_pressed("Interact")):
 			#get_node("/root/map/Player").set_transform(Transform2D(0, Vector2(-300, 302)))
 			get_tree().change_scene("res://Level2.tscn")

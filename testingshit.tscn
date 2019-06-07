@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Tileset/test_tiles.tres" type="TileSet" id=1]
+[ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Scenes/enemies/illegal_enemies/skeleton.tscn" type="PackedScene" id=3]
+
+[node name="map" type="Node2D"]
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = ExtResource( 1 )
+cell_size = Vector2( 16, 16 )
+collision_layer = 2
+collision_mask = 13
+format = 1
+tile_data = PoolIntArray( 8650817, 3, 0, 8650818, 3, 0, 8650819, 3, 0, 8650820, 3, 0, 8650821, 3, 0, 8650822, 3, 0, 8650823, 3, 0, 8650824, 3, 0, 8650825, 3, 0, 8650826, 3, 0, 8650827, 3, 0, 8650828, 3, 0, 8650829, 3, 0, 8650830, 3, 0, 8650831, 3, 0, 8650832, 3, 0, 8650833, 3, 0, 8650834, 3, 0, 8650835, 3, 0, 8650836, 3, 0, 8650837, 3, 0, 8650838, 3, 0, 8650839, 3, 0, 8650840, 3, 0, 8650841, 3, 0, 8650842, 3, 0, 8650843, 3, 0, 8716350, 3, 0, 8716351, 3, 0, 8716352, 3, 0, 8716356, 3, 0, 8716357, 3, 0, 8716358, 3, 0, 8716359, 3, 0, 8716360, 3, 0, 8716361, 3, 0, 8716362, 3, 0, 8716363, 3, 0, 8716364, 3, 0, 8716365, 3, 0, 8716366, 3, 0, 8716367, 3, 0, 8716368, 3, 0, 8716369, 3, 0, 8716370, 3, 0, 8716371, 3, 0, 8716372, 3, 0, 8716373, 3, 0, 8716374, 3, 0, 8716375, 3, 0, 8716376, 3, 0, 8716379, 3, 0, 8716380, 3, 0, 8781885, 3, 0, 8781886, 3, 0, 8781887, 3, 0, 8781888, 3, 0, 8781889, 3, 0, 8781890, 3, 0, 8781891, 3, 0, 8781892, 3, 0, 8781913, 3, 0, 8781914, 3, 0, 8781915, 3, 0, 8781917, 3, 0, 8781918, 3, 0, 8847452, 3, 0, 8847453, 3, 0, 8847454, 3, 0 )
+
+[node name="Player" parent="." instance=ExtResource( 2 )]
+position = Vector2( 1110, 2090 )
+
+[node name="Skeleton" parent="." instance=ExtResource( 3 )]
+position = Vector2( 1332, 2091.59 )
+

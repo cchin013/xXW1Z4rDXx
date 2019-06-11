@@ -15,9 +15,9 @@ _global_script_class_icons={
 
 [application]
 
+config/name="xXW1Z4rDXx"
 run/main_scene="res://Full_Level.tscn"
-config/icon="res://icon.png"
-<<<<<<<HEADconfig/name="GalGodot"
+config/icon="res://Sprites/food/pig_head.png"
 
 [debug]
 

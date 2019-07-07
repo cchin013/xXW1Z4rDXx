@@ -1,10 +1,12 @@
 [gd_scene load_steps=11 format=2]
 
-[ext_resource path="res://Scripts/ghost.gd" type="Script" id=1]
+[ext_resource path="res://Scripts/Enemy Behavior/ghost.gd" type="Script" id=1]
 [ext_resource path="res://Sprites/enemies/gothicvania/ghost-vanish.png" type="Texture" id=2]
 [ext_resource path="res://Sprites/enemies/gothicvania/ghost-idle.png" type="Texture" id=3]
 [ext_resource path="res://Sprites/enemies/gothicvania/ghost-shriek.png" type="Texture" id=4]
 [ext_resource path="res://Sprites/enemies/gothicvania/ghost-appears.png" type="Texture" id=5]
+
+
 
 [sub_resource type="Animation" id=1]
 resource_name = "idle"

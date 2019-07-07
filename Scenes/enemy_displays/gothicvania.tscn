@@ -2,7 +2,7 @@
 
 [ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/enemies/legal_enemies/demon.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Scripts/anim_cycle.gd" type="Script" id=3]
+[ext_resource path="res://Scripts/Utility/anim_cycle.gd" type="Script" id=3]
 [ext_resource path="res://Scenes/enemies/legal_enemies/floating_skull.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Scenes/enemies/legal_enemies/gothic_hero.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Scenes/enemies/legal_enemies/hell_hound.tscn" type="PackedScene" id=6]

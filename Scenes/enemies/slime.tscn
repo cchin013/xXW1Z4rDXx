@@ -1,12 +1,16 @@
 [gd_scene load_steps=28 format=2]
 
-[ext_resource path="res://Scripts/SlimeMain.gd" type="Script" id=1]
+[ext_resource path="res://Scripts/Enemy Behavior/SlimeMain.gd" type="Script" id=1]
 [ext_resource path="res://Sprites/enemies/slimes/slime-Sheet.png" type="Texture" id=2]
 [ext_resource path="res://Sprites/enemies/slimes/Slime_Medium_Green.png" type="Texture" id=3]
 [ext_resource path="res://Sprites/enemies/slimes/Slime_Medium_Blue.png" type="Texture" id=4]
 [ext_resource path="res://Sprites/enemies/slimes/Slime_Medium_Red.png" type="Texture" id=5]
 [ext_resource path="res://Sprites/enemies/slimes/Slime_Medium_Grayscale.png" type="Texture" id=6]
-[ext_resource path="res://Scripts/modulate.gd" type="Script" id=7]
+[ext_resource path="res://Scripts/Utility/modulate.gd" type="Script" id=7]
+
+
+
+
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 12.6753, 7.72359 )

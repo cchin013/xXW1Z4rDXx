@@ -1,10 +1,13 @@
 [gd_scene load_steps=7 format=2]
 
-[ext_resource path="res://Scripts/anim_cycle.gd" type="Script" id=1]
+[ext_resource path="res://Scripts/Utility/anim_cycle.gd" type="Script" id=1]
 [ext_resource path="res://Sprites/enemies/summoner/summon animation.png" type="Texture" id=2]
 [ext_resource path="res://Sprites/enemies/summoner/anim/death.anim" type="Animation" id=3]
 [ext_resource path="res://Sprites/enemies/summoner/The Summoner idle animation.png" type="Texture" id=4]
 [ext_resource path="res://Sprites/enemies/summoner/anim/summon.anim" type="Animation" id=5]
+
+
+
 
 [sub_resource type="Animation" id=1]
 resource_name = "idle"

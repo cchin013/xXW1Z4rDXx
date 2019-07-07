@@ -1,17 +1,15 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Tileset/test_tiles.tres" type="TileSet" id=1]
 [ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Sprites/Backgrounds/6axfm8uck3oy.png" type="Texture" id=3]
-[ext_resource path="res://Scenes/MovingPlatformV.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Scenes/MovingPlatformH.tscn" type="PackedScene" id=5]
-[ext_resource path="res://Sprites/spells/big_fire.tscn" type="PackedScene" id=6]
-[ext_resource path="res://Scenes/enemies/slime.tscn" type="PackedScene" id=7]
-[ext_resource path="res://Scenes/enemies/illegal_enemies/summoner.tscn" type="PackedScene" id=8]
-[ext_resource path="res://Scenes/enemies/illegal_enemies/wizard.tscn" type="PackedScene" id=9]
-[ext_resource path="res://Scenes/enemies/illegal_enemies/skeleton.tscn" type="PackedScene" id=10]
-[ext_resource path="res://Music/Desert Theme.wav" type="AudioStream" id=11]
-
+[ext_resource path="res://Sprites/Zones/Sediment/6axfm8uck3oy.png" type="Texture" id=3]
+[ext_resource path="res://Scenes/environment/MovingPlatformV.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Scenes/environment/MovingPlatformH.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Scenes/enemies/slime.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Scenes/enemies/illegal_enemies/summoner.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Scenes/enemies/illegal_enemies/wizard.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Scenes/enemies/illegal_enemies/skeleton.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Music/Desert Theme.wav" type="AudioStream" id=10]
 
 [node name="map" type="Node2D"]
 
@@ -81,33 +79,30 @@ move_to = Vector2( 0, -64 )
 position = Vector2( 1634.03, 4.40621 )
 move_to = Vector2( 330, 0 )
 
-[node name="big_fire" parent="." instance=ExtResource( 6 )]
-position = Vector2( 704.211, -351.579 )
-
 [node name="enemies" type="Node" parent="."]
 
-[node name="blue_slime" parent="enemies" instance=ExtResource( 7 )]
+[node name="blue_slime" parent="enemies" instance=ExtResource( 6 )]
 position = Vector2( -288, -6.5835 )
 Health = 50
 
-[node name="summoner" parent="enemies" instance=ExtResource( 8 )]
+[node name="summoner" parent="enemies" instance=ExtResource( 7 )]
 position = Vector2( 864, -328 )
 
-[node name="wizard" parent="enemies" instance=ExtResource( 9 )]
+[node name="wizard" parent="enemies" instance=ExtResource( 8 )]
 editor/display_folded = true
 position = Vector2( 1256, 0 )
 
-[node name="skeleton" parent="enemies" instance=ExtResource( 10 )]
+[node name="skeleton" parent="enemies" instance=ExtResource( 9 )]
 position = Vector2( 2016, -16 )
 
-[node name="skeleton2" parent="enemies" instance=ExtResource( 10 )]
+[node name="skeleton2" parent="enemies" instance=ExtResource( 9 )]
 position = Vector2( -339.204, -16.1893 )
 
-[node name="testskelly" parent="enemies" instance=ExtResource( 10 )]
+[node name="testskelly" parent="enemies" instance=ExtResource( 9 )]
 position = Vector2( -654.992, -65.2824 )
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 11 )
+stream = ExtResource( 10 )
 
 
 [editable path="enemies/wizard"]

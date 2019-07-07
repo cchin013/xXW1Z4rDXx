@@ -1,6 +1,6 @@
 [gd_scene load_steps=11 format=2]
 
-[ext_resource path="res://Scripts/SkeletonMain.gd" type="Script" id=1]
+[ext_resource path="res://Scripts/Enemy Behavior/SkeletonMain.gd" type="Script" id=1]
 [ext_resource path="res://Sprites/enemies/skeleton/Sprite Sheets/Skeleton Idle.png" type="Texture" id=2]
 [ext_resource path="res://Sprites/enemies/skeleton/anims/attack.anim" type="Animation" id=3]
 [ext_resource path="res://Sprites/enemies/skeleton/anims/blink.anim" type="Animation" id=4]
@@ -8,6 +8,7 @@
 [ext_resource path="res://Sprites/enemies/skeleton/anims/idle.anim" type="Animation" id=6]
 [ext_resource path="res://Sprites/enemies/skeleton/anims/stagger.anim" type="Animation" id=7]
 [ext_resource path="res://Sprites/enemies/skeleton/Sprite Sheets/Skeleton Walk.png" type="Texture" id=8]
+
 
 [sub_resource type="Animation" id=1]
 resource_name = "walk"

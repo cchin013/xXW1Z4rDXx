@@ -5,23 +5,25 @@ extends KinematicBody2D
 signal healthChanged
 signal manaChanged
 
-#Exported Variables
-export var PLAYER_SPEED = 100
-export var PLAYER_JUMP_SPEED = -500
-export var Player_Gravity = 100
-export var PlayerHealth = 100
-export var PlayerMana = 100
+
+var PlayerHealth = 100
+var PlayerMana = 100
+
+var PLAYER_SPEED = 7 * globals.TILE_SIZE
+var MaxJumpHeight = 6 * globals.TILE_SIZE
+var MinJumpHeight = 2 * globals.TILE_SIZE
+var MaxJumpSpeed
+var MinJumpSpeed
+var Gravity
+var JumpDuration = 0.44
 
 #Global Variables
 var BoltCooldown = 0
 var JumpVelocity = 0
 var MeleeTimer = 0
 
+var is_grounded
 var jumping = false
-var jumpReset = true
-var LongJump = false
-var JumpWait = false
-var ShortHop = false
 var moving = false
 var hasSpell = {"lightning" : true, "fire" : true, "earth" : true, "water" : true}
 var currentSpell = "lightning"
@@ -38,6 +40,9 @@ var startPos
 var DisableInput = false
 var ManaRegenCount = 30
 var AttackAnimationTimer = 0
+var Raycaster
+
+var motion = Vector2()
 
 var Animator
 
@@ -60,20 +65,27 @@ var UP = Vector2(0, -1)
 ##Called when the node enters the scene tree for the first time.
 func _ready():
 	set_process(true)
-	RayNode = get_node("Rotation")
-	CurrSprite = get_node("PlayerSprite")
-	CurrCollision = get_node("PlayerCollision")
+	RayNode = $Rotation
+	CurrSprite = $PlayerSprite
+	CurrCollision = $PlayerCollision
 	RayNode.set_rotation_degrees(-90)
 	Animator = CurrSprite.get_node("general") # animation player
-	playerSize = self.get_node("PlayerCollision").get_shape().get_extents()
+	playerSize = CurrCollision.get_shape().get_extents()
 	startPos = get_global_transform()
+	Raycaster = $Raycaster
+	
+	Gravity = 2 * MaxJumpHeight / pow(JumpDuration, 2)
+	MaxJumpSpeed = -sqrt(2 * Gravity * MaxJumpHeight)
+	MinJumpSpeed = -sqrt(2 * Gravity * MinJumpHeight)
 
 ##Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	var motion = Vector2()
-	var GravityMotion = Vector2(0, Player_Gravity)
+	#motion = Vector2.ZERO
 	var collide_obj_id = 0
 	moving = false
+	var count = Raycaster.raycast(Raycaster.DOWN, CurrCollision.shape, collision_mask).count
+	var is_grounded = true if (count > 0) else false
+
 	
 	if (Input.is_action_just_pressed("ui_revive") and Dying):
 		Revive()
@@ -93,16 +105,15 @@ func _process(delta):
 	if (DeathCounter > 0 or Dying):
 		DeathCounter -= 1
 		DisableInput = true
-		#if (DeathCounter == 0):
-		#   queue_free()
-		#move_and_slide(GravityMotion)
-		#return
+		motion[0] = 0
+
 	elif (StaggerCounter > 0):
 		StaggerCounter -= 1
 		DisableInput = true
-		#move_and_slide(GravityMotion)
-		#return
+		motion[0] = 0
+
 	elif (AttackAnimationTimer > 0):
+		motion[0] = 0
 		Animator.play("attack")
 		DisableInput = true
 		AttackAnimationTimer -= 1
@@ -136,33 +147,36 @@ func _process(delta):
 			AttackAnimationTimer = 40
 			#SpawnMeleeHitbox()
 			
-		##Jumping
-		if (Input.is_action_pressed("ui_up") and !jumping and test_move(get_transform(), Vector2(0,0.1)) and jumpReset):
-			jumping = true
-			LongJump = true
-			jumpReset = false
-			JumpVelocity = PLAYER_JUMP_SPEED
-			Animator.play("jump")
-			moving = true
-		elif (Input.is_action_pressed("ui_up") and jumping and test_move(get_transform(), Vector2(0,0.1))):
+		if (is_grounded):
 			jumping = false
-			LongJump = false
-			ShortHop = false
-			JumpWait = true
-			JumpVelocity = 0
+			
+		##Jumping
+		#print(motion[1])
+		#print(Input.is_action_pressed("ui_up"))
+		if (Input.is_action_pressed("ui_up") and is_grounded):
+			motion[1] = MaxJumpSpeed
+			jumping = true
+			
+		if (!(Input.is_action_pressed("ui_up")) and jumping and motion[1] < MinJumpSpeed):
+			motion[1] = MinJumpSpeed
+
+		
 		##Left/Right Movement
+		
 		if (Input.is_action_pressed("ui_right")):
-			motion += Vector2(1, 0)
+			motion[0] = 1
 			RayNode.set_rotation_degrees(-90)
 			CurrSprite.flip_h = false
 			Animator.play("run")
 			moving = true
-		if (Input.is_action_pressed("ui_left")):
-			motion += Vector2(-1, 0)
+		elif (Input.is_action_pressed("ui_left")):
+			motion[0] = -1
 			RayNode.set_rotation_degrees(90)
 			CurrSprite.flip_h = true
 			Animator.play("run")
 			moving = true
+		else:
+			motion[0] = 0
 		##Crouch, TODO
 		if (Input.is_action_pressed("ui_down")):
 			Animator.play("crouch")
@@ -175,32 +189,6 @@ func _process(delta):
 	#Melee Hitbox Timing
 	if (MeleeTimer >= 0):
 		MeleeTimer -= 1*delta
-	##Handles Jump Physics	
-	if (jumping and Input.is_action_pressed("ui_up") and LongJump):
-		if ((JumpVelocity + Player_Gravity) < 20):
-			JumpVelocity += 5
-		moving = true
-	elif (jumping and not Input.is_action_pressed("ui_up") and LongJump):
-		if ((JumpVelocity + Player_Gravity) < 20):
-			JumpVelocity += 5
-		LongJump = false
-		ShortHop = true
-		moving = true
-	elif (ShortHop):
-		if ((JumpVelocity + Player_Gravity) < 20):
-			JumpVelocity += 20
-		if (test_move(get_transform(), Vector2(0,0.1))):
-			ShortHop = false
-			jumping = false
-			JumpWait = true
-			JumpVelocity = 0
-		moving = true
-	if (jumping and (JumpVelocity + Player_Gravity) >= 20 and !DisableInput):
-		Animator.play("fall")
-	if (JumpWait):
-		if (not Input.is_action_pressed("ui_up")):
-			jumpReset = true
-			JumpWait = false
 			
 	if (ManaRegenCount <= 0):
 		if (PlayerMana < 100):
@@ -210,24 +198,17 @@ func _process(delta):
 	ManaRegenCount -= 1
 	##Ticks Down Bolt Cooldown
 	BoltCooldown -= 2*delta
-	##Gravity acceleration if not on ground
-	if (test_move(get_transform(), Vector2(0,0.1))):
-		Player_Gravity = 100
-	else:
-		Player_Gravity += 12
-	if (jumping):
-		motion[1] += JumpVelocity#*delta
-		moving = true
-	#GravityMotion *= delta
+
 	##Finalizes motion vector and moves character
 	motion[0] = motion[0]*PLAYER_SPEED
-	motion[1] += GravityMotion[1]
+	motion[1] += Gravity*delta
 	#Maximum Fall Speed
-	if (motion[1] >= 450):
-		motion[1] = 450
+	motion[1] = clamp(motion[1], -2000, 450)
+	if (is_grounded):
+		motion[1] = clamp(motion[1], -2000, 100)
 		
-	var snap = Vector2.DOWN * 32 if (!jumping and test_move(get_transform(), Vector2(0,0.1))) else Vector2.ZERO
-	move_and_slide_with_snap(motion, snap, UP)
+	#var snap = Vector2.DOWN * 32 if (!jumping and test_move(get_transform(), Vector2(0,0.1))) else Vector2.ZERO
+	move_and_slide(motion, UP)
 	
 #	if get_slide_count() > 0:
 #		collide_obj_id = get_slide_collision(get_slide_count() - 1)

@@ -20,10 +20,10 @@ func _process(delta):
 		#print(rad2deg(acos(DistToPlayer.normalized().dot(Facing))))
 		if (DistToPlayer[0] > 0):
 			Facing[0] = -1
-			print("face left")
+			#print("face left")
 		else:
 			Facing[0] = 1
-			print("face right")
+			#print("face right")
 		if (rad2deg(acos(DistToPlayer.normalized().dot(Facing))) - 100 > FOV):
 			DetectPlayer = true
 			if (abs(DistToPlayer[0]) < AttackDetection and AttackCooldown <= 0):

@@ -21,7 +21,7 @@ func _process(delta):
 	playerpos = get_node("/root/map/Player").get_global_transform()
 	x = playerpos[2][0]
 	y = playerpos[2][1]
-	print(x," ", y)
+	#print(x," ", y)
 	
 	# THIS ENTIRE IF TREE CHECKS FOR THE SUPER SKELETON DEATH TO ACTIVATE THE TELEPORTER
 	if (has_node("/root/map/Enemies/SuperSkeleton")):

@@ -958,5 +958,6 @@ position = Vector2( 140, 1023.33 )
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 52 )
 volume_db = -20.594
+autoplay = true
 [connection signal="healthChanged" from="Player" to="CanvasLayer/GUI" method="_on_Player_healthChanged"]
 [connection signal="manaChanged" from="Player" to="CanvasLayer/GUI" method="_on_Player_manaChanged"]

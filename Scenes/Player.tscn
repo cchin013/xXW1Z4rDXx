@@ -13,7 +13,7 @@
 [ext_resource path="res://Scenes/Raycaster.gd" type="Script" id=11]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 10.1877, 17.2447 )
+extents = Vector2( 12.0852, 16.9776 )
 
 [sub_resource type="Animation" id=2]
 resource_name = "attack"
@@ -542,7 +542,7 @@ __meta__ = {
 }
 
 [node name="PlayerCollision" type="CollisionShape2D" parent="."]
-position = Vector2( 1.27581, -0.347948 )
+position = Vector2( 0, 6.652 )
 shape = SubResource( 1 )
 one_way_collision_margin = 0.0
 __meta__ = {
@@ -550,6 +550,7 @@ __meta__ = {
 }
 
 [node name="Camera" type="Camera2D" parent="."]
+position = Vector2( -2, 7 )
 current = true
 zoom = Vector2( 0.5, 0.5 )
 __meta__ = {
@@ -557,6 +558,7 @@ __meta__ = {
 }
 
 [node name="Rotation" type="RayCast2D" parent="."]
+position = Vector2( -2, 7 )
 collision_mask = 0
 collide_with_bodies = false
 __meta__ = {
@@ -564,10 +566,8 @@ __meta__ = {
 }
 
 [node name="PlayerSprite" type="Sprite" parent="."]
-position = Vector2( 2.43563, -7.07493 )
 texture = ExtResource( 2 )
 hframes = 4
-frame = 2
 __meta__ = {
 "_edit_lock_": true
 }
@@ -586,5 +586,9 @@ anims/jump_climb = SubResource( 10 )
 anims/run = SubResource( 11 )
 
 [node name="Raycaster" type="Node2D" parent="."]
+position = Vector2( -2, 7 )
 script = ExtResource( 11 )
+__meta__ = {
+"_edit_lock_": true
+}
 buffer_size = 5

@@ -10,8 +10,8 @@ var PlayerHealth = 100
 var PlayerMana = 100
 
 var PLAYER_SPEED = 7 * globals.TILE_SIZE
-var MaxJumpHeight = 6 * globals.TILE_SIZE
-var MinJumpHeight = 2 * globals.TILE_SIZE
+var MaxJumpHeight = 6 * globals.TILE_SIZE + 8
+var MinJumpHeight = 2 * globals.TILE_SIZE + 8
 var MaxJumpSpeed
 var MinJumpSpeed
 var Gravity
@@ -148,17 +148,20 @@ func _process(delta):
 			#SpawnMeleeHitbox()
 			
 		if (is_grounded):
-			jumping = false
+			pass
 			
 		##Jumping
 		#print(motion[1])
 		#print(Input.is_action_pressed("ui_up"))
-		if (Input.is_action_pressed("ui_up") and is_grounded):
+		if (Input.is_action_pressed("ui_up") and !jumping and is_grounded):
 			motion[1] = MaxJumpSpeed
 			jumping = true
 			
 		if (!(Input.is_action_pressed("ui_up")) and jumping and motion[1] < MinJumpSpeed):
 			motion[1] = MinJumpSpeed
+		
+		if !(Input.is_action_pressed("ui_up")):
+			jumping = false
 
 		
 		##Left/Right Movement
@@ -203,11 +206,11 @@ func _process(delta):
 	motion[0] = motion[0]*PLAYER_SPEED
 	motion[1] += Gravity*delta
 	#Maximum Fall Speed
-	motion[1] = clamp(motion[1], -2000, 450)
 	if (is_grounded):
 		motion[1] = clamp(motion[1], -2000, 100)
+	else:
+		motion[1] = clamp(motion[1], -2000, 450)
 		
-	#var snap = Vector2.DOWN * 32 if (!jumping and test_move(get_transform(), Vector2(0,0.1))) else Vector2.ZERO
 	move_and_slide(motion, UP)
 	
 #	if get_slide_count() > 0:

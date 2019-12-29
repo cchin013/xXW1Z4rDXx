@@ -25,13 +25,18 @@ func raycast(direction, rect, mask, exceptions = [], ray_length = 4, buffer = se
 	var spacing
 	
 	if (direction == UP || direction == DOWN):
-		spacing = (extents.x * 2) / (ray_count - 1)
+		spacing = (extents.x * 2 + 2) / (ray_count - 1)
 	else:
-		spacing = (extents.y * 2) / (ray_count - 1)
+		spacing = (extents.y * 2 + 2) / (ray_count - 1)
 	
 	for i in range(ray_count):
 		if (direction == UP || direction == DOWN):
-			origin = Vector2(-extents.x + spacing * i + 1, extents.y)
+			if (i == 0):
+				origin = Vector2(-extents.x + (spacing * i) + 1, extents.y)
+			elif (i == ray_count - 1):
+				origin = Vector2(-extents.x + (spacing * i) + 1, extents.y)
+			else:
+				origin = Vector2(-extents.x + (spacing * i), extents.y)
 			if (direction == UP):
 				origin.y = -origin.y
 		else:
@@ -40,9 +45,11 @@ func raycast(direction, rect, mask, exceptions = [], ray_length = 4, buffer = se
 				origin.x = -origin.x
 		var result = space_state.intersect_ray(global_position + origin, global_position + origin + cast_to, exceptions, mask)
 		if result:
+			#print(i, " result")
 			buffer[count] = result
 			count += 1
 	return {buffer = buffer, count = count}
+
 
 func _set_buffer_size(val):
 	var buffer_size = max(val, 2)

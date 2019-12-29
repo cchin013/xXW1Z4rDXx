@@ -1,19 +1,19 @@
 [gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://Scripts/Player.gd" type="Script" id=1]
-[ext_resource path="res://Sprites/enemies/gothicvania/gothic-hero-crouch-slash.png" type="Texture" id=2]
+[ext_resource path="res://Sprites/enemies/gothicvania/gothic-hero-idle.png" type="Texture" id=2]
 [ext_resource path="res://Sprites/enemies/gothicvania/gothic-hero-attack.png" type="Texture" id=3]
 [ext_resource path="res://Sprites/enemies/gothicvania/gothic-hero-crouch.png" type="Texture" id=4]
-[ext_resource path="res://Sprites/enemies/gothicvania/gothic-hero-jump.png" type="Texture" id=5]
-[ext_resource path="res://Sprites/enemies/gothicvania/gothic-hero-hurt.png" type="Texture" id=6]
-[ext_resource path="res://Sprites/enemies/gothicvania/gothic-hero-idle.png" type="Texture" id=7]
+[ext_resource path="res://Sprites/enemies/gothicvania/gothic-hero-crouch-slash.png" type="Texture" id=5]
+[ext_resource path="res://Sprites/enemies/gothicvania/gothic-hero-jump.png" type="Texture" id=6]
+[ext_resource path="res://Sprites/enemies/gothicvania/gothic-hero-hurt.png" type="Texture" id=7]
 [ext_resource path="res://Sprites/enemies/gothicvania/gothic-hero-jump-attack.png" type="Texture" id=8]
 [ext_resource path="res://Sprites/enemies/gothicvania/gothic-hero-jump-climb.png" type="Texture" id=9]
 [ext_resource path="res://Sprites/enemies/gothicvania/gothic-hero-run.png" type="Texture" id=10]
 [ext_resource path="res://Scenes/Raycaster.gd" type="Script" id=11]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 12.0852, 16.9776 )
+extents = Vector2( 10, 17.978 )
 
 [sub_resource type="Animation" id=2]
 resource_name = "attack"
@@ -142,7 +142,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ ExtResource( 2 ) ]
+"values": [ ExtResource( 5 ) ]
 }
 tracks/2/type = "value"
 tracks/2/path = NodePath(".:position")
@@ -195,7 +195,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ ExtResource( 5 ) ]
+"values": [ ExtResource( 6 ) ]
 }
 tracks/2/type = "value"
 tracks/2/path = NodePath(".:position")
@@ -246,7 +246,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ ExtResource( 6 ) ]
+"values": [ ExtResource( 7 ) ]
 }
 tracks/2/type = "value"
 tracks/2/path = NodePath(".:position")
@@ -299,7 +299,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ ExtResource( 7 ) ]
+"values": [ ExtResource( 2 ) ]
 }
 tracks/2/type = "value"
 tracks/2/path = NodePath(".:position")
@@ -324,6 +324,18 @@ tracks/3/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 1,
 "values": [ 4 ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("../PlayerCollision:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray(  ),
+"transitions": PoolRealArray(  ),
+"update": 0,
+"values": [  ]
 }
 
 [sub_resource type="Animation" id=8]
@@ -351,7 +363,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ ExtResource( 5 ) ]
+"values": [ ExtResource( 6 ) ]
 }
 tracks/2/type = "value"
 tracks/2/path = NodePath(".:position")
@@ -531,6 +543,30 @@ tracks/3/keys = {
 "update": 1,
 "values": [ 12 ]
 }
+tracks/4/type = "value"
+tracks/4/path = NodePath("../PlayerCollision:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray(  ),
+"transitions": PoolRealArray(  ),
+"update": 1,
+"values": [  ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("../PlayerCollision:shape")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray(  ),
+"transitions": PoolRealArray(  ),
+"update": 1,
+"values": [  ]
+}
 
 [node name="Player" type="KinematicBody2D" groups=[
 "Player",
@@ -545,9 +581,6 @@ __meta__ = {
 position = Vector2( 0, 6.652 )
 shape = SubResource( 1 )
 one_way_collision_margin = 0.0
-__meta__ = {
-"_edit_lock_": true
-}
 
 [node name="Camera" type="Camera2D" parent="."]
 position = Vector2( -2, 7 )
@@ -560,7 +593,7 @@ __meta__ = {
 [node name="PlayerSprite" type="Sprite" parent="."]
 texture = ExtResource( 2 )
 hframes = 4
-frame = 1
+frame = 3
 __meta__ = {
 "_edit_lock_": true
 }
@@ -584,4 +617,3 @@ script = ExtResource( 11 )
 __meta__ = {
 "_edit_lock_": true
 }
-buffer_size = 5

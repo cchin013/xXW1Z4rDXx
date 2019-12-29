@@ -2,7 +2,6 @@ extends "res://Scripts/BaseEnemy.gd"
 
 onready var CurrSprite = get_node("ghost/GhostSprite")
 onready var Animator = CurrSprite.get_node("AnimationPlayer")
-var Attacking = false
 var AttackTimer = 0
 var AttackDetection = 200
 var DeathCounter = 0

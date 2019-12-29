@@ -1,7 +1,6 @@
 extends Area2D
 
 var HitDuration = 1
-var Direction = Vector2(1,0)
 
 func _ready():
 	set_process(true)

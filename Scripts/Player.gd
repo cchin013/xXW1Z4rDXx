@@ -29,20 +29,21 @@ var crouching
 var DoAnimationLogic = true
 var hasSpell = {"lightning" : true, "fire" : true, "earth" : true, "water" : true}
 var currentSpell = "lightning"
-var playerSize
 var Invincible = false
 var IFrames = 0
 var Dying = false
 var StaggerCounter = 0
 var DeathCounter = 0
 var CrouchCounter = 0
-var CrouchAttackCounter = 0
 var CurrSprite
 var CurrCollision
 var startPos
 var DisableInput = false
 var ManaRegenCount = 30
-var AttackAnimationTimer = 0
+var AttackTimer = 0
+var CrouchAttackCounter = 0
+var JumpAttackTimer = 0
+var JumpAnimTimer = 0
 var Raycaster
 
 
@@ -72,9 +73,7 @@ var UP = Vector2(0, -1)
 func _ready():
 	set_process(true)
 	CurrSprite = $PlayerSprite
-	CurrCollision = $PlayerCollision
 	Animator = CurrSprite.get_node("general") # animation player
-	playerSize = CurrCollision.get_shape().get_extents()
 	startPos = get_global_transform()
 	Raycaster = $Raycaster
 	
@@ -84,7 +83,7 @@ func _ready():
 
 ##Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	var collide_obj_id = 0
+	CurrCollision = $PlayerCollision
 	
 	#checks if player is on the grounded
 	var collision_count = Raycaster.raycast(Raycaster.DOWN, CurrCollision.shape, collision_mask).count
@@ -93,6 +92,8 @@ func _process(delta):
 	#checks if player's head is hitting ceiling
 	var collision_count2 = Raycaster.raycast(Raycaster.UP, CurrCollision.shape, collision_mask).count
 	var hitting_ceiling = true if (collision_count2 > 0) else false
+	
+	#print(is_grounded)
 
 	
 	if (Input.is_action_just_pressed("ui_revive") and Dying):
@@ -138,13 +139,29 @@ func _process(delta):
 			Animator.play("crouch")
 			CrouchCounter -= 1
 		DoAnimationLogic = false
-	elif (AttackAnimationTimer > 0):
+	elif (!is_grounded or JumpAttackTimer > 0):
+		if (JumpAttackTimer > 0):
+			Animator.play("jump_attack")
+			JumpAttackTimer -= 1
+			if (JumpAttackTimer == 12):
+				SpawnMeleeHitbox()
+		elif (velocity[1] <= 0):
+			if (JumpAnimTimer > 0):
+				Animator.play("jump")
+			else:
+				Animator.play("jump")
+				Animator.seek(0.5, true)
+		elif (velocity[1] > 0):
+			Animator.play("fall")
+		JumpAnimTimer -= 1
+		DoAnimationLogic = false
+	elif (AttackTimer > 0):
 		fullstop = true
 		DisableInput = true
 		DoAnimationLogic = false
 		Animator.play("attack")
-		AttackAnimationTimer -= 1
-		if (AttackAnimationTimer == 30):
+		AttackTimer -= 1
+		if (AttackTimer == 30):
 			SpawnMeleeHitbox()
 	
 	if (Input.is_action_pressed("quit")):
@@ -163,7 +180,7 @@ func _process(delta):
 	if (Input.is_action_pressed("ui_selectWater") && hasSpell["water"]):
 		currentSpell = "water"
 	
-	#Begin General Input Block	
+	#Begin General Input Block
 	if (!DisableInput):
 		##Shoot
 		if (Input.is_action_pressed("ui_shoot")):
@@ -176,49 +193,51 @@ func _process(delta):
 			if (crouching):
 				CrouchAttackCounter = 24
 				MeleeTimer = .45
+			elif (!is_grounded):
+				JumpAttackTimer = 36
+				MeleeTimer = .5
 			else:
-				AttackAnimationTimer = 40
+				AttackTimer = 40
 				MeleeTimer = .7
-
 			
 		if (is_grounded):
 			pass
-			
 		##Jumping
-		if (Input.is_action_pressed("ui_up") and !jumping and is_grounded):
-			velocity[1] = MaxJumpSpeed
-			jumping = true
+		if (MeleeTimer <= 0):
+			if (Input.is_action_pressed("ui_up") and !jumping and is_grounded):
+				velocity[1] = MaxJumpSpeed
+				JumpAnimTimer = 30
+				jumping = true
+				
+			if (!(Input.is_action_pressed("ui_up")) and jumping and velocity[1] < MinJumpSpeed):
+				velocity[1] = MinJumpSpeed
 			
-		if (!(Input.is_action_pressed("ui_up")) and jumping and velocity[1] < MinJumpSpeed):
-			velocity[1] = MinJumpSpeed
-		
-		if !(Input.is_action_pressed("ui_up")):
-			jumping = false
-		
-		if (hitting_ceiling and velocity[1] < MinJumpSpeed + 200):
-			velocity[1] = MinJumpSpeed + 201
-		
-
-		
-		##Left/Right Movement
+			if !(Input.is_action_pressed("ui_up")):
+				jumping = false
+			
+			if (hitting_ceiling and velocity[1] < MinJumpSpeed + 200):
+				velocity[1] = MinJumpSpeed + 201
+			
+	
+			
+			##Left/Right Movement
 		if (Input.is_action_pressed("ui_right") && !Input.is_action_pressed("ui_left")):
 			walk_direction = 1
 			facing = 1
-			#Animator.play("run")
 		elif (Input.is_action_pressed("ui_left") && !Input.is_action_pressed("ui_right")):
 			walk_direction = -1
 			facing = -1
-			#Animator.play("run")
 		else:
 			walk_direction = 0
 			
 		##Crouch, NEED TO FIX ANIMATION WHILE WALKING AND CROUCHING
-		if (Input.is_action_pressed("ui_down") and !crouching):
-			CrouchCounter= 15
-			crouching = true
-		elif (!Input.is_action_pressed("ui_down")):
-			CrouchCounter = 0
-			crouching = false
+		if (MeleeTimer <= 0):
+			if (Input.is_action_pressed("ui_down") and !crouching and is_grounded):
+				CrouchCounter= 15
+				crouching = true
+			elif (!Input.is_action_pressed("ui_down")):
+				CrouchCounter = 0
+				crouching = false
 
 	#End General Input Block	
 	
@@ -246,25 +265,16 @@ func _process(delta):
 	if (fullstop):
 		velocity[0] = 0
 	else:
-		velocity[0] = lerp(velocity[0], walk_direction*PLAYER_SPEED, 0.11)
+		velocity[0] = lerp(velocity[0], walk_direction*PLAYER_SPEED, 0.15)
 	if (abs(velocity[0]) < 10 and walk_direction == 0):
 		velocity[0] = 0
 		
 	velocity[1] += Gravity*delta
 	
 	if (DoAnimationLogic):
-		if (velocity[1] < 0 and !is_grounded):
-			if (AttackAnimationTimer > 0):
-				Animator.play("jump_attack")
-			else:
-				Animator.play("jump")
-		elif (velocity[1] > 0 and !is_grounded):
-			if (AttackAnimationTimer > 0):
-				Animator.play("jump_attack")
-			else:
-				Animator.play("fall")
-		elif (velocity[0] != 0):
+		if (velocity[0] != 0):
 			Animator.play("run")
+			pass
 		else:
 			Animator.play("idle")
 	

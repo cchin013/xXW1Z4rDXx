@@ -10,7 +10,6 @@ onready var mp_number_label = $Top/Bars/ManaBar/Count/Background/Number
 onready var mp_bar = $Top/Bars/ManaBar/Gauge
 var player_max_mana = 0
 
-onready var tween = $Tween
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

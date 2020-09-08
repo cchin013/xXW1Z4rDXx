@@ -13,7 +13,7 @@ position = Vector2( 10.1059, 1.49495 )
 scale = Vector2( 18.7872, 14.929 )
 polygon = PoolVector2Array( -2.11387, 0.106071, -0.832618, 0.126943, -0.314963, 0.0389948, 0.57783, 0.00545689, 0.337975, -0.246078, -0.425169, -0.370267, -2.16717, -0.413768 )
 
-[node name="FireballRotation" type="RayCast2D" parent="."]
+[node name="Rotation" type="RayCast2D" parent="."]
 collision_mask = 0
 collide_with_bodies = false
 __meta__ = {
@@ -26,4 +26,3 @@ scale = Vector2( 0.981238, 1.01289 )
 texture = ExtResource( 2 )
 vframes = 6
 hframes = 10
-

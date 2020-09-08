@@ -40,4 +40,4 @@ func Invincibility_Frames(numFrames):
 	IFrames = numFrames
    
 func Die():
-    queue_free()
+	queue_free()

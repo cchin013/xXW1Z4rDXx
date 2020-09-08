@@ -27,7 +27,6 @@ var jumping = false
 var fullstop = false
 var crouching
 var DoAnimationLogic = true
-var hasSpell = {"lightning" : true, "fire" : true, "earth" : true, "water" : true}
 var currentSpell = "lightning"
 var Invincible = false
 var IFrames = 0
@@ -45,6 +44,7 @@ var CrouchAttackCounter = 0
 var JumpAttackTimer = 0
 var JumpAnimTimer = 0
 var Raycaster
+var Spell
 
 
 var walk_direction = 0
@@ -54,20 +54,6 @@ var facing = 1
 var Animator
 
 var UP = Vector2(0, -1)
-
-#COLLISION LAYER/MASK SETUP (TENTATIVE)
-#1 = Player
-#2 = Terrain
-#3 = NOTHING ITS BUGGED
-#4 = Lightning Bolt (Potentially all projectiles)
-#5 = Enemies
-#6-20 unused for now
-
-#Z-INDEX (temp)
-#0 = Terrain/Tiles
-#1 = Projectiles
-#2 = Enemies
-#3 = Player
 
 ##Called when the node enters the scene tree for the first time.
 func _ready():
@@ -117,6 +103,7 @@ func _process(delta):
 		fullstop = true
 		DoAnimationLogic = false
 
+	#Animation Handling, needs work
 	elif (StaggerCounter > 0):
 		StaggerCounter -= 1
 		DisableInput = true
@@ -167,17 +154,17 @@ func _process(delta):
 	if (Input.is_action_pressed("quit")):
 			get_tree().quit()
 	
-	#Spell Wheel
-	if (Input.is_action_pressed("ui_selectFire") && hasSpell["fire"]):
+	#Spell Selection
+	if (Input.is_action_pressed("ui_selectFire")):
 		currentSpell = "fire"
 		
-	if (Input.is_action_pressed("ui_selectLightning") && hasSpell["lightning"]):
+	if (Input.is_action_pressed("ui_selectLightning")):
 		currentSpell = "lightning"
 		
-	if (Input.is_action_pressed("ui_selectEarth") && hasSpell["earth"]):
+	if (Input.is_action_pressed("ui_selectEarth")):
 		currentSpell = "earth"
 		
-	if (Input.is_action_pressed("ui_selectWater") && hasSpell["water"]):
+	if (Input.is_action_pressed("ui_selectWater")):
 		currentSpell = "water"
 	
 	#Begin General Input Block
@@ -185,8 +172,10 @@ func _process(delta):
 		##Shoot
 		if (Input.is_action_pressed("ui_shoot")):
 			if (BoltCooldown <= 0):
-				CreateBolt()
-				BoltCooldown = 2
+				Spell = CreateBolt()
+				if (is_instance_valid(Spell)):
+					BoltFire(Spell)
+					BoltCooldown = 2
 					
 		##Punching
 		if (Input.is_action_just_pressed("ui_melee") and MeleeTimer <= 0):
@@ -294,49 +283,46 @@ func _process(delta):
 ##Spawns Spell Bolt
 func CreateBolt():
 	var Bolt
-	var manaCost
-	var currRotation = "LightningRotation"
+	var manaCost = 0
 	if (currentSpell == "lightning" and PlayerMana >= 20):
 		manaCost = -20
-		currRotation = "LightningRotation"
 		Bolt = load("res://Scenes/Lightning.tscn")
 		
 	elif (currentSpell == "fire" and PlayerMana >= 15):
 		manaCost = -15
-		currRotation = "FireballRotation"
 		Bolt = load("res://Scenes/Fireball.tscn")
 		
 	elif (currentSpell == "earth" and PlayerMana >= 20):
 		manaCost = -20
-		currRotation = "EarthRotation"
 		Bolt = load("res://Scenes/Earth.tscn")
 		
 	elif (currentSpell == "water" and PlayerMana >= 30):
 		manaCost = -30
-		currRotation = "WaterRotation"
 		Bolt = load("res://Scenes/Water.tscn")
-	else:
-		return
-		
+	
 	PlayerMana += manaCost
 	emit_signal("manaChanged", manaCost)
 	
+	return Bolt
+		
+
+func BoltFire(Bolt):
 	var BoltInstance = Bolt.instance()
 	BoltInstance.set_name("bolt")
 	var BoltPos = get_position()
-	if (facing == -1):
-		BoltInstance.get_node(currRotation).set_rotation_degrees(90)
-		BoltPos[0] += 8
-	if (facing == 1):
-		BoltInstance.get_node(currRotation).set_rotation_degrees(-90)
-		BoltPos[0] -= 8
-	BoltPos[1] -= 2
-	BoltInstance.set_position(BoltPos)
 	if (currentSpell == "water"):
-		BoltPos = get_position() + Vector2(0,-16)
+		BoltPos += Vector2(0,-16)
 		get_node("/root").add_child(BoltInstance)
 		PlayerHealth += 25
 		return
+	if (facing == -1):
+		BoltInstance.get_node("Rotation").set_rotation_degrees(90)
+		BoltPos[0] += 8
+	if (facing == 1):
+		BoltInstance.get_node("Rotation").set_rotation_degrees(-90)
+		BoltPos[0] -= 8
+	BoltPos[1] -= 2
+	BoltInstance.set_position(BoltPos)
 	get_node("/root").add_child(BoltInstance)
 	
 ##Spawns Melee Hitbox

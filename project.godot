@@ -26,7 +26,6 @@ globals="*res://globals.gd"
 [debug]
 
 settings/fps/force_fps=60
-settings/stdout/print_fps=true
 
 [display]
 
@@ -34,6 +33,7 @@ window/size/width=1920
 window/size/height=1080
 window/size/resizable=false
 window/size/fullscreen=true
+window/vsync/use_vsync=false
 
 [input]
 

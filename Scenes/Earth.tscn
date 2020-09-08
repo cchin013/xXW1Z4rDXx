@@ -20,7 +20,7 @@ collision_mask = 4
 position = Vector2( -0.568817, 1.7064 )
 shape = SubResource( 1 )
 
-[node name="EarthRotation" type="RayCast2D" parent="."]
+[node name="Rotation" type="RayCast2D" parent="."]
 collision_mask = 0
 collide_with_bodies = false
 __meta__ = {
@@ -36,4 +36,3 @@ texture = ExtResource( 2 )
 [node name="TerrainHitbox" type="CollisionShape2D" parent="."]
 position = Vector2( -0.568817, 1.70638 )
 shape = SubResource( 1 )
-

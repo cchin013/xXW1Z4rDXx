@@ -5,27 +5,13 @@ export var LIFESPAN = 1
 var RayNode
 var RemainingLife
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
-
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	RayNode = get_node("LightningRotation")
+	RayNode = get_node("Rotation")
 	if (RayNode.get_rotation_degrees() == -90):
 		pass
 	if (RayNode.get_rotation_degrees() == 90):
 		set_rotation_degrees(180)
-		#get_node("LightningSprite1").flip_h = true
-		#get_node("LightningSprite1").flip_v = true
-		#get_node("LightningSprite2").flip_h = true
-		#get_node("LightningSprite2").flip_v = true
-		#get_node("LightningSprite3").flip_h = true
-		#get_node("LightningSprite3").flip_v = true
-		#get_node("LightningSprite4").flip_h = true
-		#get_node("LightningSprite4").flip_v = true
-		#get_node("LightningSprite5").flip_h = true
-		#get_node("LightningSprite5").flip_v = true
 	RemainingLife = LIFESPAN
 	set_process(true)
 	

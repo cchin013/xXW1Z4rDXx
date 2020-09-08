@@ -14,7 +14,7 @@ var EarthDirection = 1
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	RayNode = get_node("EarthRotation")
+	RayNode = get_node("Rotation")
 	RemainingLife = LIFESPAN
 	if (RayNode.get_rotation_degrees() == -90):
 		get_node("EarthSprite").flip_h = false

@@ -28,7 +28,6 @@ func _process(delta):
 	#Enemy Detection
 	DistToPlayer = get_global_transform()[2] - (Player.get_global_transform()[2])
 	if (abs(DistToPlayer[0]) < MaxDetection):
-		#print(rad2deg(acos(DistToPlayer.normalized().dot(Facing))))
 		if (rad2deg(acos(DistToPlayer.normalized().dot(Facing))) - 100 > FOV):
 			DetectPlayer = true
 			SkeletonSpeed = 105
@@ -43,7 +42,6 @@ func _process(delta):
 	var Direction = SkeletonRandomMovement(delta)
 	var motion = Vector2()
 	var GravityMotion = Vector2(0, Skeleton_Gravity)
-	#moving = false
 	if (DeathCounter > 0):
 		DeathCounter -= 1
 		Attacking = false
@@ -55,6 +53,8 @@ func _process(delta):
 		CurrSprite.flip_h = false
 	else:
 		CurrSprite.flip_h = true
+	
+	#Animation Handling, needs work
 	if (StaggerCounter > 0):
 		StaggerCounter -= 1
 		AttackTimer = 0

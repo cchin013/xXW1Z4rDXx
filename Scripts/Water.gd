@@ -8,7 +8,7 @@ var RemainingLife
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	RayNode = get_node("WaterRotation")
+	RayNode = get_node("Rotation")
 	RemainingLife = LIFESPAN
 	set_process(true)
 	

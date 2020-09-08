@@ -122,3 +122,4 @@ func SlimeRandomMovement():
 func Die():
 	Animator.play("die")
 	DeathCounter = 60
+

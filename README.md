@@ -18,7 +18,7 @@ By xXW1Z4rDXx
 
 ## Known Issues
 + Many animation bugs: 
-++ Animations tied to framerate
-++ Skeleton attack animation flips strangely
-+Water spell effect not appearing properly
-+Health and mana sometimes don't update properly
++ Animations tied to framerate
++ Skeleton attack animation flips strangely
++ Water spell effect not appearing properly
++ Health and mana sometimes don't update properly

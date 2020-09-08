@@ -2,6 +2,8 @@
 Play as an exiled wizard and exact your revenge!
 By xXW1Z4rDXx
 
+![](demogif.gif)
+
 ## Features
  + Player Behavior: The player can navigate the environment, stab things, and cast spells.
  + Art: There is actually something to look at.

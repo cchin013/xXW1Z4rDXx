@@ -1,197 +1,329 @@
 extends KinematicBody2D
 
-#Exported Variables
-export var PLAYER_SPEED = 100
-export var PLAYER_JUMP_SPEED = -500
-export var Player_Gravity = 100
-export var PlayerHealth = 100
+#testtest
+
+signal healthChanged
+signal manaChanged
+
+
+var PlayerHealth = 100
+var PlayerMana = 100
+
+var PLAYER_SPEED = 7 * globals.TILE_SIZE
+var MaxJumpHeight = 6 * globals.TILE_SIZE + 8
+var MinJumpHeight = 2 * globals.TILE_SIZE + 8
+var MaxJumpSpeed
+var MinJumpSpeed
+var Gravity
+var JumpDuration = 0.44
 
 #Global Variables
 var BoltCooldown = 0
 var JumpVelocity = 0
 var MeleeTimer = 0
 
+var is_grounded
 var jumping = false
-var jumpReset = true
-var LongJump = false
-var JumpWait = false
-var ShortHop = false
-var moving = false
-var hasSpell = {"lightning" : true, "fire" : true, "earth" : false, "water" : false}
+var fullstop = false
+var crouching
+var DoAnimationLogic = true
 var currentSpell = "lightning"
-var playerSize
-
-var RayNode
+var Invincible = false
+var IFrames = 0
+var Dying = false
+var StaggerCounter = 0
+var DeathCounter = 0
+var CrouchCounter = 0
 var CurrSprite
 var CurrCollision
+var startPos
+var DisableInput = false
+var ManaRegenCount = 30
+var AttackTimer = 0
+var CrouchAttackCounter = 0
+var JumpAttackTimer = 0
+var JumpAnimTimer = 0
+var Raycaster
+var Spell
+
+
+var walk_direction = 0
+var velocity = Vector2()
+var facing = 1
 
 var Animator
 
 var UP = Vector2(0, -1)
 
-#COLLISION LAYER/MASK SETUP (TENTATIVE)
-#1 = Player
-#2 = Terrain
-#3 = NOTHING ITS BUGGED
-#4 = Lightning Bolt (Potentially all projectiles)
-#5 = Enemies
-#6-20 unused for now
-
-#Z-INDEX (temp)
-#0 = Terrain/Tiles
-#1 = Projectiles
-#2 = Enemies
-#3 = Player
-
 ##Called when the node enters the scene tree for the first time.
 func _ready():
 	set_process(true)
-	RayNode = get_node("Rotation")
-	CurrSprite = get_node("PlayerSprite")
-	CurrCollision = get_node("PlayerCollision")
-	RayNode.set_rotation_degrees(-90)
+	CurrSprite = $PlayerSprite
 	Animator = CurrSprite.get_node("general") # animation player
-	playerSize = self.get_node("PlayerCollision").get_shape().get_extents()
+	startPos = get_global_transform()
+	Raycaster = $Raycaster
+	
+	Gravity = 2 * MaxJumpHeight / pow(JumpDuration, 2)
+	MaxJumpSpeed = -sqrt(2 * Gravity * MaxJumpHeight)
+	MinJumpSpeed = -sqrt(2 * Gravity * MinJumpHeight)
 
 ##Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	var motion = Vector2()
-	var GravityMotion = Vector2(0, Player_Gravity)
-	var collide_obj_id = 0
-	moving = false
+	CurrCollision = $PlayerCollision
 	
-	#Spell Wheel
-	if (Input.is_action_pressed("ui_selectFire") && hasSpell["fire"]):
+	#checks if player is on the grounded
+	var collision_count = Raycaster.raycast(Raycaster.DOWN, CurrCollision.shape, collision_mask).count
+	var is_grounded = true if (collision_count > 0) else false
+	
+	#checks if player's head is hitting ceiling
+	var collision_count2 = Raycaster.raycast(Raycaster.UP, CurrCollision.shape, collision_mask).count
+	var hitting_ceiling = true if (collision_count2 > 0) else false
+	
+	#print(is_grounded)
+
+	
+	if (Input.is_action_just_pressed("ui_revive") and Dying):
+		Revive()
+		return
+	
+	if (PlayerHealth <= 0 and not Dying):
+		Die()
+		Dying = true
+	if (IFrames > 0):
+		if (IFrames % 6 == 0):
+			self.modulate.a = 0
+		else:
+			self.modulate.a = 1
+		IFrames -= 1
+	else :
+		Invincible = false
+	if (DeathCounter > 0 or Dying):
+		DeathCounter -= 1
+		DisableInput = true
+		fullstop = true
+		DoAnimationLogic = false
+
+	#Animation Handling, needs work
+	elif (StaggerCounter > 0):
+		StaggerCounter -= 1
+		DisableInput = true
+		fullstop = true
+		DoAnimationLogic = false
+	elif (crouching):
+		if (CrouchAttackCounter > 0):
+			fullstop = true
+			DisableInput = true
+			Animator.play("crouch_slash")
+			CrouchAttackCounter -= 1
+			if (CrouchAttackCounter == 18):
+				SpawnMeleeHitbox()
+			if (CrouchAttackCounter == 0):
+				Animator.play("crouch")
+				Animator.seek(0.3, true)
+		elif (CrouchCounter < 0):
+			Animator.stop()
+		else:
+			Animator.play("crouch")
+			CrouchCounter -= 1
+		DoAnimationLogic = false
+	elif (!is_grounded or JumpAttackTimer > 0):
+		if (JumpAttackTimer > 0):
+			Animator.play("jump_attack")
+			JumpAttackTimer -= 1
+			if (JumpAttackTimer == 12):
+				SpawnMeleeHitbox()
+		elif (velocity[1] <= 0):
+			if (JumpAnimTimer > 0):
+				Animator.play("jump")
+			else:
+				Animator.play("jump")
+				Animator.seek(0.5, true)
+		elif (velocity[1] > 0):
+			Animator.play("fall")
+		JumpAnimTimer -= 1
+		DoAnimationLogic = false
+	elif (AttackTimer > 0):
+		fullstop = true
+		DisableInput = true
+		DoAnimationLogic = false
+		Animator.play("attack")
+		AttackTimer -= 1
+		if (AttackTimer == 30):
+			SpawnMeleeHitbox()
+	
+	if (Input.is_action_pressed("quit")):
+			get_tree().quit()
+	
+	#Spell Selection
+	if (Input.is_action_pressed("ui_selectFire")):
 		currentSpell = "fire"
 		
-	if (Input.is_action_pressed("ui_selectLightning") && hasSpell["lightning"]):
+	if (Input.is_action_pressed("ui_selectLightning")):
 		currentSpell = "lightning"
 		
-	##Shoot
-	if (Input.is_action_pressed("ui_shoot")):
-		if (BoltCooldown <= 0):
-			CreateBolt()
-			BoltCooldown = 2
-				
-	##Punching
-	if (Input.is_action_just_pressed("ui_melee") and MeleeTimer <= 0):
-		MeleeTimer = 1
-		SpawnMeleeHitbox()
+	if (Input.is_action_pressed("ui_selectEarth")):
+		currentSpell = "earth"
 		
-	##Jumping
-	if (Input.is_action_pressed("ui_up") and !jumping and test_move(get_transform(), Vector2(0,0.1)) and jumpReset):
-		jumping = true
-		LongJump = true
-		jumpReset = false
-		JumpVelocity = PLAYER_JUMP_SPEED
-		Animator.play("jump")
-		moving = true
-	elif (Input.is_action_pressed("ui_up") and jumping and test_move(get_transform(), Vector2(0,0.1))):
-		jumping = false
-		LongJump = false
-		ShortHop = false
-		JumpWait = true
-		JumpVelocity = 0
-	##Left/Right Movement
-	if (Input.is_action_pressed("ui_right")):
-		motion += Vector2(1, 0)
-		RayNode.set_rotation_degrees(-90)
+	if (Input.is_action_pressed("ui_selectWater")):
+		currentSpell = "water"
+	
+	#Begin General Input Block
+	if (!DisableInput):
+		##Shoot
+		if (Input.is_action_pressed("ui_shoot")):
+			if (BoltCooldown <= 0):
+				Spell = CreateBolt()
+				if (is_instance_valid(Spell)):
+					BoltFire(Spell)
+					BoltCooldown = 2
+					
+		##Punching
+		if (Input.is_action_just_pressed("ui_melee") and MeleeTimer <= 0):
+			if (crouching):
+				CrouchAttackCounter = 24
+				MeleeTimer = .45
+			elif (!is_grounded):
+				JumpAttackTimer = 36
+				MeleeTimer = .5
+			else:
+				AttackTimer = 40
+				MeleeTimer = .7
+			
+		if (is_grounded):
+			pass
+		##Jumping
+		if (MeleeTimer <= 0):
+			if (Input.is_action_pressed("ui_up") and !jumping and is_grounded):
+				velocity[1] = MaxJumpSpeed
+				JumpAnimTimer = 30
+				jumping = true
+				
+			if (!(Input.is_action_pressed("ui_up")) and jumping and velocity[1] < MinJumpSpeed):
+				velocity[1] = MinJumpSpeed
+			
+			if !(Input.is_action_pressed("ui_up")):
+				jumping = false
+			
+			if (hitting_ceiling and velocity[1] < MinJumpSpeed + 200):
+				velocity[1] = MinJumpSpeed + 201
+			
+	
+			
+			##Left/Right Movement
+		if (Input.is_action_pressed("ui_right") && !Input.is_action_pressed("ui_left")):
+			walk_direction = 1
+			facing = 1
+		elif (Input.is_action_pressed("ui_left") && !Input.is_action_pressed("ui_right")):
+			walk_direction = -1
+			facing = -1
+		else:
+			walk_direction = 0
+			
+		##Crouch, NEED TO FIX ANIMATION WHILE WALKING AND CROUCHING
+		if (MeleeTimer <= 0):
+			if (Input.is_action_pressed("ui_down") and !crouching and is_grounded):
+				CrouchCounter= 15
+				crouching = true
+			elif (!Input.is_action_pressed("ui_down")):
+				CrouchCounter = 0
+				crouching = false
+
+	#End General Input Block	
+	
+	if (facing == 1):
 		CurrSprite.flip_h = false
-		Animator.play("run")
-		moving = true
-	if (Input.is_action_pressed("ui_left")):
-		motion += Vector2(-1, 0)
-		RayNode.set_rotation_degrees(90)
-		CurrSprite.flip_h = true
-		Animator.play("run")
-		moving = true
-	##Crouch, TODO
-	if (Input.is_action_pressed("ui_down")):
-		Animator.play("crouch")
-		moving = true
-		pass
 	else:
-		pass
+		CurrSprite.flip_h = true
 		
 	#Melee Hitbox Timing
 	if (MeleeTimer >= 0):
 		MeleeTimer -= 1*delta
-	##Handles Jump Physics	
-	if (jumping and Input.is_action_pressed("ui_up") and LongJump):
-		if ((JumpVelocity + Player_Gravity) < 20):
-			JumpVelocity += 5
-		moving = true
-	elif (jumping and not Input.is_action_pressed("ui_up") and LongJump):
-		if ((JumpVelocity + Player_Gravity) < 20):
-			JumpVelocity += 5
-		LongJump = false
-		ShortHop = true
-		moving = true
-	elif (ShortHop):
-		if ((JumpVelocity + Player_Gravity) < 20):
-			JumpVelocity += 20
-		if (test_move(get_transform(), Vector2(0,0.1))):
-			ShortHop = false
-			jumping = false
-			JumpWait = true
-			JumpVelocity = 0
-		moving = true
-	if (jumping and (JumpVelocity + Player_Gravity) >= 20):
-		Animator.play("fall")
-	if (JumpWait):
-		if (not Input.is_action_pressed("ui_up")):
-			jumpReset = true
-			JumpWait = false
 			
+	#Mana Regen
+	if (ManaRegenCount <= 0):
+		if (PlayerMana < 100):
+			PlayerMana += 1
+			emit_signal("manaChanged", 1)
+		ManaRegenCount = 30
+	ManaRegenCount -= 1
+	
 	##Ticks Down Bolt Cooldown
 	BoltCooldown -= 2*delta
-	##Gravity acceleration if not on ground
-	if (test_move(get_transform(), Vector2(0,0.1))):
-		Player_Gravity = 100
+
+	##Applies player speed and gravity to motion vector
+	if (fullstop):
+		velocity[0] = 0
 	else:
-		Player_Gravity += 12
-	if (jumping):
-		motion[1] += JumpVelocity#*delta
-		moving = true
-	#GravityMotion *= delta
-	##Finalizes motion vector and moves character
-	motion[0] = motion[0]*PLAYER_SPEED#*delta
-	motion[1] += GravityMotion[1]
-	#Maximum Fall Speed
-	if (motion[1] >= 450):
-		motion[1] = 450
+		velocity[0] = lerp(velocity[0], walk_direction*PLAYER_SPEED, 0.15)
+	if (abs(velocity[0]) < 10 and walk_direction == 0):
+		velocity[0] = 0
 		
-	var snap = Vector2.DOWN * 32 if (!jumping and test_move(get_transform(), Vector2(0,0.1))) else Vector2.ZERO
-	move_and_slide_with_snap(motion, snap, UP)
+	velocity[1] += Gravity*delta
 	
-#	if get_slide_count() > 0:
-#		collide_obj_id = get_slide_collision(get_slide_count() - 1)
-#		if collide_obj_id.collider.name == "PlatformV" or collide_obj_id.collider.name == "PlatformH":
-#			self.set_sync_to_physics(true)
-#		else:
-#			self.set_sync_to_physics(false)
+	if (DoAnimationLogic):
+		if (velocity[0] != 0):
+			Animator.play("run")
+			pass
+		else:
+			Animator.play("idle")
 	
-	if(!moving):
-		Animator.play("idle")
+	#Clamps y velocity 
+	if (is_grounded):
+		velocity[1] = clamp(velocity[1], -1000, 100)
+	else:
+		velocity[1] = clamp(velocity[1], -1000, 450)
+	
+	#Moves the character
+	move_and_slide(velocity, UP)
+	
+	DisableInput = false
+	fullstop = false
+	DoAnimationLogic = true
 
 ##Spawns Spell Bolt
 func CreateBolt():
-	var Lightning
-	if (currentSpell == "lightning"):
-		Lightning = load("res://Scenes/Lightning.tscn")
-	elif (currentSpell == "fire"):
-		Lightning = load("res://Scenes/Lightning.tscn")
-	var LightningInstance = Lightning.instance()
-	LightningInstance.set_name("bolt")
-	LightningInstance.get_node("LightningRotation").set_rotation_degrees(get_node("Rotation").get_rotation_degrees())
-	var LightningPos = get_position()
-	if (RayNode.get_rotation_degrees() == -90):
-		LightningPos[0] += 8
-	if (RayNode.get_rotation_degrees() == 90):
-		LightningPos[0] -= 8
-	LightningPos[1] -= 2
-	LightningInstance.set_position(LightningPos)
-	get_node("/root").add_child(LightningInstance)
+	var Bolt
+	var manaCost = 0
+	if (currentSpell == "lightning" and PlayerMana >= 20):
+		manaCost = -20
+		Bolt = load("res://Scenes/Lightning.tscn")
+		
+	elif (currentSpell == "fire" and PlayerMana >= 15):
+		manaCost = -15
+		Bolt = load("res://Scenes/Fireball.tscn")
+		
+	elif (currentSpell == "earth" and PlayerMana >= 20):
+		manaCost = -20
+		Bolt = load("res://Scenes/Earth.tscn")
+		
+	elif (currentSpell == "water" and PlayerMana >= 30):
+		manaCost = -30
+		Bolt = load("res://Scenes/Water.tscn")
+	
+	PlayerMana += manaCost
+	emit_signal("manaChanged", manaCost)
+	
+	return Bolt
+		
+
+func BoltFire(Bolt):
+	var BoltInstance = Bolt.instance()
+	BoltInstance.set_name("bolt")
+	var BoltPos = get_position()
+	if (currentSpell == "water"):
+		BoltPos += Vector2(0,-16)
+		get_node("/root").add_child(BoltInstance)
+		PlayerHealth += 25
+		return
+	if (facing == -1):
+		BoltInstance.get_node("Rotation").set_rotation_degrees(90)
+		BoltPos[0] += 8
+	if (facing == 1):
+		BoltInstance.get_node("Rotation").set_rotation_degrees(-90)
+		BoltPos[0] -= 8
+	BoltPos[1] -= 2
+	BoltInstance.set_position(BoltPos)
+	get_node("/root").add_child(BoltInstance)
 	
 ##Spawns Melee Hitbox
 func SpawnMeleeHitbox():
@@ -199,13 +331,34 @@ func SpawnMeleeHitbox():
 	var MeleeHitInstance = MeleeHit.instance()
 	MeleeHitInstance.set_name("melee")
 	var MeleeHitPos = get_position()
-	if (RayNode.get_rotation_degrees() == -90):
-		MeleeHitPos[0] += 16
-	if (RayNode.get_rotation_degrees() == 90):
-		MeleeHitPos[0] -= 16
+	if (facing == 1):
+		MeleeHitPos[0] += 32
+	if (facing == -1):
+		MeleeHitPos[0] -= 32
 	MeleeHitPos[1] += 2
 	MeleeHitInstance.set_position(MeleeHitPos)
 	get_node("/root").add_child(MeleeHitInstance)
 	
-func PlayAnimation():
+	
+func Take_Damage(damage):
+	PlayerHealth -= damage
+	StaggerCounter = 15
+	emit_signal("healthChanged", damage)
+	Animator.play("hurt")
+ 
+func Invincibility_Frames(numFrames):
+	Invincible = true
+	IFrames = numFrames
+   
+func Die():
+	DeathCounter = 42
+	# Animator.play("die") There is no death
+   
+func Revive():
+	PlayerHealth = 100
+	emit_signal("healthChanged", 100, true)
+	Dying = false
+	self.set_transform(startPos)
+
+func AnimationLogic():
 	pass
